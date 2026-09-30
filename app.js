@@ -85,6 +85,17 @@
     el("stat-theatres").textContent = theatres.size;
     const latest = commits[commits.length - 1];
     el("stat-last").textContent = latest ? latest.date : "—";
+    // hero tag: most recent commit with a `tag` field, walking backwards.
+    // Avoids showing a stale tag when the latest commit is post-release
+    // (e.g. a docs update shipped after v25.9.30).
+    const heroTag = el("hero-tag");
+    if (heroTag) {
+      let latestTag = null;
+      for (let i = commits.length - 1; i >= 0; i--) {
+        if (commits[i].tag) { latestTag = commits[i].tag; break; }
+      }
+      heroTag.textContent = latestTag ? `tag: ${latestTag}` : "tag: —";
+    }
   })();
 
   // filter

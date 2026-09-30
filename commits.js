@@ -372,6 +372,7 @@ window.WAR365_COMMITS = [
     date: "2026-09-28",
     author: "ops@war365.example",
     authorEmail: "ops@war365.example",
+    tag: "v25.9.30",
     subject: "chore(status): push v25.9.30 to all regions, prepare for [load]",
     body: [
       "Promotes v25.9.30 across all active regions.",
