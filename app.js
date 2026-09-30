@@ -152,11 +152,50 @@
     render(sortByDateDesc(filtered));
   });
 
-  // expand-on-hover for desktop, click for touch (optional nicety)
+  // Double-click anywhere on a row toggles its body. A convenience on top of
+  // the explicit .commit-toggle button, not a replacement for it: dblclick is
+  // synthesised inconsistently on touchscreens, so touch users are expected to
+  // use the button. Nothing here expands on hover.
   log.querySelectorAll(".commit-row").forEach((row) => {
     row.addEventListener("dblclick", () => {
       const btn = row.querySelector(".commit-toggle");
       if (btn) btn.click();
     });
+  });
+})();
+
+// Mobile nav disclosure. Above 880px the CSS shows .topnav inline and hides
+// the button, so the open state is force-cleared on resize to keep the two in
+// sync rather than leaving a stale .is-open on an element CSS is overriding.
+(function navDisclosure() {
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.getElementById("site-nav");
+  if (!toggle || !nav) return;
+
+  const setOpen = (open) => {
+    nav.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+
+  toggle.addEventListener("click", () => {
+    setOpen(!nav.classList.contains("is-open"));
+  });
+
+  // Following an in-page anchor should not leave the panel hanging open over
+  // the section that was just scrolled to.
+  nav.addEventListener("click", (e) => {
+    if (e.target.closest("a")) setOpen(false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && nav.classList.contains("is-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 880) setOpen(false);
   });
 })();

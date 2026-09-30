@@ -26,7 +26,7 @@
 #
 # Access logs are appended to /var/log/war365/access.log and mirrored to the
 # journal. Restarts add to the file; they never truncate it. Rotate with
-# deploy/war365.logrotate.
+# deploy/War365.logrotate.
 
 [Unit]
 Description=War365 static site server

@@ -110,7 +110,7 @@ owned by the service account, which `ProtectSystem=strict` would otherwise
 block. To rotate it:
 
 ```bash
-sudo cp deploy/war365.logrotate /etc/logrotate.d/war365
+sudo cp deploy/War365.logrotate /etc/logrotate.d/war365
 sudo logrotate -d /etc/logrotate.d/war365   # dry run
 ```
 

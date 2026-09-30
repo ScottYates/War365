@@ -109,6 +109,9 @@ code {
   font-size: 0.95rem;
 }
 .topnav a:hover { color: var(--accent); text-decoration: none; }
+/* Mobile nav disclosure button. Hidden at desktop widths, where the inline
+   .topnav is always visible and no toggle is needed. */
+.nav-toggle { display: none; }
 .topbar-cta { display: flex; gap: 10px; }
 
 /* ---------- buttons ---------- */
@@ -209,9 +212,6 @@ code {
   color: var(--ink-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-}
-@media (max-width: 560px) {
-  .hero-stats { grid-template-columns: repeat(2, 1fr); }
 }
 
 .hero-card {
@@ -329,7 +329,7 @@ code {
 .dot-feat { background: #2da44e; }
 .dot-fix  { background: #d29922; }
 .dot-chore{ background: #6e7681; }
-.dot-docs { background: #58a6ff; }
+.dot-docs { background: #8957e5; }
 
 /* ---------- commit log ---------- */
 .commit-log {
@@ -436,12 +436,20 @@ code {
 .commit-detail code { background: rgba(110,118,129,0.18); color: #c9d1d9; padding: 0 4px; }
 .commit-row.is-open .commit-detail { display: block; }
 
+/* WCAG 2.2 AA (2.5.8) sets a 24x24 CSS px floor on target size. The old
+   2px vertical padding put this at 22px, just under the line. The button is
+   inline-flex with an explicit min-height so the box is sized by the target
+   minimum rather than by the glyph. */
 .commit-toggle {
   margin-top: 4px;
   background: transparent;
   border: 1px solid #30363d;
   color: #8b949e;
-  padding: 2px 8px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 10px;
+  cursor: pointer;
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -538,6 +546,40 @@ code {
   font-size: 0.92rem;
   margin: 0;
 }
+.fineprint + .fineprint { margin-top: 16px; }
+
+/* The counterfactual plan. Every tier card gets one: same money, opposite
+   product. `margin-top: auto` pushes the block and the CTA below it to the
+   bottom of the card, so the four CTAs line up across the grid however long
+   the feature lists above them run. The blocks' own tops do not line up,
+   since the four counterfactuals are deliberately different lengths. */
+.tier-meter {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--red);
+  margin: 8px 0 0;
+}
+.tier-alt {
+  margin-top: auto;
+  border-top: 1px dashed var(--line-strong);
+  padding-top: 14px;
+}
+.tier-alt-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(16,124,16,0.07);
+  border: 1px solid rgba(16,124,16,0.22);
+  border-radius: 999px;
+  padding: 2px 9px;
+  margin-bottom: 8px;
+}
+.tier-alt h4 { margin: 0 0 6px; font-size: 1rem; letter-spacing: -0.01em; }
+.tier-alt p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
 
 /* ---------- roadmap ---------- */
 .roadmap {
@@ -639,31 +681,107 @@ code {
 }
 
 /* ---------- responsive ---------- */
+
+/* The hero is a two-column grid above 880px, so the stats live in whichever
+   column is narrower. Between roughly 880px and 1150px that column is only
+   about 410px, and four stats across it left each label around 85px, which
+   broke the release date mid-string ("2026-" / "09-30"). Two across clears
+   it, and this has to fire above the 880px breakpoint that stacks the hero. */
+@media (max-width: 1150px) {
+  .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 880px) {
   .hero { padding: 56px 0 72px; }
   .hero-inner { grid-template-columns: 1fr; gap: 36px; }
-  .topnav { display: none; }
-  .topbar-cta .btn-ghost { display: none; }
   .band { padding: 56px 0; }
-  .commit-row { grid-template-columns: 24px 100px 1fr; }
-  .commit-meta { display: none; }
-  /* Four stats across a tablet-width column leaves each label too narrow. */
-  .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topbar-cta .btn-ghost { display: none; }
+
+  /* .topnav used to be display:none here with nothing replacing it, which
+     made all five primary links unreachable on a phone. Hand it to a
+     disclosure button instead. The panel is positioned against
+     .topbar-inner so it lines up with the container rather than the
+     viewport, which is 92vw and not 100%. */
+  .topbar-inner { position: relative; }
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .nav-toggle:hover { border-color: var(--accent); }
+  .nav-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .topnav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    margin-left: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow-lg);
+  }
+  .topnav.is-open { display: flex; }
+  .topnav a {
+    display: block;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .topnav a:hover { background: rgba(0,120,212,0.04); }
+
+  /* Four children, and the hash and author are most of what a commit log is
+     for, so .commit-meta stays in the flow and folds under the date instead
+     of being hidden. Name every area: a bare track list would auto-place the
+     body into the 24px gutter. */
+  .commit-row {
+    grid-template-columns: 24px 100px minmax(0, 1fr);
+    grid-template-areas:
+      "dot when meta"
+      "dot body body";
+  }
+  .commit-gutter { grid-area: dot; }
+  .commit-when { grid-area: when; padding-left: 4px; }
+  .commit-meta {
+    grid-area: meta;
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px 12px;
+    padding: 12px 0 4px;
+    border-right: 0;
+  }
+  .commit-body { grid-area: body; padding-left: 14px; }
 }
 @media (max-width: 560px) {
   .release-toolbar { flex-direction: column; align-items: stretch; }
   .legend { flex-wrap: wrap; }
-  /* The row still has three visible children (gutter, when, body) once
-     .commit-meta is hidden, so a bare two-column track would push the body
-     into the 24px gutter column. Name the areas instead. */
+  /* No room for a date track beside the metadata, so the row drops to one
+     content track and everything stacks under it. */
   .commit-row {
-    grid-template-columns: 24px 1fr;
+    grid-template-columns: 24px minmax(0, 1fr);
     grid-template-areas:
       "dot when"
+      "dot meta"
       "dot body";
   }
-  .commit-gutter { grid-area: dot; }
-  .commit-when { grid-area: when; padding-left: 4px; }
-  .commit-body { grid-area: body; padding-left: 14px; }
+  .commit-meta { padding-top: 0; }
   .hero-card-body code { overflow-wrap: anywhere; }
 }

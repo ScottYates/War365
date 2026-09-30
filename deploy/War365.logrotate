@@ -1,7 +1,7 @@
 # Access-log rotation for War365.
 #
 # Install:
-#   sudo cp deploy/war365.logrotate /etc/logrotate.d/war365
+#   sudo cp deploy/War365.logrotate /etc/logrotate.d/war365
 #   sudo logrotate -d /etc/logrotate.d/war365   # dry run, prints the plan
 #
 # The server holds the log open with O_APPEND and has no SIGHUP handler, so

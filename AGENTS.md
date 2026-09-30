@@ -51,7 +51,7 @@ With `-log-file`, the sink becomes `io.MultiWriter(file, stdout)`. The file is
 opened `O_APPEND|O_CREATE|O_WRONLY`, never `O_TRUNC`, so a restart adds to the
 existing log instead of wiping it, and each write is atomic so concurrent lines
 cannot interleave. Parent directories are created on demand. The unit points
-this at `/var/log/war365/access.log`; `deploy/war365.logrotate` rotates it.
+this at `/var/log/war365/access.log`; `deploy/War365.logrotate` rotates it.
 
 On Linux, the scripts wrap the same server for long-running use:
 

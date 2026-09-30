@@ -19,7 +19,10 @@
         </span>
         <span class="brand-name">War365</span>
       </a>
-      <nav class="topnav" aria-label="Primary">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="topnav" id="site-nav" aria-label="Primary">
         <a href="#releases">Release history</a>
         <a href="#features">Features</a>
         <a href="#tiers">Plans</a>
@@ -186,35 +189,70 @@
       <div class="container">
         <div class="section-head">
           <h2>Pick your subscription.</h2>
-          <p class="section-sub">All plans include mandatory enrolment.</p>
+          <p class="section-sub">
+            All plans include mandatory enrolment. Every plan also has an
+            alternative. Nothing in the EULA obliges us to show it to you.
+          </p>
         </div>
 
         <div class="tiers">
           <article class="tier">
-            <header><h3>Basic</h3><p class="price">$0</p><p class="muted">per capita, forever</p></header>
+            <header>
+              <h3>Personal</h3>
+              <p class="price">$0</p>
+              <p class="muted">per capita, forever</p>
+              <p class="tier-meter">True price: 4 in 5 hours of a life. Billed hourly.</p>
+            </header>
             <ul>
               <li>Civilian theatre awareness</li>
               <li>1 active war region</li>
               <li>Standard UN condemnation emails</li>
               <li class="strike">Battlefield Copilot</li>
             </ul>
+            <div class="tier-alt">
+              <span class="tier-alt-label">the other plan</span>
+              <h4>Your own calendar</h4>
+              <p>The sticker price is $0 because you are the price. Four fifths
+                of a working life, plus everything the other fifth would have
+                built, is the tier nobody disputes. Cheapest plan on this page,
+                and the largest subscription you will ever sign.</p>
+            </div>
             <a class="btn btn-ghost btn-block" href="#faq">What you get</a>
           </article>
 
           <article class="tier">
-            <header><h3>Pro</h3><p class="price">$4.2B</p><p class="muted">/yr, per ministry</p></header>
+            <header>
+              <h3>Pro</h3>
+              <p class="price">$4.2B</p>
+              <p class="muted">/yr, per ministry</p>
+            </header>
             <ul>
               <li>Up to 5 active war regions</li>
               <li>Drone Swarm Designer (FPV add-on)</li>
               <li>Defence Bonds 365</li>
               <li>NATO Teams integration</li>
             </ul>
+            <div class="tier-alt">
+              <span class="tier-alt-label">the other plan</span>
+              <h4>Second-world</h4>
+              <p>$4.2B a year for ten years, spent on a ministry's actual job
+                list. Roads that survive the wet season. School, paid for, and
+                the arithmetic behind it: 9% more in hourly earnings for every
+                year of schooling, and that number has held for decades. An
+                audit office with real teeth, so the money reaches the road
+                instead of a cousin. After ten years you are not a client. You
+                are a supplier.</p>
+            </div>
             <a class="btn btn-ghost btn-block" href="#releases">Upgrade</a>
           </article>
 
           <article class="tier tier-featured">
             <span class="tier-flag">Most chosen</span>
-            <header><h3>Sovereign</h3><p class="price">$54B</p><p class="muted">/yr, mandatory</p></header>
+            <header>
+              <h3>Sovereign</h3>
+              <p class="price">$54B</p>
+              <p class="muted">/yr, mandatory</p>
+            </header>
             <ul>
               <li>Unlimited war regions</li>
               <li><strong>Battlefield Copilot</strong> (unlimited tokens)</li>
@@ -222,17 +260,44 @@
               <li>UN Security Council pager</li>
               <li>Priority fog-of-war upscaling</li>
             </ul>
+            <div class="tier-alt">
+              <span class="tier-alt-label">the other plan</span>
+              <h4>The fifteen-year product</h4>
+              <p>The plan nobody buys, because it does not fit the feedback
+                loop. 43 million died of slow diseases in one recent year, 18
+                million of them before seventy. The WHO puts prevention at $3
+                per person per year, about $24 billion. This tier costs $54
+                billion and reports quarterly on artillery. An outbreak is
+                news. A cure is a decade. Nobody is still in office in year
+                nine.</p>
+            </div>
             <a class="btn btn-primary btn-block" href="#releases">Buy now</a>
           </article>
 
           <article class="tier">
-            <header><h3>Empire</h3><p class="price">$∞</p><p class="muted">per dynasty</p></header>
+            <header>
+              <h3>Empire</h3>
+              <p class="price">$&#8734;</p>
+              <p class="muted">per dynasty</p>
+            </header>
             <ul>
               <li>Multi-region world ownership</li>
               <li>Reserve currency rights</li>
               <li>Two-seat veto on UNSC</li>
               <li>Empire-grade customer success engineer</li>
             </ul>
+            <div class="tier-alt">
+              <span class="tier-alt-label">the other plan</span>
+              <h4>Off-world</h4>
+              <p>The programme that actually goes to the Moon has cost $93
+                billion since 2012 and wants a permanent outpost by 2030.
+                Global military spending hit $2,718 billion in a single year.
+                That is twenty-nine Artemis programmes, annually, for a
+                decade. At $226 billion a month: twelve people living on the
+                Moon, a crew on the surface of Mars, and a research station at
+                Callisto that outlives the dynasty. You have spent three years
+                of it. Where is your outpost.</p>
+            </div>
             <a class="btn btn-ghost btn-block" href="#faq">Talk to sales</a>
           </article>
         </div>
@@ -248,6 +313,16 @@
           it increased when you see how much was debited from your account.
           <strong>Holy wars incur higher tolls.</strong> Rate is a function of
           conviction, and conviction is not capped.
+        </p>
+        <p class="fineprint">
+          <strong>Sources for the alternative plans.</strong> Global military
+          expenditure $2,718bn in 2024, up 9.4% in real terms, tenth
+          consecutive annual rise, $334 per person: SIPRI Military Expenditure
+          Database. Artemis at $93bn for FY2012 to FY2025, NASA Office of
+          Inspector General. 43 million noncommunicable disease deaths in 2021,
+          18 million of them before age 70, and prevention at $3 per person per
+          year: WHO. 9% in hourly earnings per year of schooling: World Bank,
+          Returns to Investment in Education.
         </p>
       </div>
     </section>
