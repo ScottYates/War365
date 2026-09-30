@@ -54,14 +54,14 @@ path with parent-dir segments, so `..` traversal cannot escape upward.
 ## File layout
 
 ```
-war365/
+War365/
   index.html    # page structure
   styles.css    # Microsoft-365 marketing aesthetic
   commits.js    # fake release-history data
   app.js        # render + filter the log
   main.go       # dev server
   scripts/      # build, start, stop, restart, update (Linux)
-  deploy/       # systemd unit (Linux)
+  deploy/       # systemd unit + logrotate snippet (Linux)
 ```
 
 ## Deploy
@@ -110,8 +110,8 @@ owned by the service account, which `ProtectSystem=strict` would otherwise
 block. To rotate it:
 
 ```bash
-sudo cp deploy/War365.logrotate /etc/logrotate.d/war365
-sudo logrotate -d /etc/logrotate.d/war365   # dry run
+sudo cp deploy/War365.logrotate /etc/logrotate.d/War365
+sudo logrotate -d /etc/logrotate.d/War365   # dry run
 ```
 
 Updating it later:
@@ -146,10 +146,11 @@ sudo systemctl edit war365
 # ExecStart=/opt/War365/bin/war365 -addr=${WAR365_ADDR} -quiet
 ```
 
-The unit runs as `war365` with `ProtectSystem=strict` and friends, so it can
-read the repo but not write to it. It has no `SystemCallFilter=` on purpose:
-restrictive seccomp allowlists break the Go runtime, which needs a syscall set
-that shifts between Go and kernel versions.
+The unit runs as the unprivileged `war365` service account with
+`ProtectSystem=strict` and friends, so it can read the repo but not write to
+it. It has no `SystemCallFilter=` on purpose: restrictive seccomp allowlists
+break the Go runtime, which needs a syscall set that shifts between Go and
+kernel versions.
 
 ## Dev server scripts (Linux)
 
@@ -167,7 +168,7 @@ Set `WAR365_ADDR` to change the listen address (default `:8000`).
 
 `build.sh` chowns `bin/war365` to the `war365` service account so the systemd
 unit can execute it. That only happens when you build as root and the account
-exists — on a dev box it just prints a note and leaves the binary alone. Set
+exists, so on a dev box it just prints a note and leaves the binary alone. Set
 `WAR365_USER` if you named the account something else.
 
 ```bash
