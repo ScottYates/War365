@@ -21,6 +21,8 @@ index.html    # page structure
 styles.css    # Microsoft-365 marketing aesthetic
 commits.js    # fake release-history data (25 commits)
 app.js        # render + filter the log
+main.go       # dev server (stdlib only, serves this directory)
+scripts/      # Linux helpers: build, start, stop, restart, update
 ```
 
 ## Run
@@ -29,6 +31,20 @@ Open `index.html` in any browser, or serve from this directory:
 
 - `python -m http.server` (built-in)
 - `go run .` (bundled `main.go` dev server, default port `:8000`, override with `-addr=:8765`)
+
+On Linux, the scripts wrap the same server for long-running use:
+
+```
+scripts/build.sh     # compile bin/war365
+scripts/start.sh     # start in background, writes .war365.pid + .war365.log
+scripts/stop.sh      # stop by pid, escalate to SIGKILL after 5s
+scripts/restart.sh   # stop + build + start
+scripts/update.sh    # git pull --ff-only + build + restart
+```
+
+Set `WAR365_ADDR` to change the listen address (default `:8000`). `start.sh`,
+`stop.sh` and `restart.sh` are all idempotent. `update.sh` refuses to run with a
+dirty working tree.
 
 ## Deploy
 

@@ -16,6 +16,7 @@ Nothing here is real. The conflicts it documents are. Please donate.
 
 - Plain HTML, CSS, and JavaScript (no framework, no build).
 - Open `index.html` in any browser, or serve with `python -m http.server`.
+- A tiny Go dev server (`main.go`, stdlib only) is included: `go run .`.
 
 ## File layout
 
@@ -25,11 +26,33 @@ war365/
   styles.css    # Microsoft-365 marketing aesthetic
   commits.js    # fake release-history data
   app.js        # render + filter the log
+  main.go       # dev server
+  scripts/      # build, start, stop, restart, update (Linux)
 ```
 
 ## Deploy
 
 Drop the directory on any static host. That's it.
+
+## Dev server scripts (Linux)
+
+For long-running local use, the scripts wrap the Go server:
+
+| Script | What it does |
+| --- | --- |
+| `scripts/build.sh` | Compiles `bin/war365` |
+| `scripts/start.sh` | Starts in background, writes `.war365.pid` / `.war365.log` |
+| `scripts/stop.sh` | Stops by pid, escalates to `SIGKILL` after 5s |
+| `scripts/restart.sh` | Stop, build, start |
+| `scripts/update.sh` | `git pull --ff-only`, build, restart |
+
+Set `WAR365_ADDR` to change the listen address (default `:8000`).
+
+```bash
+./scripts/start.sh          # http://localhost:8000
+tail -f .war365.log         # follow the log
+./scripts/stop.sh
+```
 
 ## Donate
 

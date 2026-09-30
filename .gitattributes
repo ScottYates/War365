@@ -1,0 +1,6 @@
+# Shell scripts must keep LF endings. Without this, autocrlf on Windows
+# rewrites them to CRLF and they fail on Linux with `$'\r': command not found`.
+*.sh text eol=lf
+
+# Default: let git handle text files normally.
+* text=auto

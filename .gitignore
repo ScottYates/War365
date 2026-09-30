@@ -11,3 +11,7 @@ preview-*.png
 
 # go build output (rebuild with `go build` or skip with `go run .`)
 *.exe
+/bin/
+
+# dev server runtime state (scripts/start.sh)
+/.war365.pid
