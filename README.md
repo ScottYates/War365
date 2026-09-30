@@ -18,6 +18,34 @@ Nothing here is real. The conflicts it documents are. Please donate.
 - Open `index.html` in any browser, or serve with `python -m http.server`.
 - A tiny Go dev server (`main.go`, stdlib only) is included: `go run .`.
 
+## The Go dev server
+
+```bash
+go run .                    # http://localhost:8000
+go run . -addr=:8765        # different port
+go run . -quiet             # no per-request access log
+go run . -log-format=json   # structured, for log shipping
+```
+
+| Flag | Default | Meaning |
+| --- | --- | --- |
+| `-addr` | `:8000` | listen address |
+| `-log-format` | `text` | `text` or `json` |
+| `-log-level` | `info` | `debug`, `info`, `warn`, `error` |
+| `-quiet` | off | suppress per-request access logs |
+
+It logs one line per request via `log/slog` to stdout:
+
+```
+time=2026-09-30T13:29:42.558-05:00 level=INFO msg=request method=GET path=/ status=200 bytes=14359 took_ms=15 remote=127.0.0.1
+```
+
+5xx responses log at ERROR, everything else at INFO. `SIGINT`/`SIGTERM` start a
+graceful drain (10s) and log the shutdown, which is what `systemctl stop` sends.
+
+Serving is restricted to the project directory: `os.DirFS(".")` refuses any
+path with parent-dir segments, so `..` traversal cannot escape upward.
+
 ## File layout
 
 ```
@@ -86,6 +114,16 @@ Behind nginx, bind to loopback only:
 
 ```bash
 # Environment=WAR365_ADDR=127.0.0.1:8000
+```
+
+If nginx is already writing access logs, you can turn off the server's own
+access log to avoid duplicating every request:
+
+```bash
+sudo systemctl edit war365
+# [Service]
+# ExecStart=
+# ExecStart=/opt/War365/bin/war365 -addr=${WAR365_ADDR} -quiet
 ```
 
 The unit runs as `war365` with `ProtectSystem=strict` and friends, so it can

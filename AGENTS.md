@@ -32,6 +32,20 @@ Open `index.html` in any browser, or serve from this directory:
 - `python -m http.server` (built-in)
 - `go run .` (bundled `main.go` dev server, default port `:8000`, override with `-addr=:8765`)
 
+Server flags:
+
+```
+-addr=:8000        listen address
+-log-format=text   text or json
+-log-level=info    debug, info, warn, error
+-quiet            suppress the per-request access log
+```
+
+Logs go to stdout via `log/slog`: one line per request with method, path,
+status, bytes, `took_ms` and client IP. 5xx is logged at ERROR, the rest at
+INFO. `SIGINT`/`SIGTERM` trigger a graceful drain (10s, matching
+`TimeoutStopSec` in the unit) and log the shutdown.
+
 On Linux, the scripts wrap the same server for long-running use:
 
 ```
