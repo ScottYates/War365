@@ -50,6 +50,23 @@ dirty working tree.
 
 Drop the directory on any static host.
 
+For a long-running Linux box, `deploy/war365.service` is a systemd unit that
+assumes the repo lives at `/opt/War365`:
+
+```
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin war365
+sudo chown -R war365:war365 /opt/War365
+sudo /opt/War365/scripts/build.sh
+sudo cp deploy/war365.service /etc/systemd/system/
+sudo systemctl daemon-reload && sudo systemctl enable --now war365
+```
+
+Override the port without editing the unit via `systemctl edit war365` and
+setting `Environment=WAR365_ADDR=:9000`. Logs go to the journal
+(`journalctl -u war365 -f`). The unit runs unprivileged and is hardened with
+`ProtectSystem=strict` plus friends; it deliberately has no `SystemCallFilter`,
+because restrictive seccomp allowlists break the Go runtime.
+
 ## Conventions
 
 - Append new entries to `commits.js` (chronological order, newest at the end).

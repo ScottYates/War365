@@ -34,6 +34,27 @@ war365/
 
 Drop the directory on any static host. That's it.
 
+For a dedicated Linux box, `deploy/war365.service` is a ready-made systemd unit
+that assumes the repo is checked out to `/opt/War365`:
+
+```bash
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin war365
+sudo chown -R war365:war365 /opt/War365
+sudo /opt/War365/scripts/build.sh
+sudo cp deploy/war365.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now war365
+```
+
+```bash
+systemctl status war365     # is it up
+journalctl -u war365 -f     # follow the log
+```
+
+Change the port with `sudo systemctl edit war365` and
+`Environment=WAR365_ADDR=:9000`. If nginx is proxying in front, bind to
+loopback instead: `WAR365_ADDR=127.0.0.1:8000`.
+
 ## Dev server scripts (Linux)
 
 For long-running local use, the scripts wrap the Go server:
