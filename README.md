@@ -137,13 +137,18 @@ For long-running local use, the scripts wrap the Go server:
 
 | Script | What it does |
 | --- | --- |
-| `scripts/build.sh` | Compiles `bin/war365` |
+| `scripts/build.sh` | Compiles `bin/war365`, chowns it to the service account |
 | `scripts/start.sh` | Starts in background, writes `.war365.pid` / `.war365.log` |
 | `scripts/stop.sh` | Stops by pid, escalates to `SIGKILL` after 5s |
 | `scripts/restart.sh` | Stop, build, start |
 | `scripts/update.sh` | `git pull --ff-only`, build, restart |
 
 Set `WAR365_ADDR` to change the listen address (default `:8000`).
+
+`build.sh` chowns `bin/war365` to the `war365` service account so the systemd
+unit can execute it. That only happens when you build as root and the account
+exists — on a dev box it just prints a note and leaves the binary alone. Set
+`WAR365_USER` if you named the account something else.
 
 ```bash
 ./scripts/start.sh          # http://localhost:8000

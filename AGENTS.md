@@ -49,12 +49,18 @@ INFO. `SIGINT`/`SIGTERM` trigger a graceful drain (10s, matching
 On Linux, the scripts wrap the same server for long-running use:
 
 ```
-scripts/build.sh     # compile bin/war365
+scripts/build.sh     # compile bin/war365 (chowns it to war365 when run as root)
 scripts/start.sh     # start in background, writes .war365.pid + .war365.log
 scripts/stop.sh      # stop by pid, escalate to SIGKILL after 5s
 scripts/restart.sh   # stop + build + start
 scripts/update.sh    # git pull --ff-only + build + restart
 ```
+
+`build.sh` hands `bin/war365` to the `war365` service account so the systemd
+unit can execute it, but only when run as root *and* the account exists; local
+dev builds just say so and move on. Override the account with `WAR365_USER`.
+A failed chown is a warning, not a build failure — root-owned 0755 already
+satisfies the unit's needs.
 
 Set `WAR365_ADDR` to change the listen address (default `:8000`). `start.sh`,
 `stop.sh` and `restart.sh` are all idempotent. `update.sh` refuses to run with a
