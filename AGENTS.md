@@ -25,7 +25,10 @@ app.js        # render + filter the log
 
 ## Run
 
-Open `index.html` in any browser, or serve with `python -m http.server` from this directory.
+Open `index.html` in any browser, or serve from this directory:
+
+- `python -m http.server` (built-in)
+- `go run .` (bundled `main.go` dev server, default port `:8000`, override with `-addr=:8765`)
 
 ## Deploy
 
