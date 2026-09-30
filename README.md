@@ -70,7 +70,7 @@ Drop the directory on any static host. That's it.
 
 ### Running it as a service on Linux
 
-`deploy/war365.service` is a ready-made systemd unit that runs the Go server
+`deploy/War365.service` is a ready-made systemd unit that runs the Go server
 unprivileged from `/opt/War365`. From a clean machine:
 
 ```bash
@@ -86,7 +86,10 @@ sudo chown -R war365:war365 /opt/War365
 sudo /opt/War365/scripts/build.sh
 
 # 4. Install and start the unit
-sudo cp deploy/war365.service /etc/systemd/system/
+# The destination name is deliberately lowercase. systemd takes the unit name
+# from the installed filename, so copying to .../War365.service would register
+# the unit as `War365` and every `systemctl ... war365` below would fail.
+sudo cp deploy/War365.service /etc/systemd/system/war365.service
 sudo systemctl daemon-reload
 sudo systemctl enable --now war365
 ```

@@ -77,14 +77,14 @@ dirty working tree.
 
 Drop the directory on any static host.
 
-For a long-running Linux box, `deploy/war365.service` is a systemd unit that
+For a long-running Linux box, `deploy/War365.service` is a systemd unit that
 assumes the repo lives at `/opt/War365`:
 
 ```
 sudo useradd --system --no-create-home --shell /usr/sbin/nologin war365
 sudo chown -R war365:war365 /opt/War365
 sudo /opt/War365/scripts/build.sh
-sudo cp deploy/war365.service /etc/systemd/system/
+sudo cp deploy/War365.service /etc/systemd/system/war365.service
 sudo systemctl daemon-reload && sudo systemctl enable --now war365
 ```
 

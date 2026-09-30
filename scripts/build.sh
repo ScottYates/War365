@@ -14,7 +14,7 @@ mkdir -p bin
 go build -o bin/war365 .
 echo "built bin/war365"
 
-# Hand the binary to the account the systemd unit runs as, so war365.service
+# Hand the binary to the account the systemd unit runs as, so War365.service
 # can execute it. Skipped when not root, or when the account does not exist
 # (a dev machine that never ran the install steps). Override the account with
 # WAR365_USER if you renamed it.

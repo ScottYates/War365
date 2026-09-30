@@ -36,7 +36,7 @@ import (
 	"time"
 )
 
-// shutdownTimeout matches TimeoutStopSec in deploy/war365.service.
+// shutdownTimeout matches TimeoutStopSec in deploy/War365.service.
 const shutdownTimeout = 10 * time.Second
 
 func main() {
