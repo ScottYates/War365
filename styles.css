@@ -503,9 +503,13 @@ code {
 .feature .link::after { content: " \2192"; }
 
 /* ---------- tiers ---------- */
+/* Explicit track counts, not auto-fit. auto-fit fits three 240px tracks
+   anywhere between about 820px and 1100px of viewport, which would leave the
+   fourth card alone on a second row. The subgrid rules further down assume
+   one card per row at 4-up and one pair per row at 2-up. */
 .tiers {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  grid-template-columns: 1fr;
   gap: 18px;
   margin-bottom: 24px;
 }
@@ -580,6 +584,44 @@ code {
 }
 .tier-alt h4 { margin: 0 0 6px; font-size: 1rem; letter-spacing: -0.01em; }
 .tier-alt p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
+
+/* From 620px the cards share the parent's row tracks, which is what lines the
+   counterfactual blocks up. Each card spans its band's rows and adopts them
+   with subgrid, so the .tier-alt blocks in a band all start at the same y.
+   The previous margin-top:auto anchored each block to the bottom of its own
+   card, so taller counterfactual text pushed its border-top higher and the
+   dashed rules were staggered by up to 156px. */
+@media (min-width: 620px) {
+  .tiers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* Two cards per band, two bands, so eight rows. */
+    grid-template-rows: repeat(8, auto);
+    column-gap: 18px;
+    row-gap: 16px;
+  }
+  .tier {
+    display: grid;
+    /* span 4, not 1/5. A definite row span with an auto column position
+       lets the placement cursor flow the cards into bands on its own: at
+       2-up it puts cards 1-2 in rows 1-4 and 3-4 in rows 5-8. Pinning every
+       card to 1/5 instead row-locks all four to the first band, and the
+       grid answers by adding two zero-width implicit columns. */
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    gap: 0;
+  }
+  .tier > header { grid-row: 1; }
+  .tier > ul { grid-row: 2; }
+  .tier-alt { grid-row: 3; margin-top: 0; }
+  .tier > .btn-block { grid-row: 4; }
+}
+@media (min-width: 1100px) {
+  .tiers {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto auto auto auto;
+  }
+  /* Four across still fits in one band, so no second set of rows is needed. */
+}
 
 /* ---------- roadmap ---------- */
 .roadmap {
