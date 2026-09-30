@@ -341,11 +341,4 @@ window.WAR365_COMMITS = [
   }
 ];
 
-// Helper: render the commit body in HTML (preserve newlines, escape HTML).
-window.renderCommitBody = function (body) {
-  return body
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\n/g, "<br>");
-};
+// (no helpers — app.js handles escaping inline)
