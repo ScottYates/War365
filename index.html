@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>War365 - The world's #1 mandatory conflict subscription</title>
+  <meta name="description" content="War365. Now with Copilot. Mandatory lifetime subscription to global conflict, with endless updates and Battlefield Copilot." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-mark-c">W</span>
+        </span>
+        <span class="brand-name">War365</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="#releases">Release history</a>
+        <a href="#features">Features</a>
+        <a href="#tiers">Plans</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="topbar-cta">
+        <a class="btn btn-ghost" href="#releases">View commits</a>
+        <a class="btn btn-primary" href="#tiers">Subscribe</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">War365, now with Battlefield Copilot</span>
+          <h1>The world's #1 <em>mandatory</em> conflict subscription.</h1>
+          <p class="lede">
+            After WWII, we moved away from discrete release versions and switched
+            to a mandatory lifetime subscription model. Endless updates.
+            No rollback. No opt-out.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="#tiers">Subscribe now</a>
+            <a class="btn btn-ghost btn-lg" href="#releases">View release history</a>
+          </div>
+          <p class="hero-meta">Trusted by 195 nation-states. Most of them against their will.</p>
+        </div>
+        <aside class="hero-card" aria-label="Latest release">
+          <div class="hero-card-head">
+            <span class="dot"></span>
+            <span>Latest release</span>
+            <span class="tag">tag: v25.9.30</span>
+          </div>
+          <div class="hero-card-body">
+            <code>feat(copilot): Battlefield Copilot enters general availability</code>
+            <p class="muted">
+              Generative AI for theatre commanders. Autogenerates invasion plans
+              from a one-line prompt.
+            </p>
+            <div class="hero-card-row">
+              <span class="chip chip-red">BREAKING</span>
+              <span class="chip">+390 mi</span>
+              <span class="chip">no rollback</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="band band-soft" id="releases">
+      <div class="container">
+        <div class="section-head">
+          <h2>Release history</h2>
+          <p class="section-sub">
+            Every major theatre, every escalation, every ceasefire that didn't
+            last &mdash; documented in our commit log. <code>git log --theatre=world</code>.
+          </p>
+        </div>
+
+        <div class="release-toolbar">
+          <label class="search">
+            <span class="search-icon" aria-hidden="true">/</span>
+            <input id="commit-filter" type="search" placeholder="filter commits, authors, tags..." autocomplete="off" />
+          </label>
+          <div class="legend">
+            <span class="legend-item"><i class="dot dot-feat"></i>feat</span>
+            <span class="legend-item"><i class="dot dot-fix"></i>fix</span>
+            <span class="legend-item"><i class="dot dot-chore"></i>chore</span>
+            <span class="legend-item"><i class="dot dot-docs"></i>docs</span>
+          </div>
+        </div>
+
+        <div class="commit-log" id="commit-log" role="list">
+          <!-- commits injected by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="features">
+      <div class="container">
+        <div class="section-head">
+          <h2>Everything you need to win a conflict.</h2>
+          <p class="section-sub">
+            War365 replaces a stack of legacy tools. Outlook for Refugees.
+            Battlefield Copilot. Drone Swarm Designer. All in one subscription.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="feature">
+            <div class="feature-icon">AI</div>
+            <h3>Battlefield Copilot</h3>
+            <p>Generative-AI module for theatre commanders. Autogenerates
+              invasion plans from a one-line prompt and choreographs drone
+              swarms in natural language.</p>
+            <a class="link" href="#releases">See changelog</a>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">@</div>
+            <h3>Outlook for Refugees</h3>
+            <p>Email and calendar for the 110M+ forcibly displaced users.
+              Built-in camp-finding, lost-document recovery, and a
+              <em>ceasefire-finder</em> beta.</p>
+            <a class="link" href="#roadmap">Coming v25.10</a>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">D</div>
+            <h3>Drone Swarm Designer</h3>
+            <p>Drag-and-drop mission planning for first-person-view pilots.
+              Includes FPV mesh routing, fibre-optic guidance, and an
+              <em>autopilot for martyrr</em> skill-tree.</p>
+            <a class="link" href="#tiers">Included in Sovereign</a>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">N</div>
+            <h3>NATO Teams</h3>
+            <p>Real-time co-ordination across 32 member-state alliances.
+              Built-in Article 5 button, with one-click slide-deck generator
+              for after-action reports.</p>
+            <a class="link" href="#tiers">Available now</a>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">U</div>
+            <h3>UN Peacekeeper Hub</h3>
+            <p>Project management for ceasefires that won't last.
+              <em>Critical path: the UN Security Council.</em>
+              Pager rotates 5 veto powers on call.</p>
+            <a class="link" href="#faq">Read FAQ</a>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">$</div>
+            <h3>Defence Bonds 365</h3>
+            <p>Fund your theatre with sovereign debt instruments, denominated
+              in your own currency. Auto-rollover on default.</p>
+            <a class="link" href="#tiers">Learn more</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band-soft" id="tiers">
+      <div class="container">
+        <div class="section-head">
+          <h2>Pick your subscription.</h2>
+          <p class="section-sub">All plans include mandatory enrolment.</p>
+        </div>
+
+        <div class="tiers">
+          <article class="tier">
+            <header><h3>Basic</h3><p class="price">$0</p><p class="muted">per capita, forever</p></header>
+            <ul>
+              <li>Civilian theatre awareness</li>
+              <li>1 active war region</li>
+              <li>Standard UN condemnation emails</li>
+              <li class="strike">Battlefield Copilot</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#faq">What you get</a>
+          </article>
+
+          <article class="tier">
+            <header><h3>Pro</h3><p class="price">$4.2B</p><p class="muted">/yr, per ministry</p></header>
+            <ul>
+              <li>Up to 5 active war regions</li>
+              <li>Drone Swarm Designer (FPV add-on)</li>
+              <li>Defence Bonds 365</li>
+              <li>NATO Teams integration</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#releases">Upgrade</a>
+          </article>
+
+          <article class="tier tier-featured">
+            <span class="tier-flag">Most chosen</span>
+            <header><h3>Sovereign</h3><p class="price">$54B</p><p class="muted">/yr, mandatory</p></header>
+            <ul>
+              <li>Unlimited war regions</li>
+              <li><strong>Battlefield Copilot</strong> (unlimited tokens)</li>
+              <li>Nuclear posturing module</li>
+              <li>UN Security Council pager</li>
+              <li>Priority fog-of-war upscaling</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="#releases">Buy now</a>
+          </article>
+
+          <article class="tier">
+            <header><h3>Empire</h3><p class="price">$∞</p><p class="muted">per dynasty</p></header>
+            <ul>
+              <li>Multi-region world ownership</li>
+              <li>Reserve currency rights</li>
+              <li>Two-seat veto on UNSC</li>
+              <li>Empire-grade customer success engineer</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#faq">Talk to sales</a>
+          </article>
+        </div>
+
+        <p class="fineprint">
+          All plans renew automatically. Cancellation is not a supported
+          workflow. By using War365, you agree to the End User Licence
+          Agreement, which is exactly one clause long.
+        </p>
+      </div>
+    </section>
+
+    <section class="band" id="roadmap">
+      <div class="container">
+        <div class="section-head">
+          <h2>Roadmap</h2>
+          <p class="section-sub">Subject to geopolitical availability.</p>
+        </div>
+
+        <ol class="roadmap">
+          <li>
+            <span class="rm-tag">v25.10</span>
+            <h4>Quantum-resistant sanctions</h4>
+            <p>SWIFT alternative built on distributed-ledger tech. Target
+              audience: anyone still using banks.</p>
+          </li>
+          <li>
+            <span class="rm-tag">v25.11</span>
+            <h4>AI-mediated peace treaties</h4>
+            <p>Battlefield Copilot's calm sibling. Negotiates a two-state
+              solution in 14 tokens or fewer.</p>
+          </li>
+          <li>
+            <span class="rm-tag">v26.01</span>
+            <h4>Climate-conflict correlation engine</h4>
+            <p>Auto-correlates heatwaves, droughts and resource wars. Powered
+              by IPCC feeds and a great deal of anxiety.</p>
+          </li>
+          <li>
+            <span class="rm-tag">v26.03</span>
+            <h4>Refugee Outlook 2026</h4>
+            <p>The annual report no one wants to publish. Trends in
+              displacement, asylum wait times, and dignity.</p>
+          </li>
+          <li>
+            <span class="rm-tag">v26.04</span>
+            <h4>Battlefield Copilot Pro+</h4>
+            <p>The paid tier of Battlefield Copilot. Includes target-locked
+              hallucinations. Not endorsed by anyone.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band band-soft" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>Frequently asked questions.</h2>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Can I opt out of War365?</summary>
+            <p>No. War365 is a mandatory lifetime subscription. The opt-out
+              button has been removed from the UI in keeping with industry
+              best practices for war-as-a-service.</p>
+          </details>
+          <details>
+            <summary>How often are updates shipped?</summary>
+            <p>Continuously. There is no maintenance window. Theatres are
+              always-on. Rollouts are tested in production, on you.</p>
+          </details>
+          <details>
+            <summary>What happened to v1 of this product (World War)?</summary>
+            <p>Deprecated in 1945. Replaced by Cold War 1.0, which was a
+              single-tenant perpetual-license model with annual feature drops.
+              Also deprecated. War365 is the current and final version.</p>
+          </details>
+          <details>
+            <summary>Is Battlefield Copilot safe?</summary>
+            <p>Battlefield Copilot was red-teamed by 195 nation-states. The
+              results have been redacted. The risk register has been
+              deprecated to <em>internal-use-only</em>.</p>
+          </details>
+          <details>
+            <summary>Can I get a refund?</summary>
+            <p>No. You cannot get a refund. Please direct your complaint to
+              the United Nations, attn: <code>backlog@</code>.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark"><span class="brand-mark-c">W</span></span>
+        <span>War365</span>
+      </div>
+      <p class="footer-fine">
+        War365 is a satirical art project. Nothing on this page is real. The
+        conflicts it documents are. Please support aid organisations working
+        in Gaza, Ukraine, Sudan, Syria, Myanmar and everywhere else that
+        doesn't fit on a roadmap.
+      </p>
+      <p class="footer-fine">
+        Donate: <a href="https://www.unhcr.org" target="_blank" rel="noopener">UNHCR</a> &middot;
+        <a href="https://www.msf.org" target="_blank" rel="noopener">MSF</a> &middot;
+        <a href="https://www.icrc.org" target="_blank" rel="noopener">ICRC</a> &middot;
+        <a href="https://www.doctorswithoutborders.org" target="_blank" rel="noopener">Doctors Without Borders</a>
+      </p>
+      <p class="footer-meta">
+        &copy; War365 Industries. The EULA is one clause long. It says <em>yes</em>.
+      </p>
+    </div>
+  </footer>
+
+  <script src="commits.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
