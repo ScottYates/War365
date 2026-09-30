@@ -1,0 +1,49 @@
+test: add a layout audit instead of one-off scratch scripts
+
+The checks this session needed were written as seven throwaway scripts in
+the temp directory, which meant they were gone the moment I cleaned up. They
+are now one tool, in test/verify.py, with the reasoning for each check written
+down next to it.
+
+verify.py sweeps 11 viewports in chromium and firefox and exits non-zero on
+failure, so it works as a pre-commit gate. --ab re-measures with
+index.html, styles.css and app.js swapped for an older git ref and prints the
+numbers either side, restoring the files in a finally block. Eyeballing a
+fixed page cannot distinguish a real fix from a page that was never broken;
+the before/after numbers are the evidence.
+
+The checks are the defects this site actually had: a 61x22 tap target under
+the WCAG 2.2 AA floor, commit-meta hidden below 880px so the hash and author
+vanished on phones, a legend swatch that did not match the dot it labelled,
+a release date breaking mid-string in the 881-1150px band, a nav that was
+display:none with no hamburger, and tier-alt blocks staggered by 156px.
+
+Three things worth recording about the tool itself:
+
+- It hash-guards the served styles.css against the file on disk before
+  measuring, and refuses to run on a mismatch. A dev server serves from its
+  working directory, so it will happily answer 200 from a different checkout
+  on the same port and produce a clean-looking result describing somebody
+  else's CSS.
+
+- It checks the computed grid track list, not just the visual result, for
+  zero-width tracks. A subgrid row-lock mistake collapsed all four pricing
+  cards into one band and the grid answered with two implicit zero-width
+  columns, and the alignment check still passed in that state, because all
+  the cards genuinely were in the same band. Only the track list caught it.
+
+- It builds and runs the server binary directly instead of shelling out to
+  `go run`. `go run` execs its result as a child process, so terminating it
+  leaves the child holding the port. The first version of this tool leaked a
+  server on every run and the next run tripped over it.
+
+The probe is null-safe on elements that do not exist in older revisions, so
+--ab against a ref from before .tier-alt was introduced reports "absent"
+rather than throwing. The baseline count is reported separately from the gate,
+so a failing historical revision does not make a healthy working tree look
+broken.
+
+Verified: 22/22 pass on the current tree in both engines; against fa795ce the
+baseline correctly fails all 11 viewports and names every original defect;
+against e42e53b it shows bandSpread 156 -> 4. No leaked processes, and the
+working tree is byte-identical after every --ab run.

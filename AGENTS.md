@@ -23,6 +23,8 @@ commits.js    # fake release-history data (25 commits)
 app.js        # render + filter the log
 main.go       # dev server (stdlib only, serves this directory)
 scripts/      # Linux helpers: build, start, stop, restart, update
+deploy/       # War365.service + War365.logrotate
+test/         # layout audit (Python + Playwright), not shipped with the site
 ```
 
 ## Run
@@ -93,6 +95,21 @@ setting `Environment=WAR365_ADDR=:9000`. Logs go to the journal
 (`journalctl -u war365 -f`). The unit runs unprivileged and is hardened with
 `ProtectSystem=strict` plus friends; it deliberately has no `SystemCallFilter`,
 because restrictive seccomp allowlists break the Go runtime.
+
+## Verifying a layout change
+
+Any change to `styles.css` or `index.html` should be measured, not eyeballed:
+
+```bash
+python test/verify.py --serve          # both engines, 11 viewports, exits non-zero on failure
+python test/verify.py --serve --ab HEAD~1   # prove the change actually mattered
+```
+
+`test/README.md` explains what each check exists for. The short version: a
+page that was never broken and a page that is now fixed look identical in a
+screenshot, so `--ab` is the part that carries the evidence. It swaps
+`index.html`, `styles.css` and `app.js` for an older revision, measures, and
+restores them in a `finally` block.
 
 ## Conventions
 

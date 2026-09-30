@@ -8,6 +8,7 @@ node_modules/
 
 # local previews
 preview-*.png
+test/shots/
 
 # go build output (rebuild with `go build` or skip with `go run .`)
 *.exe

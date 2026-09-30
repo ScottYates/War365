@@ -62,7 +62,27 @@ War365/
   main.go       # dev server
   scripts/      # build, start, stop, restart, update (Linux)
   deploy/       # systemd unit + logrotate snippet (Linux)
+  test/         # layout audit (Python + Playwright), not needed to serve
 ```
+
+## Checking a layout change
+
+The site is plain HTML and CSS, so there is no build to break, but there is
+plenty to break quietly at other widths. `test/verify.py` sweeps 11 viewports
+in two engines and checks the things that have actually gone wrong here:
+
+```bash
+pip install -r test/requirements.txt
+python -m playwright install chromium firefox
+
+python test/verify.py --serve                # exits non-zero if anything fails
+python test/verify.py --serve --ab HEAD~1    # prove the change mattered
+```
+
+It is worth the setup. Headless-browser screenshots are not a substitute:
+`msedge --headless --screenshot --window-size=390,900` renders at a ~492px
+minimum layout viewport and crops the image, which both invents breakage and
+hides it. See `test/README.md` for what each check is there to catch.
 
 ## Deploy
 
