@@ -186,6 +186,34 @@ code {
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
 .hero-meta { color: var(--ink-muted); font-size: 0.95rem; margin: 0; }
 
+.hero-stats {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  max-width: 560px;
+}
+.hero-stats li { display: flex; flex-direction: column; gap: 2px; }
+.hero-stats strong {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.hero-stats span {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 560px) {
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
 .hero-card {
   background: #fff;
   border: 1px solid var(--line);

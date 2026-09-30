@@ -69,6 +69,24 @@
   // initial render
   render(window.WAR365_COMMITS);
 
+  // hero stats
+  (function paintStats() {
+    const el = (id) => document.getElementById(id);
+    const commits = window.WAR365_COMMITS;
+    if (!el("stat-commits")) return;
+    el("stat-commits").textContent = commits.length;
+    // active theatres: regions mentioned in subjects/bodies
+    const theatres = new Set();
+    const re = /(Gaza|Ukraine|Sudan|Syria|Iran|Israel|Hezbollah|Houthi|Yemen|Myanmar|Haiti|Sahel|Khartoum|Russia|Lebanon|Pakistan|India)/gi;
+    commits.forEach((c) => {
+      const blob = (c.subject + " " + (c.body || "")).match(re);
+      if (blob) blob.forEach((m) => theatres.add(m.toLowerCase()));
+    });
+    el("stat-theatres").textContent = theatres.size;
+    const latest = commits[commits.length - 1];
+    el("stat-last").textContent = latest ? latest.date : "—";
+  })();
+
   // filter
   filter.addEventListener("input", (e) => {
     const q = e.target.value.trim().toLowerCase();
