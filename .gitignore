@@ -5,3 +5,6 @@ Thumbs.db
 node_modules/
 .idea/
 .vscode/
+
+# local previews
+preview-*.png
