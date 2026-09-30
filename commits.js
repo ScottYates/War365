@@ -338,6 +338,72 @@ window.WAR365_COMMITS = [
       "Thanks, and remember to update your safety tier.",
       "— The War365 team"
     ].join("\n")
+  },
+  {
+    hash: "c2a4d81",
+    date: "2026-07-22",
+    author: "nato.summit",
+    authorEmail: "ops@nato.example",
+    subject: "feat(peace-deal): 50-day ultimatum — Trump 365 broker",
+    body: [
+      "New broker middleware ships a 50-day ultimatum to Russia-Ukraine.",
+      "Pattern: 'do X or pay 100% tariff'.",
+      "",
+      "Merge conflict with reality on day 7.",
+      "Status: most deadlines extended.",
+      "P50 outcome: 'we'll get back to you'.",
+      "",
+      "Closes: peace-2025#1 (won't fix)"
+    ].join("\n")
+  },
+  {
+    hash: "1f8e0b3",
+    date: "2026-08-04",
+    author: "dprk.woo",
+    authorEmail: "ops@pyongyang.example",
+    subject: "feat(troops): 10k+ DPRK troops deployed into Kursk region",
+    body: [
+      "Foreign-worker module from the DPRK repo deployed to the Kursk theatre.",
+      "Bundle size: 10,000+ containers, 50% casualty rate.",
+      "",
+      "Defect filed: low morale, language barriers, casualty-heavy loop.",
+      "Owner: kim.j. Status: 'they signed a contract'.",
+      "Rollback: only on full year-end audit."
+    ].join("\n")
+  },
+  {
+    hash: "a9b7e54",
+    date: "2026-09-12",
+    author: "junta.mm",
+    authorEmail: "ops@myanmar.example",
+    subject: "feat(region): SE-ASIA-MYANMAR — civil war escalates post-elections",
+    body: [
+      "Long-running internal conflict promotes to GA after disputed election.",
+      "Resistance forces capture multiple regional capitals in 12 months.",
+      "",
+      "Displaces: 3M+ users.",
+      "SLA: 'we will get back to you in 5 years'.",
+      "Conflict with China over border-subduction: low intensity."
+    ].join("\n")
+  },
+  {
+    hash: "6d8b3c7",
+    date: "2026-09-28",
+    author: "ops@war365.example",
+    authorEmail: "ops@war365.example",
+    subject: "chore(status): push v25.9.30 to all regions, prepare for [load]",
+    body: [
+      "Promotes v25.9.30 across all active regions.",
+      "Roadmap commit queue: Myanmar, Sudan, Gaza, Ukraine, Lebanon.",
+      "",
+      "On-call: exhausted. Pager: rotating.",
+      "End-of-quarter incident review: cancelled.",
+      "",
+      "Reminder: Battlefield Copilot is opt-out at the user level,",
+      "opt-in at the theatre level. Mandatory at the sovereign level.",
+      "",
+      "Have a good shift, everyone. War365 lives."
+    ].join("\n")
   }
 ];
 
