@@ -16,3 +16,6 @@ test/shots/
 
 # dev server runtime state (scripts/start.sh)
 /.war365.pid
+
+# scratch commit message files
+/.commitmsg.tmp
