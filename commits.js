@@ -299,47 +299,6 @@ window.WAR365_COMMITS = [
     ].join("\n")
   },
   {
-    hash: "e7b3f62",
-    date: "2026-09-15",
-    author: "ops@war365.example",
-    authorEmail: "ops@war365.example",
-    subject: "feat(copilot): Battlefield Copilot enters general availability",
-    body: [
-      "Generative-AI module for theatre commanders.",
-      "",
-      "Features:",
-      "- Autogenerates invasion plans from a one-line prompt",
-      "- Drone swarm choreography in natural language",
-      "- Negotiated surrender to whoever lost first",
-      "- Hallucinates ceasefires but only the plausible ones",
-      "",
-      "Pricing: included in War365 Sovereign tier.",
-      "Privacy: your plans are trained on. Sorry.",
-      "Status: red-teamed by people who don't like it.",
-      "",
-      "Ref: https://tino.munic/posts/war365-now-with-copilot"
-    ].join("\n")
-  },
-  {
-    hash: "b8f5a90",
-    date: "2026-09-30",
-    author: "scott@war365.example",
-    authorEmail: "scott@war365.example",
-    subject: "docs(readme): add mandatory subscription disclaimer",
-    body: [
-      "Customer support tells us the EULA is 'a little confusing'.",
-      "Updating README to clarify:",
-      "",
-      "  War365 is a mandatory lifetime subscription.",
-      "  You cannot opt out.",
-      "  You will receive endless updates.",
-      "  Battlefield Copilot is enabled by default.",
-      "",
-      "Thanks, and remember to update your safety tier.",
-      "— The War365 team"
-    ].join("\n")
-  },
-  {
     hash: "c2a4d81",
     date: "2026-07-22",
     author: "nato.summit",
@@ -387,6 +346,28 @@ window.WAR365_COMMITS = [
     ].join("\n")
   },
   {
+    hash: "e7b3f62",
+    date: "2026-09-15",
+    author: "ops@war365.example",
+    authorEmail: "ops@war365.example",
+    subject: "feat(copilot): Battlefield Copilot enters general availability",
+    body: [
+      "Generative-AI module for theatre commanders.",
+      "",
+      "Features:",
+      "- Autogenerates invasion plans from a one-line prompt",
+      "- Drone swarm choreography in natural language",
+      "- Negotiated surrender to whoever lost first",
+      "- Hallucinates ceasefires but only the plausible ones",
+      "",
+      "Pricing: included in War365 Sovereign tier.",
+      "Privacy: your plans are trained on. Sorry.",
+      "Status: red-teamed by people who don't like it.",
+      "",
+      "Ref: https://tino.munic/posts/war365-now-with-copilot"
+    ].join("\n")
+  },
+  {
     hash: "6d8b3c7",
     date: "2026-09-28",
     author: "ops@war365.example",
@@ -403,6 +384,25 @@ window.WAR365_COMMITS = [
       "opt-in at the theatre level. Mandatory at the sovereign level.",
       "",
       "Have a good shift, everyone. War365 lives."
+    ].join("\n")
+  },
+  {
+    hash: "b8f5a90",
+    date: "2026-09-30",
+    author: "scott@war365.example",
+    authorEmail: "scott@war365.example",
+    subject: "docs(readme): add mandatory subscription disclaimer",
+    body: [
+      "Customer support tells us the EULA is 'a little confusing'.",
+      "Updating README to clarify:",
+      "",
+      "  War365 is a mandatory lifetime subscription.",
+      "  You cannot opt out.",
+      "  You will receive endless updates.",
+      "  Battlefield Copilot is enabled by default.",
+      "",
+      "Thanks, and remember to update your safety tier.",
+      "— The War365 team"
     ].join("\n")
   }
 ];
