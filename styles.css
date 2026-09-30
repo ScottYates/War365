@@ -428,6 +428,9 @@ code {
   line-height: 1.55;
   border-top: 1px dashed #21262d;
   padding-top: 10px;
+  /* Bodies contain bare URLs and long identifiers; without this the log
+     scrolls sideways on narrow screens. */
+  overflow-wrap: anywhere;
   margin-top: 10px;
 }
 .commit-detail code { background: rgba(110,118,129,0.18); color: #c9d1d9; padding: 0 4px; }
@@ -455,7 +458,7 @@ code {
 /* ---------- features ---------- */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 20px;
 }
 .feature {
@@ -494,7 +497,7 @@ code {
 /* ---------- tiers ---------- */
 .tiers {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 18px;
   margin-bottom: 24px;
 }
@@ -541,7 +544,7 @@ code {
   list-style: none;
   margin: 0; padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 18px;
 }
 .roadmap li {
@@ -609,6 +612,32 @@ code {
 .footer-fine a { color: #79c0ff; }
 .footer-meta { color: #6e7681; font-size: 0.85rem; margin: 6px 0 0; }
 
+/* ---------- pull quote ---------- */
+.quote-band { padding: 60px 0; }
+.pullquote {
+  margin: 0 auto;
+  max-width: 760px;
+  text-align: center;
+}
+.pullquote p {
+  margin: 0 0 16px;
+  font-size: clamp(1.3rem, 5vw, 2.1rem);
+  line-height: 1.28;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+}
+.pullquote footer {
+  font-size: 0.92rem;
+  color: var(--ink-muted);
+}
+.pullquote cite {
+  display: block;
+  font-style: normal;
+  margin-top: 2px;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 880px) {
   .hero { padding: 56px 0 72px; }
@@ -618,10 +647,23 @@ code {
   .band { padding: 56px 0; }
   .commit-row { grid-template-columns: 24px 100px 1fr; }
   .commit-meta { display: none; }
+  /* Four stats across a tablet-width column leaves each label too narrow. */
+  .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
   .release-toolbar { flex-direction: column; align-items: stretch; }
   .legend { flex-wrap: wrap; }
-  .commit-row { grid-template-columns: 24px 1fr; }
-  .commit-when { padding-left: 4px; }
+  /* The row still has three visible children (gutter, when, body) once
+     .commit-meta is hidden, so a bare two-column track would push the body
+     into the 24px gutter column. Name the areas instead. */
+  .commit-row {
+    grid-template-columns: 24px 1fr;
+    grid-template-areas:
+      "dot when"
+      "dot body";
+  }
+  .commit-gutter { grid-area: dot; }
+  .commit-when { grid-area: when; padding-left: 4px; }
+  .commit-body { grid-area: body; padding-left: 14px; }
+  .hero-card-body code { overflow-wrap: anywhere; }
 }
