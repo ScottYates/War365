@@ -66,8 +66,18 @@
     });
   }
 
+  // Sort by date descending (newest first), like `git log`. Returns a new
+  // array — the source commits array stays in ascending chronological order
+  // per AGENTS.md, and `paintStats` keeps reading `commits[length-1]` for the
+  // hero "last deployment" stat.
+  function sortByDateDesc(commits) {
+    return commits.slice().sort((a, b) =>
+      a.date < b.date ? 1 : a.date > b.date ? -1 : 0
+    );
+  }
+
   // initial render
-  render(window.WAR365_COMMITS);
+  render(sortByDateDesc(window.WAR365_COMMITS));
 
   // hero stats
   (function paintStats() {
@@ -133,13 +143,13 @@
   // filter
   filter.addEventListener("input", (e) => {
     const q = e.target.value.trim().toLowerCase();
-    if (!q) return render(window.WAR365_COMMITS);
+    if (!q) return render(sortByDateDesc(window.WAR365_COMMITS));
     const filtered = window.WAR365_COMMITS.filter((c) =>
       c.subject.toLowerCase().includes(q) ||
       c.author.toLowerCase().includes(q) ||
       (c.body || "").toLowerCase().includes(q)
     );
-    render(filtered);
+    render(sortByDateDesc(filtered));
   });
 
   // expand-on-hover for desktop, click for touch (optional nicety)
