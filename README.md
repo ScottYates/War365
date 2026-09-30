@@ -32,6 +32,7 @@ go run . -log-format=json   # structured, for log shipping
 | `-addr` | `:8000` | listen address |
 | `-log-format` | `text` | `text` or `json` |
 | `-log-level` | `info` | `debug`, `info`, `warn`, `error` |
+| `-log-file` | none | also append to this file (mirrored to stdout) |
 | `-quiet` | off | suppress per-request access logs |
 
 It logs one line per request via `log/slog` to stdout:
@@ -42,6 +43,10 @@ time=2026-09-30T13:29:42.558-05:00 level=INFO msg=request method=GET path=/ stat
 
 5xx responses log at ERROR, everything else at INFO. `SIGINT`/`SIGTERM` start a
 graceful drain (10s) and log the shutdown, which is what `systemctl stop` sends.
+
+Add `-log-file=/path/to/access.log` to write the same lines to a file as well
+as stdout. It appends: stop the server, start it again, and the earlier lines
+are still there.
 
 Serving is restricted to the project directory: `os.DirFS(".")` refuses any
 path with parent-dir segments, so `..` traversal cannot escape upward.
@@ -91,7 +96,19 @@ Check on it:
 ```bash
 systemctl status war365     # is it up
 journalctl -u war365 -f     # follow the log
+tail -f /var/log/war365/access.log   # same lines, as a file
 curl -s localhost:8000 | head -5
+```
+
+The unit sets `WAR365_LOG_FILE=/var/log/war365/access.log`. The file is opened
+in append mode, so restarts add to it rather than truncating it, and every
+line still reaches the journal. `LogsDirectory=war365` creates the directory
+owned by the service account, which `ProtectSystem=strict` would otherwise
+block. To rotate it:
+
+```bash
+sudo cp deploy/war365.logrotate /etc/logrotate.d/war365
+sudo logrotate -d /etc/logrotate.d/war365   # dry run
 ```
 
 Updating it later:

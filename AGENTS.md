@@ -38,6 +38,7 @@ Server flags:
 -addr=:8000        listen address
 -log-format=text   text or json
 -log-level=info    debug, info, warn, error
+-log-file=         also append to this file, still mirrored to stdout
 -quiet            suppress the per-request access log
 ```
 
@@ -45,6 +46,12 @@ Logs go to stdout via `log/slog`: one line per request with method, path,
 status, bytes, `took_ms` and client IP. 5xx is logged at ERROR, the rest at
 INFO. `SIGINT`/`SIGTERM` trigger a graceful drain (10s, matching
 `TimeoutStopSec` in the unit) and log the shutdown.
+
+With `-log-file`, the sink becomes `io.MultiWriter(file, stdout)`. The file is
+opened `O_APPEND|O_CREATE|O_WRONLY`, never `O_TRUNC`, so a restart adds to the
+existing log instead of wiping it, and each write is atomic so concurrent lines
+cannot interleave. Parent directories are created on demand. The unit points
+this at `/var/log/war365/access.log`; `deploy/war365.logrotate` rotates it.
 
 On Linux, the scripts wrap the same server for long-running use:
 

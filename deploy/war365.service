@@ -13,6 +13,7 @@
 # Day to day:
 #   systemctl status war365
 #   journalctl -u war365 -f
+#   tail -f /var/log/war365/access.log
 #   systemctl restart war365
 #
 # Change the port without editing this file:
@@ -22,6 +23,10 @@
 #
 # If nginx sits in front, bind to loopback only:
 #   Environment=WAR365_ADDR=127.0.0.1:8000
+#
+# Access logs are appended to /var/log/war365/access.log and mirrored to the
+# journal. Restarts add to the file; they never truncate it. Rotate with
+# deploy/war365.logrotate.
 
 [Unit]
 Description=War365 static site server
@@ -36,6 +41,13 @@ Group=war365
 WorkingDirectory=/opt/War365
 
 Environment=WAR365_ADDR=:8000
+Environment=WAR365_LOG_FILE=/var/log/war365/access.log
+
+# LogsDirectory= creates /var/log/war365 owned by User=/Group= and marks it
+# writable, which ProtectSystem=strict would otherwise deny. Without this the
+# service has nowhere to write and the file sink silently cannot be used.
+LogsDirectory=war365
+LogsDirectoryMode=0750
 
 # Fail fast with an actionable message if the binary was never built.
 ExecStartPre=/bin/sh -c 'test -x /opt/War365/bin/war365 || { echo "war365: binary missing. Run: sudo /opt/War365/scripts/build.sh" >&2; exit 1; }'

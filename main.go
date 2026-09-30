@@ -23,11 +23,14 @@ import (
 	"context"
 	"errors"
 	"flag"
+	"fmt"
+	"io"
 	"log/slog"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"strings"
 	"syscall"
 	"time"
@@ -40,10 +43,16 @@ func main() {
 	addr := flag.String("addr", ":8000", "address to listen on")
 	logFormat := flag.String("log-format", "text", "log output format: text or json")
 	logLevel := flag.String("log-level", "info", "log level: debug, info, warn, error")
+	logFile := flag.String("log-file", "", "also append logs to this file (default: stdout only)")
 	quiet := flag.Bool("quiet", false, "suppress per-request access logs")
 	flag.Parse()
 
-	logger := newLogger(*logFormat, *logLevel)
+	logger, closeLog, err := newLogger(*logFormat, *logLevel, *logFile)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		os.Exit(1)
+	}
+	defer closeLog()
 	slog.SetDefault(logger)
 
 	var handler http.Handler = http.FileServer(http.FS(os.DirFS(".")))
@@ -65,7 +74,8 @@ func main() {
 
 	serveErr := make(chan error, 1)
 	go func() {
-		logger.Info("war365 starting", "addr", *addr, "dir", ".", "access_log", !*quiet)
+		logger.Info("war365 starting", "addr", *addr, "dir", ".",
+			"access_log", !*quiet, "log_file", *logFile)
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			serveErr <- err
 			return
@@ -92,19 +102,43 @@ func main() {
 	logger.Info("war365 stopped")
 }
 
-func newLogger(format, level string) *slog.Logger {
+func newLogger(format, level, path string) (*slog.Logger, func(), error) {
 	var lvl slog.Level
 	if err := lvl.UnmarshalText([]byte(level)); err != nil {
 		lvl = slog.LevelInfo
 	}
 	opts := &slog.HandlerOptions{Level: lvl}
+
+	// With no -log-file, log to stdout only (journald under systemd, terminal
+	// otherwise).
+	var sink io.Writer = os.Stdout
+	closer := func() {}
+
+	if path != "" {
+		if dir := filepath.Dir(path); dir != "" && dir != "." {
+			if err := os.MkdirAll(dir, 0o755); err != nil {
+				return nil, nil, fmt.Errorf("create log dir %s: %w", dir, err)
+			}
+		}
+		// O_APPEND, never O_TRUNC: a restart must add to the existing log, and
+		// O_APPEND makes each write atomic so concurrent lines cannot interleave.
+		f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
+		if err != nil {
+			return nil, nil, fmt.Errorf("open log file %s: %w", path, err)
+		}
+		// Keep stdout too, so `journalctl -u war365` still works when a file
+		// sink is configured.
+		sink = io.MultiWriter(f, os.Stdout)
+		closer = func() { _ = f.Close() }
+	}
+
 	var h slog.Handler
 	if strings.EqualFold(format, "json") {
-		h = slog.NewJSONHandler(os.Stdout, opts)
+		h = slog.NewJSONHandler(sink, opts)
 	} else {
-		h = slog.NewTextHandler(os.Stdout, opts)
+		h = slog.NewTextHandler(sink, opts)
 	}
-	return slog.New(h)
+	return slog.New(h), closer, nil
 }
 
 // statusRecorder captures the status code and byte count that the underlying

@@ -5,5 +5,8 @@
 # systemd unit files are also parsed by a strict line-oriented parser on Linux.
 *.service text eol=lf
 
+# Same for logrotate snippets.
+*.logrotate text eol=lf
+
 # Default: let git handle text files normally.
 * text=auto

@@ -1,0 +1,26 @@
+# Access-log rotation for War365.
+#
+# Install:
+#   sudo cp deploy/war365.logrotate /etc/logrotate.d/war365
+#   sudo logrotate -d /etc/logrotate.d/war365   # dry run, prints the plan
+#
+# The server holds the log open with O_APPEND and has no SIGHUP handler, so
+# rotation is rename-then-restart: logrotate creates the fresh file, and the
+# restart makes the server reopen it. A daily one-second restart of a static
+# file server costs nothing. Do NOT send SIGHUP here: Go's default action for
+# an unhandled SIGHUP is to terminate, which would kill the service.
+/var/log/war365/access.log {
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 war365 war365
+    sharedscripts
+    postrotate
+        if [ -d /run/systemd/system ]; then
+            systemctl restart war365
+        fi
+    endscript
+}
