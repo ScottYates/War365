@@ -385,7 +385,14 @@ window.WAR365_COMMITS = [
       "opt-in at the theatre level. Mandatory at the sovereign level.",
       "",
       "Have a good shift, everyone. War365 lives."
-    ].join("\n")
+    ].join("\n"),
+    // Hero card metadata — drives the "Latest release" card on the landing page.
+    // Optional; only release commits need it. Falls back to `subject` for the
+    // headline when omitted; other fields hide themselves when missing.
+    headline: "Battlefield Copilot enters general availability",
+    summary: "Generative AI for theatre commanders. Autogenerates invasion plans from a one-line prompt.",
+    breaking: true,
+    chips: ["+390 mi", "no rollback"]
   },
   {
     hash: "b8f5a90",

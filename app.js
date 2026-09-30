@@ -85,16 +85,48 @@
     el("stat-theatres").textContent = theatres.size;
     const latest = commits[commits.length - 1];
     el("stat-last").textContent = latest ? latest.date : "—";
-    // hero tag: most recent commit with a `tag` field, walking backwards.
-    // Avoids showing a stale tag when the latest commit is post-release
-    // (e.g. a docs update shipped after v25.9.30).
+    // Hero card: drive from the latest commit with a `tag` field, walking
+    // backwards. Post-release commits (e.g. a docs update shipped after
+    // v25.9.30) never override the hero, so the card always advertises the
+    // most recent release rather than the most recent commit.
+    let release = null;
+    for (let i = commits.length - 1; i >= 0; i--) {
+      if (commits[i].tag) { release = commits[i]; break; }
+    }
+    if (!release) release = latest;
+
     const heroTag = el("hero-tag");
     if (heroTag) {
-      let latestTag = null;
-      for (let i = commits.length - 1; i >= 0; i--) {
-        if (commits[i].tag) { latestTag = commits[i].tag; break; }
+      heroTag.textContent = release && release.tag ? `tag: ${release.tag}` : "tag: —";
+    }
+
+    const heroHeadline = el("hero-headline");
+    if (heroHeadline) {
+      heroHeadline.textContent = (release && (release.headline || release.subject)) || "—";
+    }
+
+    const heroSummary = el("hero-summary");
+    if (heroSummary) {
+      if (release && release.summary) {
+        heroSummary.textContent = release.summary;
+        heroSummary.hidden = false;
+      } else {
+        heroSummary.hidden = true;
       }
-      heroTag.textContent = latestTag ? `tag: ${latestTag}` : "tag: —";
+    }
+
+    const heroChips = el("hero-chips");
+    if (heroChips) {
+      const parts = [];
+      if (release && release.breaking) {
+        parts.push('<span class="chip chip-red">BREAKING</span>');
+      }
+      if (release && Array.isArray(release.chips)) {
+        release.chips.forEach((c) => {
+          parts.push('<span class="chip">' + escapeHtml(String(c)) + '</span>');
+        });
+      }
+      heroChips.innerHTML = parts.join("");
     }
   })();
 
