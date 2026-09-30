@@ -28,32 +28,70 @@ war365/
   app.js        # render + filter the log
   main.go       # dev server
   scripts/      # build, start, stop, restart, update (Linux)
+  deploy/       # systemd unit (Linux)
 ```
 
 ## Deploy
 
 Drop the directory on any static host. That's it.
 
-For a dedicated Linux box, `deploy/war365.service` is a ready-made systemd unit
-that assumes the repo is checked out to `/opt/War365`:
+### Running it as a service on Linux
+
+`deploy/war365.service` is a ready-made systemd unit that runs the Go server
+unprivileged from `/opt/War365`. From a clean machine:
 
 ```bash
+# 1. Put the repo where the unit expects it
+sudo git clone https://github.com/ScottYates/War365.git /opt/War365
+cd /opt/War365
+
+# 2. Create the unprivileged service account
 sudo useradd --system --no-create-home --shell /usr/sbin/nologin war365
 sudo chown -R war365:war365 /opt/War365
+
+# 3. Build the binary (the unit refuses to start without it)
 sudo /opt/War365/scripts/build.sh
+
+# 4. Install and start the unit
 sudo cp deploy/war365.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now war365
 ```
 
+Check on it:
+
 ```bash
 systemctl status war365     # is it up
 journalctl -u war365 -f     # follow the log
+curl -s localhost:8000 | head -5
 ```
 
-Change the port with `sudo systemctl edit war365` and
-`Environment=WAR365_ADDR=:9000`. If nginx is proxying in front, bind to
-loopback instead: `WAR365_ADDR=127.0.0.1:8000`.
+Updating it later:
+
+```bash
+cd /opt/War365
+sudo ./scripts/update.sh    # git pull --ff-only, build, restart
+```
+
+Change the port without editing the unit:
+
+```bash
+sudo systemctl edit war365
+# [Service]
+# Environment=WAR365_ADDR=:9000
+sudo systemctl restart war365
+```
+
+Behind nginx, bind to loopback only:
+
+```bash
+# Environment=WAR365_ADDR=127.0.0.1:8000
+```
+
+The unit runs as `war365` with `ProtectSystem=strict` and friends, so it can
+read the repo but not write to it. It has no `SystemCallFilter=` on purpose:
+restrictive seccomp allowlists break the Go runtime, which needs a syscall set
+that shifts between Go and kernel versions.
 
 ## Dev server scripts (Linux)
 
