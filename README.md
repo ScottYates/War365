@@ -2,13 +2,13 @@
 
 > "Folks, it's not WW3, no matter what anyone says. After WW2, we moved away from official release versions and switched to a mandatory lifetime subscription model with endless updates instead."
 >
-> &mdash; @ztwang87
+> - @ztwang87
 >
 > "War365, now with Copilot."
 >
-> &mdash; @tino.munic
+> - @tino.munic
 
-A satirical single-page web site that riffs on the Microsoft 365 / Copilot meme by recasting real-world conflicts as if they were SaaS releases. The release history is the centrepiece: a fake git commit log that documents real events from 2022 to today, in the voice of an enterprise engineering team.
+A satirical single-page web site that riffs on the Microsoft 365 / Copilot meme by recasting real-world conflicts as if they were SaaS releases. The release history is the centerpiece: a fake git commit log that documents real events from 2022 to today, in the voice of an enterprise engineering team.
 
 Nothing here is real. The conflicts it documents are. Please donate.
 
