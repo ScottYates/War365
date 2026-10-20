@@ -54,8 +54,16 @@ if [[ -n "$(git status --porcelain)" ]]; then
   die "working tree has uncommitted changes; refusing to touch it"
 fi
 
-if [[ -z "${MINIMAX_API_KEY:-}" ]]; then
-  die "MINIMAX_API_KEY is not set. Put it in /etc/war365/minimax.env or export it."
+if [[ -z "${MINIMAX_API_KEY:-}" ]] && ! "$PYTHON" -c '
+import sys
+sys.path.insert(0, "tools")
+from minimax_client import resolve_auth
+try:
+    resolve_auth()
+except Exception:
+    sys.exit(1)
+' 2>/dev/null; then
+  die "no MiniMax credential found. Set MINIMAX_API_KEY in the environment, or put it in /etc/war365/minimax.env."
 fi
 
 mkdir -p "$WORK"
