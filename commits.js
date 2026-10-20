@@ -412,64 +412,6 @@ window.WAR365_COMMITS = [
       "Thanks, and remember to update your safety tier.",
       "— The War365 team"
     ].join("\n")
-  },
-  {
-    hash: "3f8a2d1",
-    date: "2026-10-15",
-    author: "trump.365",
-    authorEmail: "ops@trump365.example",
-    subject: "feat(ceasefire): energy truce v1 rolled back after 72 hours",
-    body: [
-      "Energy truce v1 announced by the customer on 2026-10-11.",
-      "Scope: strikes on energy infrastructure, both directions.",
-      "",
-      "Uptime: 72 hours.",
-      "Rolled back by the customer, not by us.",
-      "",
-      "Load observed after the rollback:",
-      "- 850 drones and 39 missiles in a 24h window",
-      "- 30 energy targets across 19 regions",
-      "",
-      "Claimed: 'there will be no ceasefire' (Lavrov, 2026-10-15).",
-      "Counter-claim: the truce held for three days.",
-      "",
-      "Regression: at least 328 civilians killed in September, 85% above the same month a year earlier.",
-      "",
-      "Ref: https://www.aljazeera.com/news/2026/10/16/ukraine-repels-russian-forces-as-us-support-wavers-energy-strikes-escalate",
-      "Ref: https://apnews.com/article/russia-ukraine-war-trump-zelenskyy-power-grid-025bdb5cebc0be727a6197ce37f2c365",
-      "",
-      "Closes: energy-truce#1 (won't fix)"
-    ].join("\n")
-  },
-  {
-    hash: "c4b7e09",
-    date: "2026-10-19",
-    author: "houthi.media",
-    authorEmail: "ops@houthi.example",
-    subject: "feat(missile): Shabwa training camp, 3 ballistic missiles",
-    body: [
-      "Three ballistic missiles delivered to the al-Alam training camp, Shabwa.",
-      "Target class: security recruits in training, not a formed unit.",
-      "",
-      "Casualties: 73, all recruits.",
-      "Injured: 200+.",
-      "Missing: 14.",
-      "Longest outage in weeks.",
-      "",
-      "Same window, Saudi targets:",
-      "- Yanbu (Aramco)",
-      "- Shaybah oilfield",
-      "- King Khalid Intl, Riyadh",
-      "- Abha airport",
-      "",
-      "Mitigation: RAF jets on defensive rotations, announced 2026-10-20.",
-      "Displaced inside Yemen: 250,000+ since the truce was dropped.",
-      "Taiz: still blocked.",
-      "",
-      "Ref: https://www.newarab.com/news/diplomatic-visits-attempt-hold-off-return-to-all-out-war-between-us-and-iran",
-      "",
-      "Reopens: yemen-truce-2022#1"
-    ].join("\n")
   }
 ];
 
