@@ -81,6 +81,9 @@ Score low (0-40) for:
 - a court ruling, an election result, a court appearance
 - a commentary, an analysis, an anniversary retrospective
 - anything already covered by the log
+- anything that duplicates another candidate in this batch. If two
+  candidates describe the same event, score the better-sourced one high and
+  the other very low, so the log never ships the same story twice.
 
 Score in the middle (41-79) for genuine but narrower events: a notable
 single incident, a significant escalation inside an existing theatre, or an
