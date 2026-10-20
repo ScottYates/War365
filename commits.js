@@ -482,6 +482,62 @@ window.WAR365_COMMITS = [
       "",
       "Reopens: yemen-truce-2022#1"
     ].join("\n")
+  },
+  {
+    hash: "87dffab",
+    date: "2026-10-19",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(drone): al-Dibab transport hub hit twice in deadly market-area strike",
+    body: [
+      "Drone package deployed near a market in al-Dibab, West Kordofan state.",
+      "",
+      "- Strikes: 2, 10 minutes apart",
+      "- Primary location: transport hub used by commuters returning to villages after market day",
+      "- Fatalities: 80",
+      "- Transported to al-Mujlad: 47",
+      "- Fatal injuries among transported: 30",
+      "- Additional al-Mujlad strike injured 4, currently receiving treatment",
+      "",
+      "The RSF-declared administration accused the army of carrying out the attack. Attribution remains unresolved.",
+      "",
+      "Ref: https://www.theguardian.com/world/2026/oct/19/drone-attack-market-al-dibab-west-kordofan-sudan",
+      "Status: one of the war's deadliest single strikes; drone usage continues to scale."
+    ].join("\n")
+  },
+  {
+    hash: "fd3aed7",
+    date: "2026-10-20",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(strike): drone strike hits Abyei market and fuel depot",
+    body: [
+      "Drone package deployed at Amiet Market in the disputed Abyei border region.",
+      "Impact: at least 153 people killed, with dozens also injured.",
+      "Secondary target: nearby fuel depot.",
+      "Fire status: still burning on Tuesday as the reported death toll continued to rise.",
+      "Attribution: local officials blamed Sudan's military; the Associated Press could not independently verify who carried out the attack.",
+      "Ref: https://www.france24.com/en/africa/20261020-more-than-150-killed-sudan-drone-strike-disputed-abyei-border-region",
+      "Status: casualty count remains active while incident investigation is pending."
+    ].join("\n")
+  },
+  {
+    hash: "24d7587",
+    date: "2026-10-20",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.example",
+    subject: "feat(strait): IRGC mines set two oil tankers ablaze",
+    body: [
+      "Mined deployment active in the southern Strait of Hormuz.",
+      "The IRGC said two oil tankers struck its mines and were set on fire and brought to a standstill.",
+      "Neither vessel was named and the precise location was not disclosed.",
+      "Route status: unauthorised passage, according to Tehran.",
+      "Threatened next release: expanded attacks on shipping and undersea internet cables in the Gulf.",
+      "IRGC spokesperson Hossein Mojabi also promised new weapons aimed at removing US military presence from the region.",
+      "A separate UKMTO incident 121 nautical miles east of Duqm resulted in no reported damage or casualties.",
+      "Ref: https://www.euronews.com/2026/10/20/irgc-mines-set-tankers-ablaze-as-tehran-threatens-expanded-attacks",
+      "Status: Strait of Hormuz transit remains in dispute."
+    ].join("\n")
   }
 ];
 
