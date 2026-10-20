@@ -105,10 +105,17 @@ fi
 
 mapfile -t PICKED < <("$PYTHON" -c '
 import json,sys
+sys.stdout.reconfigure(newline="\n")
 ranking = json.load(open(sys.argv[1], encoding="utf-8"))["ranking"][:int(sys.argv[2])]
 for s in ranking:
-    print(s["id"])
+    print(s["id"].strip())
 ' "$WORK/ranking.json" "$TOP")
+
+# Windows python writes CRLF, and command substitution keeps the carriage
+# return. Strip it so the ids match the ones in the candidates file.
+for i in "${!PICKED[@]}"; do
+  PICKED[$i]="${PICKED[$i]//$'\r'/}"
+done
 say "selected: ${PICKED[*]}"
 
 # --- 4. Write ----------------------------------------------------------------
@@ -119,6 +126,7 @@ for id in "${PICKED[@]}"; do
   if ! "$PYTHON" tools/write_entry.py --candidates "$WORK/candidates.json" \
       --candidate "$id" --out "$WORK/entry-$id.json" >> "$LOG" 2>&1; then
     say "  could not write $id, skipping it"
+    tail -4 "$LOG" | sed 's/^/    | /'
     rm -f "$WORK/entry-$id.json"
   fi
 done
@@ -132,6 +140,7 @@ fi
 
 mapfile -t ENTRIES < <("$PYTHON" -c '
 import glob, json, sys
+sys.stdout.reconfigure(newline="\n")
 rows = []
 for path in glob.glob(sys.argv[1] + "/entry-*.json"):
     with open(path, encoding="utf-8") as fh:
@@ -140,6 +149,10 @@ for path in glob.glob(sys.argv[1] + "/entry-*.json"):
 for _, path in sorted(rows):
     print(path)
 ' "$WORK")
+
+for i in "${!ENTRIES[@]}"; do
+  ENTRIES[$i]="${ENTRIES[$i]//$'\r'/}"
+done
 
 for entry_file in "${ENTRIES[@]}"; do
   "$PYTHON" tools/commitlog.py add --file "$entry_file" || die "refused $entry_file"
