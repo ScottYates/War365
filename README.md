@@ -154,10 +154,42 @@ them are checked by `python tools/collect_candidates.py --check-feeds`.
 
 ### Installing the news scan on the server
 
-The scan needs three things the web server does not: a MiniMax credential, a
-Python with Playwright, and a git identity that can push.
+One command does the lot, including asking for your MiniMax key:
 
-**1. Get a MiniMax key**
+```bash
+cd /opt/War365
+sudo ./scripts/install-scan.sh
+```
+
+It is safe to re-run. Every step is skipped if it is already done, so it
+doubles as the repair tool after a change. The full script is
+`scripts/install-scan.sh`; this is what it does.
+
+| Step | What it does |
+| --- | --- |
+| 1 | Checks the machine: root, git, ssh-keygen, systemd. |
+| 2 | Makes sure the checkout is at `/opt/War365`, and marks it safe for git. |
+| 3 | Creates the unprivileged `war365` account, `/etc/war365` and `/var/lib/war365`, and hands the checkout to the account so the scan can commit to it. |
+| 4 | **Asks for the MiniMax API key**, hidden, and confirms it. |
+| 5 | Writes `/etc/war365/minimax.env` from the template, root-owned, mode 0640. |
+| 6 | Generates a write-enabled deploy key, records the github.com host key, and either adds the deploy key through the API or prints it for you to paste in. Points `origin` at SSH so the push uses it. |
+| 7 | Creates a venv, installs Playwright and Chromium. |
+| 8 | Installs `war365-scan.service` and `war365-scan.timer`. |
+| 9 | Enables the timer, and prints what to do next. |
+
+Options:
+
+```bash
+sudo ./scripts/install-scan.sh --key KEY    # supply the key, do not prompt
+sudo ./scripts/install-scan.sh --yes        # never prompt, fail if there is no key
+sudo ./scripts/install-scan.sh --repo DIR    # checkout somewhere else
+```
+
+`MINIMAX_API_KEY` in the environment is used instead of prompting, and
+`GITHUB_TOKEN`, if set, lets step 6 register the deploy key through the API
+instead of printing it for you to paste in by hand.
+
+#### The key
 
 The scan calls the MiniMax API to rank the candidates and write the entries.
 Get a key from the MiniMax platform:
@@ -167,70 +199,73 @@ Get a key from the MiniMax platform:
 - M Plan seat: <https://platform.minimax.io/user-center/payment/token-plan>
   (Billing, M Plan, Subscription Key)
 
-Either one works. It is a long string. Keep it in the environment file and
-nowhere else.
+Either one works. It is a long string, and it goes in exactly one place:
 
-**2. Put the key where the service can read it**
+```
+/etc/war365/minimax.env      MINIMAX_API_KEY=your-key-here
+```
 
-The unit reads `/etc/war365/minimax.env`. It is a systemd `EnvironmentFile`:
-`KEY=value` pairs, no `export`, no shell substitution, and a value with
-spaces needs double quotes.
+Root owns the file, the `war365` group can read it, and nobody else can:
 
 ```bash
-sudo mkdir -p /etc/war365
-sudo cp deploy/war365-scan.env.example /etc/war365/minimax.env
-sudo nano /etc/war365/minimax.env      # paste the key into MINIMAX_API_KEY
-
 sudo chown root:war365 /etc/war365/minimax.env
 sudo chmod 0640 /etc/war365/minimax.env
 ```
 
-Root owns the file, the `war365` group can read it, and nobody else can. The
-tooling never prints the key and never writes it to disk. `deploy/war365-scan.env.example`
-documents every variable in the file.
+The tooling never prints the key and never writes it to disk.
+`deploy/war365-scan.env.example` documents every variable in the file, and
+the install script writes the file from that template, so the two cannot
+drift apart.
 
-**3. Give the scan a Python with Playwright**
-
-`tools/commitlog.py` parses `commits.js` with a real browser engine, so
-Playwright and Chromium have to be on the server.
-
-```bash
-sudo apt-get install -y python3 python3-venv
-sudo python3 -m venv /opt/War365/.venv
-sudo /opt/War365/.venv/bin/pip install -r test/requirements.txt
-sudo /opt/War365/.venv/bin/python -m playwright install --with-deps chromium
-```
-
-**4. Give it push access**
+#### The push key
 
 The scan commits and pushes its own work, so it needs a write-enabled deploy
-key rather than a personal one.
+key rather than a personal one. The install script generates it at
+`/etc/war365/scan_key` and either registers it through the GitHub API or
+prints the public key for you to add:
+
+**Settings, Deploy keys, Add deploy key**, with **Allow write access**
+ticked.
+
+#### Doing it by hand
+
+If you would rather not run the script, the same steps are:
 
 ```bash
+# 1. the service account and the directories
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin war365
+sudo mkdir -p /etc/war365 /var/lib/war365
+sudo chown -R war365:war365 /opt/War365 /var/lib/war365
+
+# 2. the credential
+sudo cp deploy/war365-scan.env.example /etc/war365/minimax.env
+sudo editor /etc/war365/minimax.env       # paste the key into MINIMAX_API_KEY
+sudo chown root:war365 /etc/war365/minimax.env
+sudo chmod 0640 /etc/war365/minimax.env
+
+# 3. a write-enabled deploy key
 sudo ssh-keygen -t ed25519 -N '' -f /etc/war365/scan_key
 sudo ssh-keyscan github.com > /etc/war365/known_hosts
 sudo chown root:war365 /etc/war365/scan_key /etc/war365/known_hosts
 sudo chmod 0640 /etc/war365/scan_key
-```
+# add /etc/war365/scan_key.pub to the repo as a deploy key, write access ticked
+git -C /opt/War365 remote set-url origin git@github.com:ScottYates/War365.git
 
-Add the contents of `/etc/war365/scan_key.pub` to the repository under
-**Settings, Deploy keys**, with **Allow write access** ticked. Nothing else
-in `/etc/war365` should be world readable.
+# 4. python and playwright
+sudo apt-get install -y python3 python3-venv
+sudo python3 -m venv /opt/War365/.venv
+sudo /opt/War365/.venv/bin/pip install -r test/requirements.txt
+sudo /opt/War365/.venv/bin/python -m playwright install --with-deps chromium
 
-**5. Install the units**
-
-```bash
-sudo mkdir -p /var/lib/war365
-sudo chown -R war365:war365 /opt/War365 /var/lib/war365
-sudo chmod +x /opt/War365/scripts/scan.sh
-
+# 5. the units
 sudo cp deploy/War365-scan.service /etc/systemd/system/war365-scan.service
 sudo cp deploy/War365-scan.timer   /etc/systemd/system/war365-scan.timer
+sudo chmod +x /opt/War365/scripts/scan.sh
 sudo systemctl daemon-reload
 sudo systemctl enable --now war365-scan.timer
 ```
 
-**6. Run it once by hand before trusting the timer**
+Then run it once by hand before trusting the timer:
 
 ```bash
 sudo systemctl start war365-scan
@@ -260,7 +295,7 @@ sudo systemctl edit war365-scan.timer
 # OnCalendar=*-*-* 06:30:00 America/Chicago
 ```
 
-**Tuning**
+#### Tuning
 
 `/etc/war365/minimax.env` carries the knobs:
 
@@ -276,7 +311,8 @@ sudo systemctl edit war365-scan.timer
 | `WAR365_SCAN_MIN_SCORE` | `60` | score the top candidate must beat |
 
 The environment file is read when the service starts, so a change lands on
-the next run without restarting anything.
+the next run without restarting anything. If a key is repeated in the file,
+the last value wins, so appending a setting overrides the template default.
 
 ### One writer, not two
 
@@ -408,6 +444,7 @@ For long-running local use, the scripts wrap the Go server:
 | `scripts/restart.sh` | Stop, build, start |
 | `scripts/update.sh` | `git pull --ff-only`, build, restart |
 | `scripts/scan.sh` | The news scan: collect, rank, write, verify, commit, push |
+| `scripts/install-scan.sh` | Installs the news scan on this machine, and asks for the MiniMax key |
 
 Set `WAR365_ADDR` to change the listen address (default `:8000`).
 

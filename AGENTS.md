@@ -156,8 +156,9 @@ python tools/write_entry.py --candidates c.json --candidate c01 --out e.json
 
 `scripts/scan.sh` runs the whole thing, in that order, and then commits and
 pushes. `deploy/War365-scan.service` and `deploy/War365-scan.timer` are the
-systemd units. The MiniMax credential lives in `/etc/war365/minimax.env`,
-root-owned and group-readable by `war365`. The README has the install steps.
+systemd units. `scripts/install-scan.sh` installs all of it on a server and
+asks for the MiniMax key. The key lives in `/etc/war365/minimax.env`,
+root-owned and group-readable by `war365`. The README has the details.
 
 The scorer sends the candidates, the subjects already in the log, and the
 relevance rubric to MiniMax, and prints the ranking with the top 3 marked.
