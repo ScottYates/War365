@@ -2,15 +2,15 @@
 
 > "Folks, it's not WW3, no matter what anyone says. After WW2, we moved away from official release versions and switched to a mandatory lifetime subscription model with endless updates instead."
 >
-> &mdash; @ztwang87
+> - @ztwang87
 >
 > "War365, now with Copilot."
 >
-> &mdash; @tino.munic
+> - @tino.munic
 
-A satirical single-page web site that riffs on the Microsoft 365 / Copilot meme by recasting real-world conflicts as if they were SaaS releases. The release history is the centrepiece: a fake git commit log that documents real events from 2022 to today, in the voice of an enterprise engineering team.
+A satirical single-page web site that riffs on the Microsoft 365 / Copilot meme by recasting real-world conflicts as if they were SaaS releases. The release history is the centerpiece: a fake git commit log that documents real events from 2022 to today, in the voice of an enterprise engineering team.
 
-This project lives at `C:\Users\Scott\.mavis\agents\coder\workspace\war365\`. It is its own root — not a subdirectory of `email-notetoself`.
+This project lives at `C:\Users\Scott\.mavis\agents\coder\workspace\war365\`. It is its own root, not a subdirectory of `email-notetoself`.
 
 ## Stack
 
@@ -69,7 +69,7 @@ scripts/update.sh    # git pull --ff-only + build + restart
 `build.sh` hands `bin/war365` to the `war365` service account so the systemd
 unit can execute it, but only when run as root *and* the account exists; local
 dev builds just say so and move on. Override the account with `WAR365_USER`.
-A failed chown is a warning, not a build failure — root-owned 0755 already
+A failed chown is a warning, not a build failure. Root-owned 0755 already
 satisfies the unit's needs.
 
 Set `WAR365_ADDR` to change the listen address (default `:8000`). `start.sh`,
@@ -157,7 +157,7 @@ job does not push them for you: it stops and reports instead.
 
 - Append new entries to `commits.js` (chronological order, newest at the end).
 - Use conventional commit prefixes: `feat`, `fix`, `chore`, `docs`. The legend and dot colors in the commit log infer from the prefix.
-- Real events only — keep the satire tethered to facts. Cite the real event in the body so future-me can verify.
+- Real events only. Keep the satire tethered to facts. Cite the real event in the body so future-me can verify.
 - The footer links to UNHCR, MSF, ICRC and Doctors Without Borders. Keep those; the joke doesn't punch at the aid orgs.
 
 ## What is real, what isn't
