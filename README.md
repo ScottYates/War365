@@ -89,15 +89,36 @@ the file is JavaScript.
 
 ### The news scan job
 
-A scheduled job runs daily at 07:00 America/Chicago. It scans the news for a
-real event worth an entry, appends it, verifies, commits and pushes to
-`origin/master`. Up to 3 entries per run, usually fewer, usually none: a
-routine strike is a patch note, not a release.
+A scheduled job runs daily at 07:00 America/Chicago. It scans the news for
+real conflict events worth entries, has MiniMax rank them, appends the
+winners, verifies, commits and pushes to `origin/master`.
+
+The pipeline: collect up to 20 candidates, score them with MiniMax, write the
+top 3 in voice, ship.
+
+```bash
+python tools/rank_candidates.py --file c.json --out ranking.json
+```
+
+The scorer sends the candidates, the subjects already in the log, and the
+relevance rubric to MiniMax, and prints the ranking with the top 3 marked.
+The rubric is the bar: a GA release, not a patch note. A new theatre, a
+ceasefire deployed or collapsing, a regime change, a first-of-kind strike, a
+record displacement figure, an attack on critical infrastructure. A routine
+strike, a diplomatic statement and an aid appeal are patch notes and score
+low.
+
+The scorer authenticates with the local MiniMax Code runtime, reading the
+provider `baseURL` from the runtime config and the access token from the
+runtime's auth store. Nothing is written to disk and no token is printed. It
+is stdlib only, because the runtime has no `httpx` and this has to run
+unattended.
 
 The full procedure lives in `tools/news-scan-prompt.md` so it can be reviewed
 and edited in the repo. The job stops without touching anything if the
-working tree is dirty or if `git pull --ff-only` fails, so it never stomps on
-work in progress.
+working tree is dirty, if `git pull --ff-only` fails, or if the scorer cannot
+reach MiniMax, so it never stomps on work in progress and never ships a log
+nobody scored.
 
 ## Checking a layout change
 

@@ -412,6 +412,76 @@ window.WAR365_COMMITS = [
       "Thanks, and remember to update your safety tier.",
       "— The War365 team"
     ].join("\n")
+  },
+  {
+    hash: "9c4e2b7",
+    date: "2026-10-15",
+    author: "nato.summit",
+    authorEmail: "ops@nato.example",
+    subject: "chore(ceasefire): energy truce v1 rolled back after 72 hours",
+    body: [
+      "Energy truce v1 ships 2026-10-11, brokered by the customer.",
+      "Scope: strikes on energy infrastructure, both directions.",
+      "",
+      "Uptime: 72 hours.",
+      "Rolled back by the customer, not by us.",
+      "",
+      "Compliance log:",
+      "- 2026-10-11 to 2026-10-14: Ukraine refrained from energy targets. Russia did not.",
+      "- 2026-10-15: Ukraine resumed, at the refineries.",
+      "",
+      "Load observed after the rollback:",
+      "- 850 drones and 39 missiles in a 24h window",
+      "- 30 energy targets across 19 regions",
+      "",
+      "Kremlin position: there was never an agreement, and there will be no ceasefire (Lavrov, 2026-10-15).",
+      "",
+      "Throttling: Ukraine restricted its own Starshield use on 2026-10-14.",
+      "",
+      "Ref: https://www.aljazeera.com/news/2026/10/16/ukraine-repels-russian-forces-as-us-support-wavers-energy-strikes-escalate",
+      "Ref: https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-october-15-2026/",
+      "",
+      "Closes: energy-truce#1 (won't fix)"
+    ].join("\n")
+  },
+  {
+    hash: "d70a3f5",
+    date: "2026-10-18",
+    author: "ci-bot",
+    authorEmail: "ops@war365.example",
+    subject: "feat(strike): largest drone attack on St. Petersburg hits oil terminal",
+    body: [
+      "Drone package delivered to St. Petersburg, the largest attack on the city since the war began.",
+      "Primary target: a major oil terminal. Other critical targets also hit.",
+      "",
+      "Host: Putin's hometown, still running.",
+      "Timing: after the energy truce was rolled back.",
+      "",
+      "Ref: https://www.fdd.org/overnight-brief/october-19-2026/"
+    ].join("\n")
+  },
+  {
+    hash: "b1d8c64",
+    date: "2026-10-19",
+    author: "houthi.media",
+    authorEmail: "ops@houthi.example",
+    subject: "feat(strike): Houthi missiles reach Saudi oilfields and airports",
+    body: [
+      "Missile package delivered to Saudi energy, airport and military targets.",
+      "",
+      "Targets:",
+      "- Yanbu, Aramco site",
+      "- Shaybah oilfield",
+      "- King Khalid Intl, Riyadh",
+      "- Abha airport",
+      "",
+      "Saudi Arabia brokered the 2022 truce. Now it is the target.",
+      "Mitigation: RAF jets on defensive rotations.",
+      "",
+      "Ref: https://www.newarab.com/news/diplomatic-visits-attempt-hold-all-out-us-iran-war",
+      "",
+      "Reopens: yemen-truce-2022#1"
+    ].join("\n")
   }
 ];
 

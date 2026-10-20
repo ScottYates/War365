@@ -6,11 +6,14 @@ carries only a short wrapper; this file is the procedure.
 War365 documents real-world conflicts as if they were SaaS releases. The
 centrepiece is `commits.js`: a fake git commit log where every entry
 describes one real conflict event in the voice of an enterprise engineering
-team. This job looks for an event worth a new entry, appends it, verifies it,
-and ships it.
+team. This job looks for the events worth a new entry, has MiniMax rank them
+for relevance, writes the winners in voice, and ships them.
 
-You are not writing the news. You are finding the one event in this week's
-news that the existing log would want to have shipped, and writing it the way
+The pipeline is: collect up to 20 candidates, score them with MiniMax, write
+the top 3, ship.
+
+You are not writing the news. You are finding the events in this week's news
+that the existing log would want to have shipped, and writing them the way
 the existing entries are written.
 
 ## 1. Preflight
@@ -42,7 +45,7 @@ python tools/commitlog.py check
 Read the last five entries in `commits.js`. They are your voice reference and
 your dedup list. Do not write a word before you have read them.
 
-## 3. Find candidates
+## 3. Collect up to 20 candidates
 
 Use `web_search` to look for events from the last 7 days across the theatres
 the log already tracks:
@@ -60,49 +63,81 @@ the log already tracks:
 - Korea
 - India and Pakistan
 
-For every candidate you must have actually opened a source and have its URL.
-A candidate you cannot source is not a candidate. Cross-check the date and the
-facts against one source, and against two if the event is contested or if a
-number in it matters. You may look further back than 7 days if a story is
-still developing and has not been logged.
+Collect **up to 20** candidates. Every candidate needs a real date, a real
+source URL you actually opened, one or two sentences of what happened, and
+the theatre it belongs to. Do not pad the list to hit 20. Twenty weak
+candidates score worse than five good ones, because the scorer has to rank
+them against each other.
 
-## 4. The bar
+You may look back further than 7 days if a story is still developing and has
+not been logged. You may not log an event dated before the last entry in the
+log: entries are appended newest last, so anything older is already out of
+reach. `tools/commitlog.py add` will refuse it.
 
-An event earns its place only if it is a discrete, datable, notable moment:
+Write the candidates as JSON, **outside the repository** (use the system temp
+directory; never write scratch files into the repo, the next run's dirty-tree
+check will trip over them):
 
-- a new theatre going GA, or a region carved out of another
-- a ceasefire deployed, or one collapsing
-- a regime or leadership change
-- a first-of-kind strike or operation
-- a record displacement or casualty figure
-- an attack on supply chains, infrastructure, or dual-use hardware
-- a peace deal signed, or a peace deal that collapses
+```json
+{
+  "candidates": [
+    {
+      "id": "c01",
+      "date": "2026-10-15",
+      "theatre": "Ukraine and Russia",
+      "headline": "one line, the event as it would be titled",
+      "summary": "one or two sentences, facts only, no judgement",
+      "url": "https://the-source-you-actually-opened"
+    }
+  ]
+}
+```
 
-These do **not** earn a place, however big: a routine strike, a diplomatic
-statement, a change to the terms of a ceasefire, a general's opinion, an aid
-appeal, a court ruling with no operational consequence, a "what if" scenario.
-Those are patch notes. A release history that logs patch notes is a changelog
-nobody reads.
+Ids are `c01`, `c02`, and so on, unique within the file.
 
-Also reject anything already in the log, even worded differently. A second
-entry for the same event is a bug, not a new release. Check the full list
-from step 2, and grep `commits.js` for the event's key terms (place names,
-weapon systems, organisations) before you commit to it.
+**Never write a URL you have not opened.** Never write a candidate you have
+not seen in a source. If you cannot verify an event, it is not a candidate.
+The scorer does not fact-check, and neither does the log. You are the only
+thing standing between the release history and a plausible invention.
 
-**Add at most 3 entries this run.** The cap is a limit, not a quota. The log
-holds 25 entries in four and a half years, about 5 a year, and a daily job
-with a cap of 3 has a ceiling of 78. If you are finding three qualifying
-events most days, you are lowering the bar. A run that adds nothing is a
-healthy run, and several in a row are normal.
+## 4. Score them with MiniMax
 
-## 5. Write the entry
+```
+python tools/rank_candidates.py --file <candidates.json> --out <ranking.json>
+```
+
+The tool sends the candidates, the subjects already in the log, and the
+rubric to MiniMax, and prints the ranking with the top 3 marked with a `*`.
+The rubric is in the tool. It scores an event on whether it would earn a
+line in a release history that reads like a git log of product launches: a
+new theatre going GA, a ceasefire deployed or one collapsing, a regime
+change, a first-of-kind strike, a record displacement figure, an attack on
+critical infrastructure. A routine strike, a diplomatic statement, an aid
+appeal and a general's opinion are patch notes, and patch notes score low.
+
+The tool authenticates with the local MiniMax Code runtime, reading the
+provider `baseURL` from the runtime config and the access token from the
+runtime's auth store. Nothing is written to disk and no token is printed.
+
+If it cannot reach MiniMax, **stop**. Report the error and add nothing. Do
+not fall back to picking candidates by eye. The score is the point of the
+step, and a run that skips it is not a run.
+
+**The top 3 by score are the ones you write up.** Read the reasons, they
+tell you what the scorer thought each event was, and they are worth
+disagreeing with: if the top scorer picked a diplomatic statement and the
+fourth pick is a genuine regime change, write the fourth. If the top score
+is below 60, nothing cleared the bar and you add nothing. A run that adds
+nothing is a healthy run, and several in a row are normal.
+
+## 5. Write the entries
 
 Match the existing voice exactly. Read the last five entries again if you are
 unsure. The rules that matter:
 
 - The subject is a conventional commit line: `feat(scope): what happened`,
   where the scope is the theatre or subsystem. Prefix from `feat`, `fix`,
-  `chore`, `docs`.
+  `chore`, `docs`. Reuse a scope the log already uses where it fits.
 - The body is a changelog. Features, breaking changes, latency, throughput,
   SLA, rollback status, ticket IDs. The joke is that real operational details
   (dates, places, casualty counts, weapon systems) are rendered as product
@@ -111,7 +146,8 @@ unsure. The rules that matter:
   zones, mostly).`
 - Real facts only, and only the ones your source states. Never invent a
   number, a date, a place, a name, or a quote. If your source says "more than
-  100", write `100+`, not `137`.
+  100", write `100+`, not `137`. If two sources disagree on a number, use
+  the more cautious one or leave the number out.
 - The body must carry the source URL on its own line, prefixed `Ref: `. The
   tool refuses entries without one.
 - ASCII only. No em-dashes, no curly quotes, no ellipsis characters, no
@@ -119,14 +155,19 @@ unsure. The rules that matter:
 - Dry, not cruel. The satire is aimed at the people running the war as a
   product and at the systems that let them. It is never aimed at the people
   being killed. No gore, no invented suffering, nobody's death as a
-  punchline. The existing entries are about process, not about victims. Keep
-  it that way.
+  punchline. Render casualties the way the log already does, in the
+  register of a metric or a hardware fault, and then move on to the
+  operational facts. The existing entries are about process, not about
+  victims. Keep it that way.
 - 4-space indent for the body array, 2-space for the object, matching the
   file.
+- The author handle is the actor responsible, in the same style as the
+  existing entries. Reuse an existing handle when the same actor ships
+  again. Use `ci-bot` for anything that is a report rather than an action by
+  a named party. Use a domain ending in `.example`.
 
-Write the entry as JSON, **outside the repository** (use the system temp
-directory; never write scratch files into the repo, the next run's dirty-tree
-check will trip over them):
+Write each entry as JSON, outside the repository, in the same shape as the
+candidates file but with the commit fields:
 
 ```json
 {
@@ -139,19 +180,14 @@ check will trip over them):
 }
 ```
 
-The author handle should be the actor responsible, in the same style as the
-existing entries. Use `ci-bot` for anything that is a report rather than an
-action by a named party. Use a domain ending in `.example`, like the
-existing entries.
-
 Only add `tag`, `headline`, `summary`, `breaking` and `chips` if the event
 genuinely is a GA release that should take over the hero card on the landing
 page. Usually it is not. Omit them.
 
-Then insert it:
+Then insert each one:
 
 ```
-python tools/commitlog.py add --file <path to the json>
+python tools/commitlog.py add --file <path to the entry json>
 ```
 
 The tool refuses bad input: wrong hash format, duplicate hash, duplicate
@@ -196,6 +232,7 @@ once.
 
 End with:
 
+- the ranking, top 3 first, with scores
 - each event you added, its date, and its source URL
 - the commit hash and the git commit id
 - the exact verification commands you ran and their result
@@ -203,5 +240,5 @@ End with:
 - if you added nothing: say the bar was not met, and name the candidates you
   rejected
 
-If the tree was dirty or the pull failed, say only that and what you found.
-Do not attempt a workaround.
+If the tree was dirty, the pull failed, or the scorer could not reach
+MiniMax, say only that and what you found. Do not attempt a workaround.
