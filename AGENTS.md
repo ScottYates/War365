@@ -19,12 +19,13 @@ Plain HTML, CSS, JavaScript. No framework, no build.
 ```
 index.html    # page structure
 styles.css    # Microsoft-365 marketing aesthetic
-commits.js    # fake release-history data (25 commits)
+commits.js    # fake release-history data (the release log)
 app.js        # render + filter the log
 main.go       # dev server (stdlib only, serves this directory)
 scripts/      # Linux helpers: build, start, stop, restart, update
 deploy/       # War365.service + War365.logrotate
 test/         # layout audit (Python + Playwright), not shipped with the site
+tools/        # release-log maintenance (Python + Playwright), not shipped
 ```
 
 ## Run
@@ -110,6 +111,47 @@ page that was never broken and a page that is now fixed look identical in a
 screenshot, so `--ab` is the part that carries the evidence. It swaps
 `index.html`, `styles.css` and `app.js` for an older revision, measures, and
 restores them in a `finally` block.
+
+## Adding to the release log
+
+`commits.js` is the source of truth for the release history. Do not hand-edit
+it. Use the tool, which validates the entry and refuses bad input:
+
+```bash
+python tools/commitlog.py list              # what is already covered
+python tools/commitlog.py check              # data integrity gate
+python tools/commitlog.py add --file e.json  # append one entry
+python tools/commitlog.py add --file e.json --dry-run
+python tools/commitlog.py verify             # the site still renders it
+```
+
+`add` refuses a wrong hash format, a duplicate hash or subject, a date
+earlier than the last entry or in the future, a subject that is not a
+conventional commit, a body with no source URL, and any non-ASCII character.
+It writes transactionally: the file is restored if the result fails to parse.
+
+The file is parsed with a real JavaScript engine (Chromium, via Playwright)
+rather than a regex. The file is JavaScript, and a regex is not a JavaScript
+parser.
+
+`check` reports pre-existing style problems as warnings rather than failures,
+so it can gate a commit without blocking on history. New entries are held to
+the stricter rule.
+
+### The news scan job
+
+A scheduled job runs daily at 07:00 America/Chicago. It scans the news for a
+real conflict event worth an entry, appends it, verifies, commits and pushes
+to `origin/master`. Up to 3 entries per run, usually fewer, usually none.
+
+The full procedure is `tools/news-scan-prompt.md`, version-controlled here so
+it can be reviewed and edited without recreating the job. The scheduled task
+carries only a short wrapper that points at it.
+
+The job stops without touching the tree if the working tree is dirty or if
+`git pull --ff-only` fails, so it can never stomp on work in progress. If
+your local `master` is ahead of `origin/master` with unpushed commits, the
+job does not push them for you: it stops and reports instead.
 
 ## Conventions
 

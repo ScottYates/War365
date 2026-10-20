@@ -63,7 +63,41 @@ War365/
   scripts/      # build, start, stop, restart, update (Linux)
   deploy/       # systemd unit + logrotate snippet (Linux)
   test/         # layout audit (Python + Playwright), not needed to serve
+  tools/        # release-log maintenance (Python + Playwright), not needed to serve
 ```
+
+## Adding an entry to the release log
+
+`commits.js` holds the release history: one entry per real conflict event,
+written in the voice of an enterprise engineering team. Do not hand-edit it.
+`tools/commitlog.py` validates an entry and refuses bad input:
+
+```bash
+python tools/commitlog.py list              # what is already covered
+python tools/commitlog.py check              # data integrity gate
+python tools/commitlog.py add --file e.json  # append one entry
+python tools/commitlog.py verify             # the site still renders it
+```
+
+`add` refuses a wrong hash format, a duplicate hash or subject, a date
+earlier than the last entry, a subject that is not a conventional commit, a
+body with no source URL, and any non-ASCII character. It writes
+transactionally, restoring the file if the result fails to parse.
+
+The file is parsed with a real JavaScript engine rather than a regex, because
+the file is JavaScript.
+
+### The news scan job
+
+A scheduled job runs daily at 07:00 America/Chicago. It scans the news for a
+real event worth an entry, appends it, verifies, commits and pushes to
+`origin/master`. Up to 3 entries per run, usually fewer, usually none: a
+routine strike is a patch note, not a release.
+
+The full procedure lives in `tools/news-scan-prompt.md` so it can be reviewed
+and edited in the repo. The job stops without touching anything if the
+working tree is dirty or if `git pull --ff-only` fails, so it never stomps on
+work in progress.
 
 ## Checking a layout change
 
