@@ -34,6 +34,12 @@ MIN_SCORE="${WAR365_SCAN_MIN_SCORE:-60}"
 
 LOG=""
 
+# UTF-8 mode, so the JSON reads below and the model output are decoded as
+# UTF-8 whatever the locale is. Without it a cp1252 or POSIX locale turns a
+# perfectly good candidates file into a UnicodeDecodeError.
+export PYTHONUTF8=1
+export PYTHONIOENCODING=utf-8
+
 say() {
   echo "$@"
   [[ -n "$LOG" ]] && echo "$@" >> "$LOG"
@@ -78,7 +84,7 @@ say "collecting candidates from the feeds (last $DAYS days)"
 "$PYTHON" tools/collect_candidates.py --days "$DAYS" --max 20 \
   --out "$WORK/candidates.json" || die "feed collection failed"
 
-COUNT=$("$PYTHON" -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["candidates"]))' "$WORK/candidates.json")
+COUNT=$("$PYTHON" -c 'import json,sys; print(len(json.load(open(sys.argv[1], encoding="utf-8"))["candidates"]))' "$WORK/candidates.json")
 say "collected $COUNT candidates"
 if [[ "$COUNT" -eq 0 ]]; then
   say "no candidates in the window. Nothing to do."
@@ -91,7 +97,7 @@ say "ranking with MiniMax"
 "$PYTHON" tools/rank_candidates.py --file "$WORK/candidates.json" \
   --out "$WORK/ranking.json" --top "$TOP" || die "the ranker could not reach MiniMax"
 
-BEST=$("$PYTHON" -c 'import json,sys; r=json.load(open(sys.argv[1]))["ranking"]; print(r[0]["score"] if r else 0)' "$WORK/ranking.json")
+BEST=$("$PYTHON" -c 'import json,sys; r=json.load(open(sys.argv[1], encoding="utf-8"))["ranking"]; print(r[0]["score"] if r else 0)' "$WORK/ranking.json")
 if ! "$PYTHON" -c 'import sys; sys.exit(0 if float(sys.argv[1]) >= float(sys.argv[2]) else 1)' "$BEST" "$MIN_SCORE"; then
   say "top score $BEST is below the bar of $MIN_SCORE. Nothing ships today."
   exit 0
@@ -99,7 +105,7 @@ fi
 
 mapfile -t PICKED < <("$PYTHON" -c '
 import json,sys
-ranking = json.load(open(sys.argv[1]))["ranking"][:int(sys.argv[2])]
+ranking = json.load(open(sys.argv[1], encoding="utf-8"))["ranking"][:int(sys.argv[2])]
 for s in ranking:
     print(s["id"])
 ' "$WORK/ranking.json" "$TOP")
