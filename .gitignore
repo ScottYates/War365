@@ -19,3 +19,7 @@ test/shots/
 
 # scratch commit message files
 /.commitmsg.tmp
+
+# python bytecode from the tools/ scripts
+__pycache__/
+*.pyc
