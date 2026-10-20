@@ -1,0 +1,39 @@
+# War365 news scan - systemd timer.
+#
+# Fires the scan once a day at 07:00 America/Chicago.
+#
+# Install:
+#   sudo cp deploy/War365-scan.timer /etc/systemd/system/war365-scan.timer
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now war365-scan.timer
+#
+# Check when it will next run:
+#   systemctl list-timers war365-scan.timer
+#
+# Run it now without waiting:
+#   sudo systemctl start war365-scan.service
+#
+# Change the time:
+#   sudo systemctl edit war365-scan.timer
+#   [Timer]
+#   OnCalendar=*-*-* 06:30:00 America/Chicago
+
+[Unit]
+Description=Run the War365 news scan daily
+Documentation=https://github.com/ScottYates/War365
+
+[Timer]
+OnCalendar=*-*-* 07:00:00 America/Chicago
+
+# If the machine was off at 07:00, run it at the next boot instead of
+# skipping the day.
+Persistent=true
+
+# Spread the start a little so a fleet of boxes does not all hit the feeds
+# and the model at the same second.
+RandomizedDelaySec=600
+
+Unit=war365-scan.service
+
+[Install]
+WantedBy=timers.target

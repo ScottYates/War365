@@ -1,0 +1,101 @@
+# War365 news scan - systemd unit.
+#
+# Scans the public news feeds, has MiniMax rank the candidates, writes the
+# top 3 as release-log entries, verifies, commits and pushes.
+#
+# Install:
+#   sudo useradd --system --no-create-home --shell /usr/sbin/nologin war365
+#   sudo mkdir -p /etc/war365 /var/lib/war365
+#   sudo chown -R war365:war365 /opt/War365 /var/lib/war365
+#
+#   # the MiniMax credential and git identity live here
+#   sudo cp deploy/war365-scan.env.example /etc/war365/minimax.env
+#   sudo editor /etc/war365/minimax.env
+#   sudo chown root:war365 /etc/war365/minimax.env
+#   sudo chmod 0640 /etc/war365/minimax.env
+#
+#   # a write-enabled deploy key, so the scan can push its commits
+#   sudo ssh-keygen -t ed25519 -N '' -f /etc/war365/scan_key
+#   sudo chown root:war365 /etc/war365/scan_key
+#   sudo chmod 0640 /etc/war365/scan_key
+#   # add the contents of /etc/war365/scan_key.pub to the repo as a deploy
+#   # key with "Allow write access" ticked
+#   sudo ssh-keyscan github.com > /etc/war365/known_hosts
+#   sudo chown root:war365 /etc/war365/known_hosts
+#
+#   # python and playwright
+#   sudo apt-get install -y python3 python3-venv
+#   sudo python3 -m venv /opt/War365/.venv
+#   sudo /opt/War365/.venv/bin/pip install -r test/requirements.txt
+#   sudo /opt/War365/.venv/bin/python -m playwright install --with-deps chromium
+#
+#   sudo cp deploy/War365-scan.service /etc/systemd/system/war365-scan.service
+#   sudo cp deploy/War365-scan.timer   /etc/systemd/system/war365-scan.timer
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now war365-scan.timer
+#
+# Run it once by hand before trusting the timer:
+#   sudo systemctl start war365-scan.service
+#   journalctl -u war365-scan -f
+#
+# Change the time without editing this file:
+#   sudo systemctl edit war365-scan.timer
+#   [Timer]
+#   OnCalendar=*-*-* 06:30:00 America/Chicago
+#
+# The unit writes to the repository, so ProtectSystem=strict is paired with
+# an explicit ReadWritePaths for the checkout and the scratch directory.
+
+[Unit]
+Description=War365 news scan and release-log update
+Documentation=https://github.com/ScottYates/War365
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=war365
+Group=war365
+WorkingDirectory=/opt/War365
+
+# HOME points at the state directory so git finds a writable config and
+# ssh finds its known_hosts. The war365 account is created with
+# --no-create-home.
+Environment=HOME=/var/lib/war365
+Environment=WAR365_PYTHON=/opt/War365/.venv/bin/python
+Environment=WAR365_SCAN_WORK=/var/lib/war365/scan
+
+# MINIMAX_API_KEY, MINIMAX_BASE_URL, the git identity and GIT_SSH_COMMAND.
+# The leading dash means the unit still starts if the file is missing, and
+# fails with a clear message instead of silently doing nothing.
+EnvironmentFile=-/etc/war365/minimax.env
+
+StateDirectory=war365
+StateDirectoryMode=0750
+
+ExecStart=/opt/War365/scripts/scan.sh
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=war365-scan
+
+# Hardening. The unit needs the network, the checkout and the scratch
+# directory, and nothing else.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+RestrictNamespaces=true
+LockPersonality=true
+SystemCallArchitectures=native
+ReadWritePaths=/opt/War365 /var/lib/war365
+
+# AF_NETLINK is required by the Go runtime, and AF_UNIX/AF_INET/AF_INET6 by
+# git, ssh and the http client.
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK

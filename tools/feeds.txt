@@ -1,0 +1,34 @@
+# News feeds for the War365 release-log scan.
+#
+# Format:  <feed url> | <theatre>
+# The theatre is optional. Leave it blank and the collector guesses from
+# keywords; it is only a hint for the writer, which refines it.
+#
+# Add or remove feeds freely. The collector keeps the newest items inside
+# the window, and the ranker only ever sees the first 20 of them.
+
+https://www.aljazeera.com/xml/rss/all.xml |
+https://www.theguardian.com/world/rss |
+https://feeds.bbci.co.uk/news/world/rss.xml |
+https://www.france24.com/en/rss |
+https://rss.dw.com/rdf/rss-en-world |
+https://www3.nhk.or.jp/rss/news/cat0.xml |
+https://feeds.skynews.com/feeds/rss/world.xml |
+https://www.euronews.com/rss?format=mrss&level=theme&name=news |
+https://www.newarab.com/rss |
+https://www.fdd.org/feed/ |
+https://www.bellingcat.com/feed/ |
+https://news.un.org/feed/subscribe/en/news/all/rss.xml |
+https://news.google.com/rss/search?q=when:24h+site:reuters.com/world&ceid=US:en&hl=en-US&gl=US |
+https://news.google.com/rss/search?q=when:24h+site:apnews.com&hl=en-US&gl=US&ceid=US:en |
+https://rss.nytimes.com/services/xml/rss/nyt/World.xml |
+https://www.timesofisrael.com/feed/ |
+https://www.jpost.com/rss/rssfeedsfrontpage.aspx |
+https://www.middleeasteye.net/rss |
+https://reliefweb.int/updates/rss.xml |
+https://www.africanews.com/feed/rss |
+https://www.kyivpost.com/feed | Ukraine and Russia
+https://thecradle.co/feed/ |
+https://mondoweiss.net/feed/ |
+https://www.independent.co.uk/news/world/rss |
+https://theconversation.com/global/articles.atom |

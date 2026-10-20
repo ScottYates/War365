@@ -60,11 +60,24 @@ War365/
   commits.js    # fake release-history data
   app.js        # render + filter the log
   main.go       # dev server
-  scripts/      # build, start, stop, restart, update (Linux)
-  deploy/       # systemd unit + logrotate snippet (Linux)
+  scripts/      # build, start, stop, restart, update, scan (Linux)
+  deploy/       # systemd units + logrotate snippet (Linux)
   test/         # layout audit (Python + Playwright), not needed to serve
-  tools/        # release-log maintenance (Python + Playwright), not needed to serve
+  tools/        # release-log pipeline (Python + Playwright), not needed to serve
 ```
+
+Inside `tools/`:
+
+| File | What it does |
+| --- | --- |
+| `commitlog.py` | validate, insert and render-check the log |
+| `collect_candidates.py` | pull the news feeds, fetch article text |
+| `rank_candidates.py` | score candidates with MiniMax, pick the top 3 |
+| `write_entry.py` | write an entry in voice, grounded in the source |
+| `minimax_client.py` | the MiniMax call, and where the credential comes from |
+| `voice.md` | the voice rules, in one place |
+| `feeds.txt` | the feed list |
+| `news-scan-prompt.md` | the full procedure for the agent-side job |
 
 ## Adding an entry to the release log
 
@@ -87,38 +100,194 @@ transactionally, restoring the file if the result fails to parse.
 The file is parsed with a real JavaScript engine rather than a regex, because
 the file is JavaScript.
 
-### The news scan job
+The voice rules live in `tools/voice.md`, in one place, so the writer and the
+job cannot drift apart.
 
-A scheduled job runs daily at 07:00 America/Chicago. It scans the news for
-real conflict events worth entries, has MiniMax rank them, appends the
-winners, verifies, commits and pushes to `origin/master`.
+## The news scan job
 
-The pipeline: collect up to 20 candidates, score them with MiniMax, write the
-top 3 in voice, ship.
+A scheduled job scans the public news for real conflict events worth a
+release-log entry, has MiniMax rank them, writes the winners in voice, and
+ships them. It runs unattended on the server.
 
-```bash
-python tools/rank_candidates.py --file c.json --out ranking.json
-```
+The pipeline, end to end:
 
-The scorer sends the candidates, the subjects already in the log, and the
-relevance rubric to MiniMax, and prints the ranking with the top 3 marked.
+| Step | Tool | What it does |
+| --- | --- | --- |
+| 1 | `collect_candidates.py` | Pulls the public news feeds, keeps the items that belong to a theatre the log covers, fetches the article text. Up to 20 candidates. |
+| 2 | `rank_candidates.py` | Sends the candidates, the subjects already in the log and the relevance rubric to MiniMax. Prints the ranking, marks the top 3. |
+| 3 | `write_entry.py` | Turns the winning candidates into entries, in voice, grounded in the source text. |
+| 4 | `commitlog.py` | Validates, inserts, and proves the site still renders. |
+| 5 | `scripts/scan.sh` | Wires it together, commits and pushes. |
+
 The rubric is the bar: a GA release, not a patch note. A new theatre, a
 ceasefire deployed or collapsing, a regime change, a first-of-kind strike, a
 record displacement figure, an attack on critical infrastructure. A routine
 strike, a diplomatic statement and an aid appeal are patch notes and score
 low.
 
-The scorer authenticates with the local MiniMax Code runtime, reading the
-provider `baseURL` from the runtime config and the access token from the
-runtime's auth store. Nothing is written to disk and no token is printed. It
-is stdlib only, because the runtime has no `httpx` and this has to run
-unattended.
+Nothing ships unless the top candidate beats `WAR365_SCAN_MIN_SCORE` (60 by
+default). A day where nothing clears the bar is a normal day.
 
-The full procedure lives in `tools/news-scan-prompt.md` so it can be reviewed
-and edited in the repo. The job stops without touching anything if the
-working tree is dirty, if `git pull --ff-only` fails, or if the scorer cannot
-reach MiniMax, so it never stomps on work in progress and never ships a log
-nobody scored.
+By hand:
+
+```bash
+export MINIMAX_API_KEY=...        # or source /etc/war365/minimax.env
+
+python tools/collect_candidates.py --days 3 --max 20 --out /tmp/c.json
+python tools/rank_candidates.py --file /tmp/c.json --out /tmp/r.json
+python tools/write_entry.py --candidates /tmp/c.json --candidate c01 --out /tmp/e.json
+python tools/commitlog.py add --file /tmp/e.json
+python tools/commitlog.py check && python tools/commitlog.py verify
+```
+
+`scripts/scan.sh` does all of that in the right order and then commits and
+pushes. On the server it is the whole job:
+
+```bash
+sudo systemctl start war365-scan
+journalctl -u war365-scan -f
+```
+
+The candidate list comes from `tools/feeds.txt`, one URL per line, with an
+optional theatre after a `|`. Twenty-five feeds are configured and all of
+them are checked by `python tools/collect_candidates.py --check-feeds`.
+
+### Installing the news scan on the server
+
+The scan needs three things the web server does not: a MiniMax credential, a
+Python with Playwright, and a git identity that can push.
+
+**1. Get a MiniMax key**
+
+The scan calls the MiniMax API to rank the candidates and write the entries.
+Get a key from the MiniMax platform:
+
+- pay-as-you-go: <https://platform.minimax.io/user-center/basic-information/interface-key>
+  (API Keys, Create new secret key)
+- M Plan seat: <https://platform.minimax.io/user-center/payment/token-plan>
+  (Billing, M Plan, Subscription Key)
+
+Either one works. It is a long string. Keep it in the environment file and
+nowhere else.
+
+**2. Put the key where the service can read it**
+
+The unit reads `/etc/war365/minimax.env`. It is a systemd `EnvironmentFile`:
+`KEY=value` pairs, no `export`, no shell substitution, and a value with
+spaces needs double quotes.
+
+```bash
+sudo mkdir -p /etc/war365
+sudo cp deploy/war365-scan.env.example /etc/war365/minimax.env
+sudo nano /etc/war365/minimax.env      # paste the key into MINIMAX_API_KEY
+
+sudo chown root:war365 /etc/war365/minimax.env
+sudo chmod 0640 /etc/war365/minimax.env
+```
+
+Root owns the file, the `war365` group can read it, and nobody else can. The
+tooling never prints the key and never writes it to disk. `deploy/war365-scan.env.example`
+documents every variable in the file.
+
+**3. Give the scan a Python with Playwright**
+
+`tools/commitlog.py` parses `commits.js` with a real browser engine, so
+Playwright and Chromium have to be on the server.
+
+```bash
+sudo apt-get install -y python3 python3-venv
+sudo python3 -m venv /opt/War365/.venv
+sudo /opt/War365/.venv/bin/pip install -r test/requirements.txt
+sudo /opt/War365/.venv/bin/python -m playwright install --with-deps chromium
+```
+
+**4. Give it push access**
+
+The scan commits and pushes its own work, so it needs a write-enabled deploy
+key rather than a personal one.
+
+```bash
+sudo ssh-keygen -t ed25519 -N '' -f /etc/war365/scan_key
+sudo ssh-keyscan github.com > /etc/war365/known_hosts
+sudo chown root:war365 /etc/war365/scan_key /etc/war365/known_hosts
+sudo chmod 0640 /etc/war365/scan_key
+```
+
+Add the contents of `/etc/war365/scan_key.pub` to the repository under
+**Settings, Deploy keys**, with **Allow write access** ticked. Nothing else
+in `/etc/war365` should be world readable.
+
+**5. Install the units**
+
+```bash
+sudo mkdir -p /var/lib/war365
+sudo chown -R war365:war365 /opt/War365 /var/lib/war365
+sudo chmod +x /opt/War365/scripts/scan.sh
+
+sudo cp deploy/War365-scan.service /etc/systemd/system/war365-scan.service
+sudo cp deploy/War365-scan.timer   /etc/systemd/system/war365-scan.timer
+sudo systemctl daemon-reload
+sudo systemctl enable --now war365-scan.timer
+```
+
+**6. Run it once by hand before trusting the timer**
+
+```bash
+sudo systemctl start war365-scan
+journalctl -u war365-scan -f
+```
+
+A successful run ends with `done: N entries added`. A run that finds nothing
+worth shipping says so and changes nothing. Both are good outcomes. A run
+that fails prints the reason it stopped, and the tree is left alone.
+
+Check the schedule:
+
+```bash
+systemctl list-timers war365-scan.timer
+```
+
+The timer fires daily at 07:00 America/Chicago, with up to ten minutes of
+randomised delay so a fleet of boxes does not all hit the feeds and the model
+at the same second. `Persistent=true` means a machine that was off at 07:00
+runs the scan at the next boot instead of skipping the day.
+
+Change the time without editing the unit:
+
+```bash
+sudo systemctl edit war365-scan.timer
+# [Timer]
+# OnCalendar=*-*-* 06:30:00 America/Chicago
+```
+
+**Tuning**
+
+`/etc/war365/minimax.env` carries the knobs:
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `MINIMAX_API_KEY` | none | required. The MiniMax credential. |
+| `MINIMAX_BASE_URL` | `https://api.minimax.io/anthropic` | the endpoint |
+| `MINIMAX_AUTH_STYLE` | `bearer` | `bearer` or `x-api-key` |
+| `MINIMAX_MODEL` | `MiniMax-M3.1-Flash` | the ranking and writing model |
+| `MINIMAX_EFFORT` | `low` | thinking effort |
+| `WAR365_SCAN_TOP` | `3` | entries one run may add |
+| `WAR365_SCAN_DAYS` | `3` | how far back to look |
+| `WAR365_SCAN_MIN_SCORE` | `60` | score the top candidate must beat |
+
+The environment file is read when the service starts, so a change lands on
+the next run without restarting anything.
+
+### One writer, not two
+
+The server job is the only thing that should write to `commits.js` on a
+schedule. If you also run the agent-side job from the desktop runtime, pause
+it first: two writers pushing to the same branch will collide, and the second
+one will stop with a failed pull rather than clobber the first.
+
+The agent-side job reads `tools/news-scan-prompt.md`, which carries the same
+bar and the same voice rules, and is useful for writing an entry by hand when
+the server is down.
 
 ## Checking a layout change
 
@@ -238,6 +407,7 @@ For long-running local use, the scripts wrap the Go server:
 | `scripts/stop.sh` | Stops by pid, escalates to `SIGKILL` after 5s |
 | `scripts/restart.sh` | Stop, build, start |
 | `scripts/update.sh` | `git pull --ff-only`, build, restart |
+| `scripts/scan.sh` | The news scan: collect, rank, write, verify, commit, push |
 
 Set `WAR365_ADDR` to change the listen address (default `:8000`).
 
@@ -251,6 +421,9 @@ exists, so on a dev box it just prints a note and leaves the binary alone. Set
 tail -f .war365.log         # follow the log
 ./scripts/stop.sh
 ```
+
+`scan.sh` is the only script that writes to `commits.js`. It refuses to run
+against a dirty tree, and it needs `MINIMAX_API_KEY` in the environment.
 
 ## Donate
 

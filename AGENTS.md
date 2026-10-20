@@ -140,37 +140,52 @@ the stricter rule.
 
 ### The news scan job
 
-A scheduled job runs daily at 07:00 America/Chicago. It scans the news for
-real conflict events worth entries, has MiniMax rank them, appends the
-winners, verifies, commits and pushes to `origin/master`.
+A scheduled job runs daily at 07:00 America/Chicago on the server. It scans
+the public news feeds for real conflict events worth entries, has MiniMax
+rank them, writes the winners in voice, verifies, commits and pushes to
+`origin/master`.
 
 The pipeline: collect up to 20 candidates, score them with MiniMax, write the
 top 3 in voice, ship.
 
 ```bash
+python tools/collect_candidates.py --days 3 --max 20 --out c.json
 python tools/rank_candidates.py --file c.json --out ranking.json
+python tools/write_entry.py --candidates c.json --candidate c01 --out e.json
 ```
+
+`scripts/scan.sh` runs the whole thing, in that order, and then commits and
+pushes. `deploy/War365-scan.service` and `deploy/War365-scan.timer` are the
+systemd units. The MiniMax credential lives in `/etc/war365/minimax.env`,
+root-owned and group-readable by `war365`. The README has the install steps.
 
 The scorer sends the candidates, the subjects already in the log, and the
 relevance rubric to MiniMax, and prints the ranking with the top 3 marked.
 The rubric is the bar from "Conventions" below, written out as a scoring
 instruction: a GA release, not a patch note.
 
-It authenticates with the local MiniMax Code runtime, reading the provider
-`baseURL` from the runtime config and the access token from the runtime's
-auth store. Nothing is written to disk and no token is printed. Stdlib only,
-because the runtime has no `httpx` and this has to run unattended. If it
-cannot reach MiniMax the run stops rather than falling back to picking
-candidates by eye.
+The writer is given the voice rules from `tools/voice.md`, the candidate, and
+the source text, and is told to use no fact that is not in the source. Its
+output goes through the same validator as a hand-written entry, so a
+malformed one is refused before it can reach the log.
 
-The full procedure is `tools/news-scan-prompt.md`, version-controlled here so
-it can be reviewed and edited without recreating the job. The scheduled task
-carries only a short wrapper that points at it.
+Credentials come from `MINIMAX_API_KEY` in the environment on the server, and
+from the local MiniMax Code runtime on a desktop. Nothing is written to disk
+and no credential is ever printed. Stdlib only, because the runtime has no
+`httpx` and this has to run unattended. If it cannot reach MiniMax the run
+stops rather than falling back to picking candidates by eye.
+
+The full procedure for the agent-side job is `tools/news-scan-prompt.md`,
+version-controlled here so it can be reviewed and edited without recreating
+the job.
 
 The job stops without touching the tree if the working tree is dirty or if
 `git pull --ff-only` fails, so it can never stomp on work in progress. If
 your local `master` is ahead of `origin/master` with unpushed commits, the
 job does not push them for you: it stops and reports instead.
+
+Only one writer at a time. The server job and the agent-side job both push to
+`origin/master`, so do not run both against the same branch.
 
 ## Conventions
 
