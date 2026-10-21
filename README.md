@@ -10,7 +10,7 @@
 
 A satirical single-page web site that riffs on the Microsoft 365 / Copilot meme by recasting real-world conflicts as if they were SaaS releases. The release history is the centerpiece: a fake git commit log that documents real events from 2022 to today, in the voice of an enterprise engineering team.
 
-Nothing here is real. The conflicts it documents are. Please donate.
+Nothing here is real. The conflicts it documents are. Please donate to the victims.
 
 ## Stack
 
