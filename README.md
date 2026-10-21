@@ -176,13 +176,19 @@ doubles as the repair tool after a change. The full script is
 | --- | --- |
 | 1 | Checks the machine: root, git, ssh-keygen, systemd. |
 | 2 | Makes sure the checkout is at `/opt/War365`, and marks it safe for git. |
-| 3 | Creates the unprivileged `war365` account, `/etc/war365` and `/var/lib/war365`, and hands the checkout to the account so the scan can commit to it. |
+| 3 | Creates the unprivileged `war365` account, `/etc/war365` and `/var/lib/war365`, and hands the checkout to the account so the scan can commit to it. The checkout is shared with the `war365` group, so a pull as root does not leave files the service account cannot write. |
 | 4 | **Asks for the MiniMax API key**, hidden, and confirms it. |
-| 5 | Writes `/etc/war365/minimax.env` from the template, root-owned, mode 0640. |
+| 5 | Writes `/etc/war365/minimax.env` from the template, root-owned, mode 0640, and keeps the key and the browser path in it up to date. |
 | 6 | Generates a write-enabled deploy key, records the github.com host key, and either adds the deploy key through the API or prints it for you to paste in. Points `origin` at SSH so the push uses it, then proves the key can push. |
-| 7 | Creates a venv, installs Playwright and Chromium into `/var/lib/war365/browsers`, and proves a browser starts as the `war365` account, both on its own and inside the unit's sandbox. |
+| 7 | Creates a venv, installs Playwright and Chromium into `/var/lib/war365/browsers`. |
 | 8 | Installs `war365-scan.service` and `war365-scan.timer`. |
-| 9 | Enables the timer, and prints what to do next. |
+| 9 | Proves the toolchain: a browser starts as the `war365` account, and again inside the unit's own sandbox. |
+| 10 | Enables the timer, and prints what to do next. |
+
+The units are installed before the checks in step 9, on purpose. A check
+that stops the install half way leaves the machine with the old unit still
+deployed and the new one missing, which is harder to reason about than a
+complete install with a warning on it. The checks report, they do not abort.
 
 Options:
 
@@ -293,6 +299,8 @@ sudo chown -R war365:war365 /opt/War365 /var/lib/war365
 # 2. the credential
 sudo cp deploy/war365-scan.env.example /etc/war365/minimax.env
 sudo editor /etc/war365/minimax.env       # paste the key into MINIMAX_API_KEY
+# and point the browser at the directory below
+sudo printf 'PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers\n' >> /etc/war365/minimax.env
 sudo chown root:war365 /etc/war365/minimax.env
 sudo chmod 0640 /etc/war365/minimax.env
 
@@ -306,8 +314,8 @@ git -C /opt/War365 remote set-url origin git@github.com:ScottYates/War365.git
 
 # 4. python and playwright
 # The browser goes in /var/lib/war365/browsers, not in root's cache. The
-# unit points PLAYWRIGHT_BROWSERS_PATH at that directory, because the
-# service account cannot read /root.
+# unit and the environment file both point PLAYWRIGHT_BROWSERS_PATH at that
+# directory, because the service account cannot read /root.
 sudo apt-get install -y python3 python3-venv
 sudo python3 -m venv /opt/War365/.venv
 sudo /opt/War365/.venv/bin/pip install -r test/requirements.txt
@@ -364,7 +372,7 @@ It prints the account it is running as, the directory it expects the browser
 in, and the exact executable that is missing if it is missing. The usual
 cause is a browser installed as root, which lands in `/root/.cache` where the
 service account cannot see it. The fix is to install it into the directory
-the unit points at:
+the service reads:
 
 ```bash
 sudo PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers \
@@ -372,10 +380,48 @@ sudo PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers \
 sudo chown -R war365:war365 /var/lib/war365/browsers
 ```
 
+If the doctor says `PLAYWRIGHT_BROWSERS_PATH is not set`, the service is
+running with a unit file that predates it, and it is looking in the default
+cache under `/var/lib/war365/.cache`. Either reinstall the unit, or write the
+path into the environment file, which the service reads every time it starts
+and which therefore wins over an older unit:
+
+```bash
+sudo /opt/War365/.venv/bin/python /opt/War365/scripts/write-scan-env.py \
+  --file /etc/war365/minimax.env \
+  --set PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers
+sudo chown root:war365 /etc/war365/minimax.env
+sudo chmod 0640 /etc/war365/minimax.env
+sudo systemctl restart war365-scan.service
+```
+
 `scripts/install-scan.sh` does all of that, and then proves the browser
 starts as the service account, both on its own and inside the unit's
 sandbox, before it enables the timer. Re-running it is safe: it reuses the
 key, the venv and the push key, and only redoes what is missing.
+
+#### Updating the checkout
+
+`git pull` works in the checkout from any shell, as root included. The
+checkout is shared with the `war365` group, so a pull as root leaves files
+the service account can still write, and the scan keeps working:
+
+```bash
+git -C /opt/War365 pull
+git -C /opt/War365 status
+```
+
+To keep the ownership exactly as it is, pull as the service account:
+
+```bash
+sudo -u war365 env HOME=/var/lib/war365 git -C /opt/War365 pull
+```
+
+Note that the scan pulls for itself at the start of every run, so the
+checkout is never more than a day behind. The unit file in
+`/etc/systemd/system` is a copy, though: after a change to
+`deploy/War365-scan.service`, re-run `scripts/install-scan.sh` or install the
+file by hand.
 
 The timer fires daily at 07:00 America/Chicago, with up to ten minutes of
 randomised delay so a fleet of boxes does not all hit the feeds and the model

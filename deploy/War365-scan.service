@@ -69,7 +69,11 @@ Environment=WAR365_SCAN_WORK=/var/lib/war365/scan
 # the package that drives it, and it lands in a per-user cache. An install
 # done as root would put it where this account cannot see it, so it goes in
 # one fixed directory that both the installer and this unit point at. The
-# installer reads this line, so the two cannot drift apart.
+# installer reads this line, so the two cannot drift.
+#
+# /etc/war365/minimax.env carries the same value, and an EnvironmentFile
+# overrides an Environment line, so the service finds the browser even if
+# this unit file has not been reinstalled.
 Environment=PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers
 
 # MINIMAX_API_KEY, MINIMAX_BASE_URL, the git identity and GIT_SSH_COMMAND.

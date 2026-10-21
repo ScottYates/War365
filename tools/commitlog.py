@@ -518,6 +518,21 @@ def cmd_verify(args):
 # ---------------------------------------------------------------- doctor
 
 
+def default_browsers_path():
+    """Where Playwright puts the browser when PLAYWRIGHT_BROWSERS_PATH is unset.
+
+    Same rule the Playwright package uses: XDG_CACHE_HOME or ~/.cache on
+    Linux, ~/Library/Caches on macOS, LOCALAPPDATA on Windows.
+    """
+    if sys.platform == "win32":
+        base = os.environ.get("LOCALAPPDATA") or os.path.expanduser("~")
+        return os.path.join(base, "ms-playwright")
+    if sys.platform == "darwin":
+        return os.path.join(os.path.expanduser("~"), "Library", "Caches", "ms-playwright")
+    base = os.environ.get("XDG_CACHE_HOME") or os.path.join(os.path.expanduser("~"), ".cache")
+    return os.path.join(base, "ms-playwright")
+
+
 def cmd_doctor(args):
     """Prove the toolchain works here, and say what to do when it does not.
 
@@ -545,8 +560,12 @@ def cmd_doctor(args):
     print("playwright  :", version)
 
     browsers = os.environ.get("PLAYWRIGHT_BROWSERS_PATH")
-    print("browsers    :", browsers or "(default, $HOME/.cache/ms-playwright)")
     home = os.environ.get("HOME") or os.path.expanduser("~")
+    if browsers:
+        print("browsers    :", browsers)
+    else:
+        print("browsers    : (PLAYWRIGHT_BROWSERS_PATH is not set)")
+        print("              the default is", default_browsers_path())
     print("home        :", home)
     who = (
         os.environ.get("USER")
@@ -568,13 +587,16 @@ def cmd_doctor(args):
         print("")
         print("  The release-log tooling parses commits.js with a real browser,")
         print("  so there is nothing to do until one starts here. Install it")
-        print("  into the path this account reads:")
+        print("  into the directory this account reads:")
         print("")
         if browsers:
             print(f"    PLAYWRIGHT_BROWSERS_PATH={browsers} \\")
             print(f"      {sys.executable} -m playwright install chromium")
         else:
             print(f"    {sys.executable} -m playwright install chromium")
+            print("")
+            print("  Run it as the account the service uses, with the same HOME,")
+            print("  so it lands in the cache that account reads.")
         print("")
         print("  scripts/install-scan.sh does that, and then checks it as the")
         print("  service account, which is where it actually has to run.")

@@ -137,11 +137,14 @@ parser.
 
 That browser is a separate download from the package that drives it, and it
 lands in a per-user cache. On the server it lives in
-`/var/lib/war365/browsers`, and the unit points `PLAYWRIGHT_BROWSERS_PATH`
-at that directory, because a browser installed as root lands in `/root/.cache`
-where the service account cannot see it. `doctor` reports the paths and
-proves a browser starts. The scan runs it before it spends a model call, so
-a missing browser is one clear line rather than three stack traces.
+`/var/lib/war365/browsers`, named by both the unit and
+`/etc/war365/minimax.env`, because a browser installed as root lands in
+`/root/.cache` where the service account cannot see it. The environment
+file wins over the unit, because systemd reads it every time the service
+starts, so a unit that has not been reinstalled still finds the browser.
+`doctor` reports the paths and proves a browser starts. The scan runs it
+before it spends a model call, so a missing browser is one clear line
+rather than three stack traces.
 
 `check` reports pre-existing style problems as warnings rather than failures,
 so it can gate a commit without blocking on history. New entries are held to

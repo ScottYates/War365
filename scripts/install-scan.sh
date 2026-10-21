@@ -33,10 +33,11 @@ KNOWN_HOSTS="$CONF_DIR/known_hosts"
 UNIT_NAME="war365-scan"
 REPO_URL="${WAR365_REPO_URL:-https://github.com/ScottYates/War365.git}"
 SSH_REMOTE="${WAR365_SSH_REMOTE:-git@github.com:ScottYates/War365.git}"
-STEPS=9
+STEPS=10
 
 KEY=""
 ASSUME_YES=0
+BROWSERS_DIR=""
 
 if [[ -t 1 ]]; then
   BOLD=$'\033[1m'; DIM=$'\033[2m'; OFF=$'\033[0m'
@@ -91,6 +92,16 @@ if [[ "$REPO_DIR" != "$SOURCE_DIR" ]]; then
   install -m 0644 "$SOURCE_DIR/deploy/war365-scan.env.example" "$REPO_DIR/deploy/"
 fi
 git config --global --add safe.directory "$REPO_DIR" 2>/dev/null || true
+[[ -d "$REPO_DIR/.git" ]] && git config --global --add safe.directory "$REPO_DIR/.git" 2>/dev/null || true
+
+# Where the browser lives. The unit is the source of truth for it, and the
+# environment file carries the same value, because the environment file is
+# read every time the service starts. That way a unit that has not been
+# reinstalled still points at the right place.
+BROWSERS_DIR="$(sed -n 's/^Environment=PLAYWRIGHT_BROWSERS_PATH=//p' \
+  "$REPO_DIR/deploy/War365-scan.service" | head -1)"
+BROWSERS_DIR="${BROWSERS_DIR:-$STATE_DIR/browsers}"
+info "the browser goes in $BROWSERS_DIR"
 
 # --- 3 -----------------------------------------------------------------------
 
@@ -105,6 +116,15 @@ install -d -m 0750 -o "$SVC_USER" -g "$SVC_USER" "$STATE_DIR"
 install -d -m 0750 -o root -g "$SVC_USER" "$CONF_DIR"
 chown -R "$SVC_USER":"$SVC_USER" "$REPO_DIR"
 info "the checkout now belongs to $SVC_USER, so the scan can commit to it"
+
+# A pull run as root would otherwise leave root-owned files behind, and the
+# scan writes commits.js as $SVC_USER. Sharing the group and setting the
+# setgid bit on the directories means a root pull leaves files the service
+# account can still write, so root can update the box without breaking the
+# job that runs on it.
+git -C "$REPO_DIR" config --local core.sharedRepository group
+find "$REPO_DIR" -type d -exec chmod g+s {} + 2>/dev/null || true
+info "the checkout is shared with the $SVC_USER group, so a pull as root is safe"
 
 # --- 4 -----------------------------------------------------------------------
 
@@ -140,14 +160,7 @@ info "the key is ${#KEY} characters long"
 step 5 "The environment file"
 install -d -m 0750 -o root -g "$SVC_USER" "$CONF_DIR"
 if [[ -f "$ENV_FILE" ]]; then
-  info "updating the key in the existing $ENV_FILE"
-  python3 - "$ENV_FILE" "$KEY" <<'PY'
-import re, sys
-path, key = sys.argv[1], sys.argv[2]
-text = open(path, encoding="utf-8").read()
-text = re.sub(r"(?m)^MINIMAX_API_KEY=.*$", "MINIMAX_API_KEY=" + key, text)
-open(path, "w", encoding="utf-8").write(text)
-PY
+  info "updating the existing $ENV_FILE"
 else
   info "writing $ENV_FILE from the template"
   python3 - "$REPO_DIR/deploy/war365-scan.env.example" "$ENV_FILE" "$KEY" <<'PY'
@@ -158,9 +171,18 @@ text = text.replace("MINIMAX_API_KEY=PASTE_YOUR_KEY_HERE", "MINIMAX_API_KEY=" + 
 open(dst, "w", encoding="utf-8").write(text)
 PY
 fi
+
+# The key and the browser path are the two settings this script owns. Write
+# them whatever the file looked like before, so a re-run repairs a stale
+# file instead of leaving it alone. The file is never printed, because it
+# holds the key.
+python3 "$REPO_DIR/scripts/write-scan-env.py" --file "$ENV_FILE" \
+  --set "MINIMAX_API_KEY=$KEY" \
+  --set "PLAYWRIGHT_BROWSERS_PATH=$BROWSERS_DIR" >/dev/null
 chown root:"$SVC_USER" "$ENV_FILE"
 chmod 0640 "$ENV_FILE"
 info "the file is root-owned, group $SVC_USER, mode 0640. The key is never logged."
+info "the service reads the browser path from $ENV_FILE, so it works even with an older unit file"
 
 # --- 6 -----------------------------------------------------------------------
 
@@ -253,6 +275,7 @@ fi
 if [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != "root" ]]; then
   sudo -u "$SUDO_USER" git config --global --add safe.directory "$REPO_DIR" 2>/dev/null \
     || warn "could not mark $REPO_DIR safe for $SUDO_USER. Run: sudo -u $SUDO_USER git config --global --add safe.directory $REPO_DIR"
+  sudo -u "$SUDO_USER" git config --global --add safe.directory "$REPO_DIR/.git" 2>/dev/null || true
 else
   info "the checkout is marked safe for root"
 fi
@@ -288,26 +311,39 @@ info "installed playwright"
 
 # The browser is a separate download from the package that drives it, and it
 # lands in a per-user cache. An install run as root puts it in /root/.cache,
-# which the service account cannot read, so the browser goes in one fixed
-# directory that the unit points at as well. The unit is the source of
-# truth for the path: read it from there so the two cannot drift apart.
-BROWSERS_DIR="$(sed -n 's/^Environment=PLAYWRIGHT_BROWSERS_PATH=//p' \
-  "$REPO_DIR/deploy/War365-scan.service" | head -1)"
-BROWSERS_DIR="${BROWSERS_DIR:-/var/lib/war365/browsers}"
+# which the service account cannot read, so the browser goes in the one
+# directory that the unit and the environment file both name.
 install -d -m 0755 -o "$SVC_USER" -g "$SVC_USER" "$BROWSERS_DIR"
 PLAYWRIGHT_BROWSERS_PATH="$BROWSERS_DIR" \
   "$REPO_DIR/.venv/bin/python" -m playwright install --with-deps chromium
 chown -R "$SVC_USER":"$SVC_USER" "$BROWSERS_DIR"
 info "installed chromium into $BROWSERS_DIR"
 
-# An install the service cannot use is not an install. Prove the browser
-# starts as the account the unit runs as, with that account's HOME, before
-# the timer is ever enabled.
-if ! sudo -u "$SVC_USER" env HOME="$STATE_DIR" PLAYWRIGHT_BROWSERS_PATH="$BROWSERS_DIR" \
+# --- 8 -----------------------------------------------------------------------
+
+step 8 "The systemd units"
+install -m 0644 "$REPO_DIR/deploy/War365-scan.service" "/etc/systemd/system/$UNIT_NAME.service"
+install -m 0644 "$REPO_DIR/deploy/War365-scan.timer"   "/etc/systemd/system/$UNIT_NAME.timer"
+systemctl daemon-reload
+info "installed $UNIT_NAME.service and $UNIT_NAME.timer"
+
+# --- 9 -----------------------------------------------------------------------
+
+step 9 "Proving the toolchain"
+#
+# The units are installed before this, on purpose. A check that stops the
+# install half way leaves the machine in a state where the old unit is
+# still deployed and the new one is not, which is harder to reason about
+# than a complete install with a warning on it. So these checks report,
+# they do not abort.
+
+if sudo -u "$SVC_USER" env HOME="$STATE_DIR" PLAYWRIGHT_BROWSERS_PATH="$BROWSERS_DIR" \
      "$REPO_DIR/.venv/bin/python" "$REPO_DIR/tools/commitlog.py" doctor; then
-  die "the browser does not start for $SVC_USER. The doctor above says why."
+  info "the browser starts for $SVC_USER"
+else
+  warn "the browser does not start for $SVC_USER. The doctor above says why."
+  warn "the scan will stop at its own doctor until this is fixed."
 fi
-info "the browser starts for $SVC_USER"
 
 # And once more inside the unit's own sandbox, because that is where it
 # actually has to run. The properties below are the ones the unit sets.
@@ -335,23 +371,18 @@ if command -v systemd-run >/dev/null 2>&1 && systemd-run --quiet --wait --pipe /
       "$REPO_DIR/.venv/bin/python" "$REPO_DIR/tools/commitlog.py" doctor; then
     info "the browser starts inside the unit's sandbox"
   else
-    die "the browser does not start inside the unit's sandbox. The doctor above says why, and the unit would fail the same way."
+    warn "the browser does not start inside the unit's sandbox."
+    warn "The doctor above says why. The unit has the same hardening, so the"
+    warn "scan will fail the same way until the setting that blocks it is"
+    warn "relaxed in $UNIT_NAME.service."
   fi
 else
   warn "systemd-run is not usable here, so the sandbox was not tested. Start the unit by hand and watch it: systemctl start $UNIT_NAME.service"
 fi
 
-# --- 8 -----------------------------------------------------------------------
+# --- 10 ----------------------------------------------------------------------
 
-step 8 "The systemd units"
-install -m 0644 "$REPO_DIR/deploy/War365-scan.service" "/etc/systemd/system/$UNIT_NAME.service"
-install -m 0644 "$REPO_DIR/deploy/War365-scan.timer"   "/etc/systemd/system/$UNIT_NAME.timer"
-systemctl daemon-reload
-info "installed $UNIT_NAME.service and $UNIT_NAME.timer"
-
-# --- 9 -----------------------------------------------------------------------
-
-step 9 "The timer"
+step 10 "The timer"
 systemctl enable --now "$UNIT_NAME.timer"
 info "the timer is enabled and will fire daily at 07:00 America/Chicago"
 
@@ -369,6 +400,10 @@ echo
 info "Git in this checkout, from any shell:"
 info "  git -C $REPO_DIR pull"
 info "  git -C $REPO_DIR status"
+echo
+info "As root that works, and the files stay writable by $SVC_USER, so the"
+info "scan can still commit. To keep the ownership exactly as it is:"
+info "  sudo -u $SVC_USER env HOME=$STATE_DIR git -C $REPO_DIR pull"
 echo
 info "Files:"
 info "  $ENV_FILE   the key and the settings"
