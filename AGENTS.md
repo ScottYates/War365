@@ -194,10 +194,14 @@ The full procedure for the agent-side job is `tools/news-scan-prompt.md`,
 version-controlled here so it can be reviewed and edited without recreating
 the job.
 
-The job stops without touching the tree if the working tree is dirty or if
-`git pull --ff-only` fails, so it can never stomp on work in progress. If
-your local `master` is ahead of `origin/master` with unpushed commits, the
-job does not push them for you: it stops and reports instead.
+The job stops without touching the tree if a tracked file has uncommitted
+changes, or if `git pull --ff-only` fails, so it can never stomp on work in
+progress. An untracked file is reported and the run continues: the scan
+writes `commits.js` and commits nothing else, so a leftover backup cannot be
+clobbered by it, and a daily job that stops for a stray file is a daily job
+nobody trusts. If your local `master` is ahead of `origin/master` with
+unpushed commits, the job does not push them for you: it stops and reports
+instead.
 
 Only one writer at a time. The server job and the agent-side job both push to
 `origin/master`, so do not run both against the same branch.

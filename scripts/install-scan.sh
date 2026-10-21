@@ -257,6 +257,21 @@ else
   info "the checkout is marked safe for root"
 fi
 
+# Prove the key can push. A deploy key that is not registered on the
+# repository cannot, and the daily job would fail at the push with no
+# warning until 07:00. The dry run authenticates but changes nothing.
+PUSH_ERR="$STATE_DIR/push-check.err"
+if timeout 30 git -C "$REPO_DIR" push --dry-run origin HEAD >/dev/null 2>"$PUSH_ERR"; then
+  info "the push key works: this checkout can push to origin"
+elif grep -qiE 'publickey|permission denied|could not read from remote' "$PUSH_ERR"; then
+  warn "the push key cannot push yet:"
+  sed 's/^/    /' "$PUSH_ERR"
+  warn "add $KEY_FILE.pub to the repository as a deploy key with write access, then run this script again"
+else
+  warn "could not verify the push path. This is not always a problem, but read it:"
+  sed 's/^/    /' "$PUSH_ERR"
+fi
+
 # --- 7 -----------------------------------------------------------------------
 
 step 7 "Python and Playwright"

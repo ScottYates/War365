@@ -145,7 +145,10 @@ python tools/commitlog.py check && python tools/commitlog.py verify
 ```
 
 `scripts/scan.sh` does all of that in the right order and then commits and
-pushes. On the server it is the whole job:
+pushes. It refuses to run if a tracked file has uncommitted changes, so it
+cannot stomp on work in progress. An untracked file is reported and the run
+carries on, because the scan only writes `commits.js`. On the server it is
+the whole job:
 
 ```bash
 sudo systemctl start war365-scan
@@ -176,8 +179,8 @@ doubles as the repair tool after a change. The full script is
 | 3 | Creates the unprivileged `war365` account, `/etc/war365` and `/var/lib/war365`, and hands the checkout to the account so the scan can commit to it. |
 | 4 | **Asks for the MiniMax API key**, hidden, and confirms it. |
 | 5 | Writes `/etc/war365/minimax.env` from the template, root-owned, mode 0640. |
-| 6 | Generates a write-enabled deploy key, records the github.com host key, and either adds the deploy key through the API or prints it for you to paste in. Points `origin` at SSH so the push uses it. |
-| 7 | Creates a venv, installs Playwright and Chromium. |
+| 6 | Generates a write-enabled deploy key, records the github.com host key, and either adds the deploy key through the API or prints it for you to paste in. Points `origin` at SSH so the push uses it, then proves the key can push. |
+| 7 | Creates a venv, installs Playwright and Chromium into `/var/lib/war365/browsers`, and proves a browser starts as the `war365` account, both on its own and inside the unit's sandbox. |
 | 8 | Installs `war365-scan.service` and `war365-scan.timer`. |
 | 9 | Enables the timer, and prints what to do next. |
 

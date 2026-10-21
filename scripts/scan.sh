@@ -57,14 +57,29 @@ die() {
 #
 # The checks come before anything is created or changed, so a run that is
 # going to refuse says so for the right reason.
+#
+# A change to a tracked file is work in progress, and the scan must not
+# touch the tree while it is there. An untracked file is not: the scan
+# writes commits.js and commits nothing else, so a stray backup file cannot
+# be clobbered by it. Those are reported and the run carries on, because a
+# daily job that stops for a leftover file is a daily job nobody trusts.
 
-if [[ -n "$(git status --porcelain)" ]]; then
+DIRTY_TRACKED="$(git status --porcelain --untracked-files=no)"
+DIRTY_UNTRACKED="$(git status --porcelain --untracked-files=normal | grep '^??' || true)"
+
+if [[ -n "$DIRTY_TRACKED" ]]; then
   echo "error: working tree has uncommitted changes; refusing to touch it" >&2
   echo >&2
-  git status --short >&2
+  git status --short --untracked-files=no >&2
   echo >&2
   echo "    Commit them, stash them, or add them to .gitignore, then run the scan again." >&2
   exit 1
+fi
+
+if [[ -n "$DIRTY_UNTRACKED" ]]; then
+  echo "warning: untracked files in the checkout; the scan will not touch them" >&2
+  printf '%s\n' "$DIRTY_UNTRACKED" | sed 's/^/    /' >&2
+  echo >&2
 fi
 
 if [[ -z "${MINIMAX_API_KEY:-}" ]] && ! "$PYTHON" -c '
