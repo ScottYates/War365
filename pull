@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Update the checkout as the service account that owns it.
+#
+# Pulling as root would leave root-owned files behind, and the scan runs as
+# the service account and has to write commits.js. Pulling as the service
+# account keeps the ownership exactly as it is, so the job that runs on this
+# box is not disturbed.
+#
+#   ./pull
+#
+# The scan also pulls for itself at the start of every run, so this is only
+# needed when you want the box up to date right now.
+set -euo pipefail
+
+REPO="${WAR365_REPO:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
+SVC_USER="${WAR365_USER:-war365}"
+STATE_DIR="${WAR365_STATE_DIR:-/var/lib/war365}"
+
+if ! command -v sudo >/dev/null 2>&1; then
+  echo "error: sudo is not installed, so the pull cannot run as $SVC_USER" >&2
+  exit 1
+fi
+
+exec sudo -u "$SVC_USER" env HOME="$STATE_DIR" git -C "$REPO" pull --ff-only

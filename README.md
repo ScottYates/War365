@@ -345,6 +345,13 @@ sudo systemctl start war365-scan
 journalctl -u war365-scan -f
 ```
 
+Or, from the root of the checkout, the same thing with the last hundred
+lines of history first:
+
+```bash
+./showlog
+```
+
 A successful run ends with `done: N entries added`. A run that finds nothing
 worth shipping says so and changes nothing. Both are good outcomes. A run
 that fails prints the reason it stopped, and the tree is left alone.
@@ -433,6 +440,13 @@ To keep the ownership exactly as it is, pull as the service account:
 
 ```bash
 sudo -u war365 env HOME=/var/lib/war365 git -C /opt/War365 pull
+```
+
+There is a helper for that in the root of the checkout, so the ownership
+stays right without you having to remember the `sudo -u` incantation:
+
+```bash
+./pull
 ```
 
 Note that the scan pulls for itself at the start of every run, so the

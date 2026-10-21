@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Follow the scan's log: the last 100 lines, then live as they are written.
+#
+#   ./showlog
+#
+# Needs read access to the journal. As root, that is already the case.
+set -euo pipefail
+
+exec journalctl -u war365-scan -f -n 100

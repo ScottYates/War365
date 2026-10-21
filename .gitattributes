@@ -8,5 +8,9 @@
 # Same for logrotate snippets.
 *.logrotate text eol=lf
 
+# The helper scripts in the root have no extension, so name them.
+pull text eol=lf
+showlog text eol=lf
+
 # Default: let git handle text files normally.
 * text=auto
