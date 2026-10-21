@@ -24,6 +24,12 @@ Subcommands:
     list     print the log as a table, newest first. For eyeballing what is
              already covered before adding something.
 
+    doctor   prove the toolchain works on this machine: the browser starts
+             and commits.js parses. Says what is wrong, and how to fix it,
+             when it does not. The scan runs this before it spends a model
+             call, so a missing browser is one clear line instead of three
+             failures with a banner in the log.
+
 Everything is Python 3 + Playwright, same as test/verify.py. The browser is
 used to parse commits.js rather than a regex, because the file is JavaScript
 and a regex is not a JavaScript parser.
@@ -35,10 +41,12 @@ Usage:
     python tools/commitlog.py add --file entry.json
     python tools/commitlog.py add --file entry.json --dry-run
     python tools/commitlog.py verify
+    python tools/commitlog.py doctor
 """
 
 import argparse
 import datetime
+import getpass
 import json
 import os
 import re
@@ -82,6 +90,37 @@ def _playwright():
             "         then: python -m playwright install chromium"
         )
     return sync_playwright
+
+
+# The characters Playwright uses to draw its banner box. The banner is nine
+# lines of noise; the line above it is the error, so the doctor drops the
+# box and keeps the sentence.
+BOX_CHARS = set(
+    "\u2554\u2550\u2551\u2557\u255a\u255d"
+    "\u2560\u2561\u2562\u2563\u2564\u2565\u2566\u2567\u2568\u2569"
+    "\u256a\u256b\u256c\u256d\u256e\u256f"
+)
+
+
+def failure_lines(exc):
+    """The readable lines of a Playwright failure, without the banner.
+
+    Playwright's banner arrives with the box characters escaped, so they are
+    unescaped first and the border lines are dropped after that. The stack
+    frames are dropped too: the sentence that says what went wrong is the
+    last line before the box, and that is what an operator needs.
+    """
+    text = str(exc)
+    text = re.sub(r"\\u([0-9a-fA-F]{4})", lambda m: chr(int(m.group(1), 16)), text)
+    parts = text.split("Traceback (most recent call last):")
+    if len(parts) > 1:
+        text = parts[-1]
+    lines = []
+    for raw in text.splitlines():
+        line = "".join(" " if ch in BOX_CHARS else ch for ch in raw).strip()
+        if line:
+            lines.append(line)
+    return lines
 
 
 def parse_log(path=LOG_PATH):
@@ -476,6 +515,82 @@ def cmd_verify(args):
     return 0
 
 
+# ---------------------------------------------------------------- doctor
+
+
+def cmd_doctor(args):
+    """Prove the toolchain works here, and say what to do when it does not.
+
+    The scan depends on a browser that Playwright downloads separately from
+    the package. It lands in a per-user cache, so an install done as root
+    leaves the service account unable to find it, and the failure surfaces
+    as a stack trace with a box drawing in the middle of it. This command
+    reports the paths that matter and proves a browser actually starts.
+    """
+    print("python      :", sys.version.split()[0])
+
+    try:
+        import playwright
+    except ImportError:
+        print("playwright  : NOT INSTALLED")
+        print("")
+        print("  fix: pip install -r test/requirements.txt")
+        return 1
+    try:
+        from importlib.metadata import version as _pkg_version
+
+        version = _pkg_version("playwright")
+    except Exception:
+        version = getattr(playwright, "__version__", "unknown")
+    print("playwright  :", version)
+
+    browsers = os.environ.get("PLAYWRIGHT_BROWSERS_PATH")
+    print("browsers    :", browsers or "(default, $HOME/.cache/ms-playwright)")
+    home = os.environ.get("HOME") or os.path.expanduser("~")
+    print("home        :", home)
+    who = (
+        os.environ.get("USER")
+        or os.environ.get("LOGNAME")
+        or getpass.getuser()
+    )
+    print("user        :", who)
+
+    pw = _playwright()
+    try:
+        with pw() as p:
+            browser = p.chromium.launch()
+            browser.close()
+    except Exception as exc:
+        print("")
+        print("FAIL: chromium would not start")
+        for line in failure_lines(exc):
+            print("  " + line)
+        print("")
+        print("  The release-log tooling parses commits.js with a real browser,")
+        print("  so there is nothing to do until one starts here. Install it")
+        print("  into the path this account reads:")
+        print("")
+        if browsers:
+            print(f"    PLAYWRIGHT_BROWSERS_PATH={browsers} \\")
+            print(f"      {sys.executable} -m playwright install chromium")
+        else:
+            print(f"    {sys.executable} -m playwright install chromium")
+        print("")
+        print("  scripts/install-scan.sh does that, and then checks it as the")
+        print("  service account, which is where it actually has to run.")
+        return 1
+
+    print("ok: chromium starts")
+
+    try:
+        commits = parse_log()
+    except Failure as exc:
+        print(f"FAIL: commits.js did not parse: {exc}")
+        return 1
+    print(f"ok: parsed {len(commits)} commits from commits.js")
+    return 0
+
+
 # ---------------------------------------------------------------- cli
 
 
@@ -487,6 +602,9 @@ def main():
     sub.add_parser("list", help="print the log, newest first").set_defaults(fn=cmd_list)
     sub.add_parser("verify", help="load the site and prove the log renders").set_defaults(
         fn=cmd_verify
+    )
+    sub.add_parser("doctor", help="prove the browser starts and the log parses").set_defaults(
+        fn=cmd_doctor
     )
 
     p_add = sub.add_parser("add", help="append one entry from a JSON file")

@@ -123,6 +123,7 @@ python tools/commitlog.py check              # data integrity gate
 python tools/commitlog.py add --file e.json  # append one entry
 python tools/commitlog.py add --file e.json --dry-run
 python tools/commitlog.py verify             # the site still renders it
+python tools/commitlog.py doctor             # does the toolchain work here
 ```
 
 `add` refuses a wrong hash format, a duplicate hash or subject, a date
@@ -133,6 +134,14 @@ It writes transactionally: the file is restored if the result fails to parse.
 The file is parsed with a real JavaScript engine (Chromium, via Playwright)
 rather than a regex. The file is JavaScript, and a regex is not a JavaScript
 parser.
+
+That browser is a separate download from the package that drives it, and it
+lands in a per-user cache. On the server it lives in
+`/var/lib/war365/browsers`, and the unit points `PLAYWRIGHT_BROWSERS_PATH`
+at that directory, because a browser installed as root lands in `/root/.cache`
+where the service account cannot see it. `doctor` reports the paths and
+proves a browser starts. The scan runs it before it spends a model call, so
+a missing browser is one clear line rather than three stack traces.
 
 `check` reports pre-existing style problems as warnings rather than failures,
 so it can gate a commit without blocking on history. New entries are held to

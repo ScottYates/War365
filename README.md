@@ -90,6 +90,7 @@ python tools/commitlog.py list              # what is already covered
 python tools/commitlog.py check              # data integrity gate
 python tools/commitlog.py add --file e.json  # append one entry
 python tools/commitlog.py verify             # the site still renders it
+python tools/commitlog.py doctor             # does the toolchain work here
 ```
 
 `add` refuses a wrong hash format, a duplicate hash or subject, a date
@@ -98,7 +99,10 @@ body with no source URL, and any non-ASCII character. It writes
 transactionally, restoring the file if the result fails to parse.
 
 The file is parsed with a real JavaScript engine rather than a regex, because
-the file is JavaScript.
+the file is JavaScript. That engine is a browser Playwright downloads
+separately from the package that drives it, so it lands in a per-user cache.
+`doctor` reports where it is looking and whether one starts, which is the
+first thing to check when the tooling will not run.
 
 The voice rules live in `tools/voice.md`, in one place, so the writer and the
 job cannot drift apart.
@@ -298,10 +302,22 @@ sudo chmod 0640 /etc/war365/scan_key
 git -C /opt/War365 remote set-url origin git@github.com:ScottYates/War365.git
 
 # 4. python and playwright
+# The browser goes in /var/lib/war365/browsers, not in root's cache. The
+# unit points PLAYWRIGHT_BROWSERS_PATH at that directory, because the
+# service account cannot read /root.
 sudo apt-get install -y python3 python3-venv
 sudo python3 -m venv /opt/War365/.venv
 sudo /opt/War365/.venv/bin/pip install -r test/requirements.txt
-sudo /opt/War365/.venv/bin/python -m playwright install --with-deps chromium
+sudo mkdir -p /var/lib/war365/browsers
+sudo chown war365:war365 /var/lib/war365/browsers
+sudo PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers \
+  /opt/War365/.venv/bin/python -m playwright install --with-deps chromium
+sudo chown -R war365:war365 /var/lib/war365/browsers
+
+# check it as the service account, which is where it has to run
+sudo -u war365 env HOME=/var/lib/war365 \
+  PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers \
+  /opt/War365/.venv/bin/python /opt/War365/tools/commitlog.py doctor
 
 # 5. the units
 sudo cp deploy/War365-scan.service /etc/systemd/system/war365-scan.service
@@ -327,6 +343,36 @@ Check the schedule:
 ```bash
 systemctl list-timers war365-scan.timer
 ```
+
+#### When a run fails
+
+The first thing the scan does, before it talks to the model, is check that
+the browser the tooling needs actually starts. If it does not, the run stops
+there with the reason, instead of failing three times with a stack trace.
+The same check runs by hand:
+
+```bash
+sudo -u war365 env HOME=/var/lib/war365 \
+  PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers \
+  /opt/War365/.venv/bin/python /opt/War365/tools/commitlog.py doctor
+```
+
+It prints the account it is running as, the directory it expects the browser
+in, and the exact executable that is missing if it is missing. The usual
+cause is a browser installed as root, which lands in `/root/.cache` where the
+service account cannot see it. The fix is to install it into the directory
+the unit points at:
+
+```bash
+sudo PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers \
+  /opt/War365/.venv/bin/python -m playwright install chromium
+sudo chown -R war365:war365 /var/lib/war365/browsers
+```
+
+`scripts/install-scan.sh` does all of that, and then proves the browser
+starts as the service account, both on its own and inside the unit's
+sandbox, before it enables the timer. Re-running it is safe: it reuses the
+key, the venv and the push key, and only redoes what is missing.
 
 The timer fires daily at 07:00 America/Chicago, with up to ten minutes of
 randomised delay so a fleet of boxes does not all hit the feeds and the model

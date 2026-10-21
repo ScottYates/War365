@@ -2,11 +2,13 @@
 # Scan the news for release-log entries and ship them.
 #
 # The pipeline:
-#   1. collect up to 20 candidate events from the public news feeds
-#   2. have MiniMax score them for relevance to the release log
-#   3. write the top 3 as entries, in the log's voice, grounded in the source
-#   4. validate, insert, verify the site still renders
-#   5. commit and push
+#   1. check the tree is clean, a credential is present, and the browser
+#      the tooling needs actually starts
+#   2. collect up to 20 candidate events from the public news feeds
+#   3. have MiniMax score them for relevance to the release log
+#   4. write the top 3 as entries, in the log's voice, grounded in the source
+#   5. validate, insert, verify the site still renders
+#   6. commit and push
 #
 # Nothing is added unless it clears the relevance bar, so a run that finds
 # nothing worthy ships nothing and says so.
@@ -83,7 +85,20 @@ LOG="$WORK/run.log"
 
 git pull --ff-only || die "git pull --ff-only failed; refusing to continue"
 
-# --- 2. Collect --------------------------------------------------------------
+# --- 2. Toolchain ------------------------------------------------------------
+#
+# The log is parsed with a real browser, and the browser is a separate
+# download from the package that drives it. If it is missing, the failure
+# otherwise shows up three times, once per candidate, as a stack trace with
+# a box drawing in the middle of it. Check it once, here, and say what is
+# wrong before the run spends anything on the model.
+
+say "checking the toolchain"
+if ! "$PYTHON" tools/commitlog.py doctor 2>&1 | tee -a "$LOG"; then
+  die "the toolchain is not ready. Fix what the doctor reported, then run the scan again."
+fi
+
+# --- 3. Collect --------------------------------------------------------------
 
 say "collecting candidates from the feeds (last $DAYS days)"
 "$PYTHON" tools/collect_candidates.py --days "$DAYS" --max 20 \
@@ -96,7 +111,7 @@ if [[ "$COUNT" -eq 0 ]]; then
   exit 0
 fi
 
-# --- 3. Rank -----------------------------------------------------------------
+# --- 4. Rank -----------------------------------------------------------------
 
 say "ranking with MiniMax"
 "$PYTHON" tools/rank_candidates.py --file "$WORK/candidates.json" \
@@ -123,15 +138,22 @@ for i in "${!PICKED[@]}"; do
 done
 say "selected: ${PICKED[*]}"
 
-# --- 4. Write ----------------------------------------------------------------
+# --- 5. Write ----------------------------------------------------------------
 
-rm -f "$WORK"/entry-*.json
+rm -f "$WORK"/entry-*.json "$WORK"/entry-*.err
 for id in "${PICKED[@]}"; do
   say "writing an entry for $id"
+  ERR="$WORK/entry-$id.err"
+  # stderr goes to its own file. The failure that matters is on the last
+  # line of the traceback, above whatever banner the tool prints, so the
+  # whole file is shown rather than the tail of it.
   if ! "$PYTHON" tools/write_entry.py --candidates "$WORK/candidates.json" \
-      --candidate "$id" --out "$WORK/entry-$id.json" >> "$LOG" 2>&1; then
+      --candidate "$id" --out "$WORK/entry-$id.json" 2> "$ERR" | tee -a "$LOG"; then
     say "  could not write $id, skipping it"
-    tail -4 "$LOG" | sed 's/^/    | /'
+    if [[ -s "$ERR" ]]; then
+      cat "$ERR" >> "$LOG"
+      sed 's/^/    | /' "$ERR"
+    fi
     rm -f "$WORK/entry-$id.json"
   fi
 done
@@ -141,7 +163,7 @@ if ! compgen -G "$WORK/entry-*.json" > /dev/null; then
   exit 0
 fi
 
-# --- 5. Insert, oldest first -------------------------------------------------
+# --- 6. Insert, oldest first -------------------------------------------------
 
 mapfile -t ENTRIES < <("$PYTHON" -c '
 import glob, json, sys
@@ -163,7 +185,7 @@ for entry_file in "${ENTRIES[@]}"; do
   "$PYTHON" tools/commitlog.py add --file "$entry_file" || die "refused $entry_file"
 done
 
-# --- 6. Verify ---------------------------------------------------------------
+# --- 7. Verify ---------------------------------------------------------------
 
 say "checking the log"
 "$PYTHON" tools/commitlog.py check || die "the log failed the data check"
@@ -171,7 +193,7 @@ say "checking the log"
 say "verifying the site still renders"
 "$PYTHON" tools/commitlog.py verify || die "the site did not render cleanly"
 
-# --- 7. Ship -----------------------------------------------------------------
+# --- 8. Ship -----------------------------------------------------------------
 
 if [[ -z "$(git status --porcelain commits.js)" ]]; then
   say "nothing changed in commits.js. Nothing to commit."

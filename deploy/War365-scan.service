@@ -65,6 +65,13 @@ Environment=HOME=/var/lib/war365
 Environment=WAR365_PYTHON=/opt/War365/.venv/bin/python
 Environment=WAR365_SCAN_WORK=/var/lib/war365/scan
 
+# The browser the tooling parses commits.js with is a separate download from
+# the package that drives it, and it lands in a per-user cache. An install
+# done as root would put it where this account cannot see it, so it goes in
+# one fixed directory that both the installer and this unit point at. The
+# installer reads this line, so the two cannot drift apart.
+Environment=PLAYWRIGHT_BROWSERS_PATH=/var/lib/war365/browsers
+
 # MINIMAX_API_KEY, MINIMAX_BASE_URL, the git identity and GIT_SSH_COMMAND.
 # The leading dash means the unit still starts if the file is missing, and
 # fails with a clear message instead of silently doing nothing.

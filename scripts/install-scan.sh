@@ -270,8 +270,61 @@ fi
 "$REPO_DIR/.venv/bin/pip" install --quiet --upgrade pip
 "$REPO_DIR/.venv/bin/pip" install --quiet -r "$REPO_DIR/test/requirements.txt"
 info "installed playwright"
-"$REPO_DIR/.venv/bin/python" -m playwright install --with-deps chromium
-info "installed chromium for playwright"
+
+# The browser is a separate download from the package that drives it, and it
+# lands in a per-user cache. An install run as root puts it in /root/.cache,
+# which the service account cannot read, so the browser goes in one fixed
+# directory that the unit points at as well. The unit is the source of
+# truth for the path: read it from there so the two cannot drift apart.
+BROWSERS_DIR="$(sed -n 's/^Environment=PLAYWRIGHT_BROWSERS_PATH=//p' \
+  "$REPO_DIR/deploy/War365-scan.service" | head -1)"
+BROWSERS_DIR="${BROWSERS_DIR:-/var/lib/war365/browsers}"
+install -d -m 0755 -o "$SVC_USER" -g "$SVC_USER" "$BROWSERS_DIR"
+PLAYWRIGHT_BROWSERS_PATH="$BROWSERS_DIR" \
+  "$REPO_DIR/.venv/bin/python" -m playwright install --with-deps chromium
+chown -R "$SVC_USER":"$SVC_USER" "$BROWSERS_DIR"
+info "installed chromium into $BROWSERS_DIR"
+
+# An install the service cannot use is not an install. Prove the browser
+# starts as the account the unit runs as, with that account's HOME, before
+# the timer is ever enabled.
+if ! sudo -u "$SVC_USER" env HOME="$STATE_DIR" PLAYWRIGHT_BROWSERS_PATH="$BROWSERS_DIR" \
+     "$REPO_DIR/.venv/bin/python" "$REPO_DIR/tools/commitlog.py" doctor; then
+  die "the browser does not start for $SVC_USER. The doctor above says why."
+fi
+info "the browser starts for $SVC_USER"
+
+# And once more inside the unit's own sandbox, because that is where it
+# actually has to run. The properties below are the ones the unit sets.
+if command -v systemd-run >/dev/null 2>&1 && systemd-run --quiet --wait --pipe /bin/true 2>/dev/null; then
+  if systemd-run --quiet --wait --pipe \
+      --uid="$SVC_USER" --gid="$SVC_USER" \
+      --setenv="HOME=$STATE_DIR" \
+      --setenv="PLAYWRIGHT_BROWSERS_PATH=$BROWSERS_DIR" \
+      --property="WorkingDirectory=$REPO_DIR" \
+      --property=NoNewPrivileges=true \
+      --property=PrivateTmp=true \
+      --property=PrivateDevices=true \
+      --property=ProtectSystem=strict \
+      --property=ProtectHome=true \
+      --property=ProtectKernelTunables=true \
+      --property=ProtectKernelModules=true \
+      --property=ProtectControlGroups=true \
+      --property=RestrictSUIDSGID=true \
+      --property=RestrictRealtime=true \
+      --property=RestrictNamespaces=true \
+      --property=LockPersonality=true \
+      --property=SystemCallArchitectures=native \
+      --property="ReadWritePaths=$REPO_DIR $STATE_DIR" \
+      --property="RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK" \
+      "$REPO_DIR/.venv/bin/python" "$REPO_DIR/tools/commitlog.py" doctor; then
+    info "the browser starts inside the unit's sandbox"
+  else
+    die "the browser does not start inside the unit's sandbox. The doctor above says why, and the unit would fail the same way."
+  fi
+else
+  warn "systemd-run is not usable here, so the sandbox was not tested. Start the unit by hand and watch it: systemctl start $UNIT_NAME.service"
+fi
 
 # --- 8 -----------------------------------------------------------------------
 
