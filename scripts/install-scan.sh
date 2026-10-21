@@ -124,8 +124,12 @@ info "the checkout now belongs to $SVC_USER, so the scan can commit to it"
 # setgid bit on the directories means a root pull leaves files the service
 # account can still write, so root can update the box without breaking the
 # job that runs on it.
+#
+# The directories need to be group-writable as well as setgid: the service
+# account has to be able to create .git/index.lock when it commits, and a
+# root pull leaves that lock behind otherwise.
 git -C "$REPO_DIR" config --local core.sharedRepository group
-find "$REPO_DIR" -type d -exec chmod g+s {} + 2>/dev/null || true
+find "$REPO_DIR" -type d -exec chmod 2775 {} + 2>/dev/null || true
 info "the checkout is shared with the $SVC_USER group, so a pull as root is safe"
 
 # --- 4 -----------------------------------------------------------------------

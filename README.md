@@ -402,9 +402,27 @@ key, the venv and the push key, and only redoes what is missing.
 
 #### Updating the checkout
 
-`git pull` works in the checkout from any shell, as root included. The
-checkout is shared with the `war365` group, so a pull as root leaves files
-the service account can still write, and the scan keeps working:
+`git pull` works in the checkout from any shell, as root included. It needs
+three things, and the installer sets all of them:
+
+```bash
+# 1. git refuses to work in a directory owned by another account unless it
+#    is marked safe. This has to be in the global config, not the repo's.
+sudo git config --global --add safe.directory /opt/War365
+sudo git config --global --add safe.directory /opt/War365/.git
+
+# 2. the checkout is shared with the war365 group, so a pull as root leaves
+#    files the service account can still write, and the scan keeps working
+sudo git -C /opt/War365 config --local core.sharedRepository group
+sudo find /opt/War365 -type d -exec chmod 2775 {} +
+
+# 3. the deploy key. This is set per repository, so it applies to every
+#    user, and it is what makes the pull authenticate to GitHub
+sudo git -C /opt/War365 config --local core.sshCommand \
+  "ssh -i /etc/war365/scan_key -o IdentitiesOnly=yes -o UserKnownHostsFile=/etc/war365/known_hosts -o StrictHostKeyChecking=accept-new"
+```
+
+With those in place:
 
 ```bash
 git -C /opt/War365 pull
