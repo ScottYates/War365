@@ -23,3 +23,6 @@ test/shots/
 # python bytecode from the tools/ scripts
 __pycache__/
 *.pyc
+
+# the server-side python venv (scripts/install-scan.sh)
+.venv/

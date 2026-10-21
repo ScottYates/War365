@@ -73,7 +73,7 @@ EnvironmentFile=-/etc/war365/minimax.env
 StateDirectory=war365
 StateDirectoryMode=0750
 
-ExecStart=/opt/War365/scripts/scan.sh
+ExecStart=/bin/bash /opt/War365/scripts/scan.sh
 
 StandardOutput=journal
 StandardError=journal

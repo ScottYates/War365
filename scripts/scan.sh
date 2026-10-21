@@ -57,7 +57,12 @@ die() {
 # going to refuse says so for the right reason.
 
 if [[ -n "$(git status --porcelain)" ]]; then
-  die "working tree has uncommitted changes; refusing to touch it"
+  echo "error: working tree has uncommitted changes; refusing to touch it" >&2
+  echo >&2
+  git status --short >&2
+  echo >&2
+  echo "    Commit them, stash them, or add them to .gitignore, then run the scan again." >&2
+  exit 1
 fi
 
 if [[ -z "${MINIMAX_API_KEY:-}" ]] && ! "$PYTHON" -c '

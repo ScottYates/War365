@@ -250,7 +250,6 @@ info "installed chromium for playwright"
 step 8 "The systemd units"
 install -m 0644 "$REPO_DIR/deploy/War365-scan.service" "/etc/systemd/system/$UNIT_NAME.service"
 install -m 0644 "$REPO_DIR/deploy/War365-scan.timer"   "/etc/systemd/system/$UNIT_NAME.timer"
-chmod +x "$REPO_DIR/scripts/scan.sh"
 systemctl daemon-reload
 info "installed $UNIT_NAME.service and $UNIT_NAME.timer"
 
