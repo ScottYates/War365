@@ -237,6 +237,16 @@ SSH_COMMAND="ssh -i $KEY_FILE -o IdentitiesOnly=yes -o UserKnownHostsFile=$KNOWN
 git -C "$REPO_DIR" config --local core.sshCommand "$SSH_COMMAND"
 info "the deploy key is configured for this checkout, so git works from any shell"
 
+# The pre-commit hook refuses a commit that would put a secret in the repo.
+if [[ -f "$REPO_DIR/.githooks/pre-commit" ]]; then
+  git -C "$REPO_DIR" config core.hooksPath .githooks
+  if [[ -x "$REPO_DIR/.githooks/pre-commit" ]]; then
+    info "the pre-commit secret check is enabled for this checkout"
+  else
+    warn "the pre-commit hook is not executable. Run: chmod +x $REPO_DIR/.githooks/pre-commit"
+  fi
+fi
+
 # The checkout belongs to the service account, so git refuses to work in it
 # for anyone else unless the directory is marked safe. The root account was
 # already handled above; do the same for the user who ran this script.

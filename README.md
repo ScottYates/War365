@@ -256,6 +256,23 @@ Without that, a plain `git pull` in the checkout fails with a publickey or
 host key error, because the key lives in `/etc/war365` and not in your own
 `~/.ssh`.
 
+#### The secret guard
+
+The key never goes in the repository, and there is a commit hook that makes
+sure it cannot. `.githooks/pre-commit` scans the lines a commit is adding and
+refuses the commit if any of them look like a provider key, a JWT, a private
+key block, a GitHub token, or a credential file. The install script turns it
+on for the checkout:
+
+```bash
+git -C /opt/War365 config core.hooksPath .githooks
+```
+
+The hook is version-controlled here, so a fresh clone gets it. It is not
+enough on its own, and `.gitignore` also covers `*.env`, `*.pem`, `*.key`,
+`id_rsa*` and `scan_key*`. The key lives in `/etc/war365/minimax.env`, which
+is outside the repository, root-owned, and mode 0640.
+
 #### Doing it by hand
 
 If you would rather not run the script, the same steps are:

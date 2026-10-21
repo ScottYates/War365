@@ -26,3 +26,13 @@ __pycache__/
 
 # the server-side python venv (scripts/install-scan.sh)
 .venv/
+
+# credentials. The MiniMax key belongs in /etc/war365/minimax.env on the
+# server, never in here.
+*.env
+.env
+minimax.env
+*.pem
+*.key
+id_rsa*
+scan_key*

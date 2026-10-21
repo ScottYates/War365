@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# Refuse a commit that would put a secret into the repository.
+#
+# Enabled by scripts/install-scan.sh, which sets core.hooksPath to
+# .githooks. The hook is version-controlled here so it cannot be lost, and
+# so a fresh clone gets it.
+#
+# It checks the lines a commit is adding, not the whole file, so a file
+# that legitimately contains an example key does not block every later
+# change to it.
+set -uo pipefail
+
+# Provider keys, tokens and private keys.
+PATTERNS='sk-[A-Za-z0-9_-]{16,}|eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|MINIMAX_API_KEY=[A-Za-z0-9_-]{8,}'
+
+# Lines that are obviously a placeholder rather than a real value. grep -E
+# has no lookahead, so these are filtered out before the scan.
+PLACEHOLDERS='PASTE_YOUR_KEY_HERE|PASTE|YOUR_KEY|\$\{?MINIMAX|<YOUR|YOUR_API_KEY|xxxxx'
+
+# Files that must never be committed at all.
+BLOCKED='(^|/)\.env($|\.)|\.env$|(^|/)minimax\.env$|\.pem$|\.key$|(^|/)id_rsa|(^|/)scan_key'
+
+failed=0
+
+staged="$(git diff --cached --name-only --diff-filter=ACM || true)"
+
+# The hook does not scan itself: it contains the patterns it looks for.
+files="$(printf '%s\n' "$staged" | grep -v '^\.githooks/' || true)"
+
+if [[ -n "$files" ]]; then
+  # A file that looks like a credential carrier is refused outright.
+  blocked="$(printf '%s\n' "$files" | grep -E "$BLOCKED" || true)"
+  if [[ -n "$blocked" ]]; then
+    echo "error: refusing to commit what looks like a credential file:" >&2
+    printf '%s\n' "$blocked" | sed 's/^/    /' >&2
+    echo >&2
+    echo "    If this file belongs in the repository, rename it or add an" >&2
+    echo "    exception to the hook." >&2
+    failed=1
+  fi
+
+  while IFS= read -r file; do
+    [[ -n "$file" ]] || continue
+    added="$(git diff --cached -U0 -- "$file" 2>/dev/null \
+      | grep '^+' | grep -v '^+++' | grep -vE "$PLACEHOLDERS" || true)"
+    [[ -n "$added" ]] || continue
+    if printf '%s\n' "$added" | grep -Eq "$PATTERNS"; then
+      echo "error: $file looks like it contains a secret. The commit was refused." >&2
+      printf '%s\n' "$added" | grep -En "$PATTERNS" | head -5 | sed 's/^/    /' >&2
+      echo >&2
+      echo "    If this is a false positive, the value belongs in" >&2
+      echo "    /etc/war365/minimax.env, not in the repository." >&2
+      failed=1
+    fi
+  done <<< "$files"
+fi
+
+exit $failed

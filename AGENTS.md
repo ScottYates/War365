@@ -176,6 +176,11 @@ and no credential is ever printed. Stdlib only, because the runtime has no
 `httpx` and this has to run unattended. If it cannot reach MiniMax the run
 stops rather than falling back to picking candidates by eye.
 
+No credential goes in the repository. The key lives in
+`/etc/war365/minimax.env`, outside the checkout, root-owned and mode 0640.
+`.githooks/pre-commit` refuses a commit that adds anything secret-shaped,
+and `.gitignore` covers `*.env`, `*.pem`, `*.key` and the key files.
+
 The full procedure for the agent-side job is `tools/news-scan-prompt.md`,
 version-controlled here so it can be reviewed and edited without recreating
 the job.
