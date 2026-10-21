@@ -538,6 +538,59 @@ window.WAR365_COMMITS = [
       "Ref: https://www.euronews.com/2026/10/20/irgc-mines-set-tankers-ablaze-as-tehran-threatens-expanded-attacks",
       "Status: Strait of Hormuz transit remains in dispute."
     ].join("\n")
+  },
+  {
+    hash: "a6ed6b7",
+    date: "2026-10-21",
+    author: "idf.il",
+    authorEmail: "ops@idf.example",
+    subject: "feat(detention): Israeli army arrests Brad Lander during olive harvest in occupied West Bank",
+    body: [
+      "Olive-harvest assistance triggered a detention workflow in the occupied West Bank.",
+      "- Detainee: Brad Lander, Democratic Party nominee for New York's 10th congressional district",
+      "- Alleged activity: helping Palestinians harvest olives",
+      "- Release: Lander was released with a warning, which he said was apparently due to his public profile",
+      "- Remaining detentions: several dozen rabbis and other participants harvesting olives with Lander",
+      "Lander called for the remaining detainees to be released immediately.",
+      "Ref: https://www.middleeasteye.net/live-blog/live-blog-update/us-congressional-candidate-brad-lander-arrested-israeli-army-occupied",
+      "Status: warning issued; related detentions remain active."
+    ].join("\n")
+  },
+  {
+    hash: "1396808",
+    date: "2026-10-21",
+    author: "houthi.media",
+    authorEmail: "ops@houthi.example",
+    subject: "feat(strike): Houthi missile strike hits Shabwa training camp",
+    body: [
+      "Missile package deployed at al-Alam camp in Shabwa province, southern Yemen.",
+      "The strike occurred while new recruits were lining up for a training session.",
+      "Impact: 75 recruits killed and 200 others wounded.",
+      "The recruits, aged 18 to 20, were training to provide security in Shabwa, not for combat operations.",
+      "Wednesday's mass funeral was held at a soccer field in south-central Shabwa.",
+      "Shabwa's governor pledged increased efforts to defend the province and hold those responsible accountable.",
+      "Ref: http://www.africanews.com/2026/10/21/yemen-75-new-recruits-killed-in-houthi-missile-strike-laid-to-rest/",
+      "Status: deadliest attack since fighting resumed over the summer."
+    ].join("\n")
+  },
+  {
+    hash: "652e784",
+    date: "2026-10-21",
+    author: "ops",
+    authorEmail: "ops@war365.example",
+    subject: "feat(defence): four-nation Badr deal enables joint weapons production",
+    body: [
+      "Turkey, Qatar, Pakistan and Indonesia signed the Badr deal for joint production of military hardware.",
+      "",
+      "- Scope: military hardware production",
+      "- Expanded cooperation: military training, research and development",
+      "- Signatories: Yasar Guler, Haluk Gorgun, Saoud bin Abdulrahman Al Thani, Khawaja Muhammad Asif and Yusuf Jauhari",
+      "- Signing location: Doha",
+      "- Product name: Badr deal, referencing the Battle of Badr in 624",
+      "",
+      "Ref: https://www.middleeasteye.net/live-blog/live-blog-update/turkey-qatar-pakistan-and-indonesia-forge-badr-deal-jointly-produce",
+      "Status: joint production groundwork signed across four participating nations."
+    ].join("\n")
   }
 ];
 
