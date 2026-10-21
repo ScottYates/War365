@@ -87,6 +87,8 @@ if [[ "$REPO_DIR" != "$SOURCE_DIR" ]]; then
   info "copying the install files from $SOURCE_DIR"
   install -d "$REPO_DIR/scripts" "$REPO_DIR/deploy"
   install -m 0755 "$SOURCE_DIR/scripts/scan.sh" "$REPO_DIR/scripts/scan.sh"
+  install -m 0755 "$SOURCE_DIR/scripts/install-scan.sh" "$REPO_DIR/scripts/install-scan.sh"
+  install -m 0644 "$SOURCE_DIR/scripts/write-scan-env.py" "$REPO_DIR/scripts/"
   install -m 0644 "$SOURCE_DIR/deploy/War365-scan.service" "$REPO_DIR/deploy/"
   install -m 0644 "$SOURCE_DIR/deploy/War365-scan.timer" "$REPO_DIR/deploy/"
   install -m 0644 "$SOURCE_DIR/deploy/war365-scan.env.example" "$REPO_DIR/deploy/"
