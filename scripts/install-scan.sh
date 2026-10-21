@@ -229,6 +229,24 @@ if git -C "$REPO_DIR" remote get-url origin >/dev/null 2>&1; then
   fi
 fi
 
+# The deploy key has to be usable by every git command in this repo, not
+# just the ones the systemd unit runs with GIT_SSH_COMMAND in the
+# environment. core.sshCommand is per-repository, so a plain "git pull" in
+# the checkout works for any user, from any shell.
+SSH_COMMAND="ssh -i $KEY_FILE -o IdentitiesOnly=yes -o UserKnownHostsFile=$KNOWN_HOSTS -o StrictHostKeyChecking=accept-new"
+git -C "$REPO_DIR" config --local core.sshCommand "$SSH_COMMAND"
+info "the deploy key is configured for this checkout, so git works from any shell"
+
+# The checkout belongs to the service account, so git refuses to work in it
+# for anyone else unless the directory is marked safe. The root account was
+# already handled above; do the same for the user who ran this script.
+if [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != "root" ]]; then
+  sudo -u "$SUDO_USER" git config --global --add safe.directory "$REPO_DIR" 2>/dev/null \
+    || warn "could not mark $REPO_DIR safe for $SUDO_USER. Run: sudo -u $SUDO_USER git config --global --add safe.directory $REPO_DIR"
+else
+  info "the checkout is marked safe for root"
+fi
+
 # --- 7 -----------------------------------------------------------------------
 
 step 7 "Python and Playwright"
@@ -269,6 +287,10 @@ echo
 info "Run the scan once, by hand, before you trust the timer:"
 info "  sudo systemctl start $UNIT_NAME.service"
 info "  journalctl -u $UNIT_NAME -f"
+echo
+info "Git in this checkout, from any shell:"
+info "  git -C $REPO_DIR pull"
+info "  git -C $REPO_DIR status"
 echo
 info "Files:"
 info "  $ENV_FILE   the key and the settings"

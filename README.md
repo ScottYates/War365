@@ -227,6 +227,35 @@ prints the public key for you to add:
 **Settings, Deploy keys, Add deploy key**, with **Allow write access**
 ticked.
 
+The install script points `origin` at SSH and sets `core.sshCommand` on the
+checkout, so the deploy key is used by every git command in that repo, from
+any shell and any user:
+
+```bash
+git -C /opt/War365 pull
+git -C /opt/War365 status
+```
+
+The checkout belongs to the `war365` service account, so git refuses to work
+in it for anyone else unless the directory is marked safe. The install
+script does that for the account you ran it under. If you need it for
+another user:
+
+```bash
+sudo -u otheruser git config --global --add safe.directory /opt/War365
+```
+
+Doing it by hand instead, the equivalent is:
+
+```bash
+git -C /opt/War365 config --local core.sshCommand \
+  "ssh -i /etc/war365/scan_key -o IdentitiesOnly=yes -o UserKnownHostsFile=/etc/war365/known_hosts -o StrictHostKeyChecking=accept-new"
+```
+
+Without that, a plain `git pull` in the checkout fails with a publickey or
+host key error, because the key lives in `/etc/war365` and not in your own
+`~/.ssh`.
+
 #### Doing it by hand
 
 If you would rather not run the script, the same steps are:
