@@ -591,6 +591,58 @@ window.WAR365_COMMITS = [
       "Ref: https://www.middleeasteye.net/live-blog/live-blog-update/turkey-qatar-pakistan-and-indonesia-forge-badr-deal-jointly-produce",
       "Status: joint production groundwork signed across four participating nations."
     ].join("\n")
+  },
+  {
+    hash: "3153f74",
+    date: "2026-10-22",
+    author: "moskva.bot",
+    authorEmail: "moskva.bot@moskva.example",
+    subject: "feat(airstrike): Russian long-range attacks intensify across Ukraine",
+    body: [
+      "Long-range attack campaign escalated across Ukraine, including emergency power outages in Kyiv.",
+      "Civilian impact: at least 14 deaths and 78 injuries overnight into Thursday.",
+      "Seven children were wounded during the strikes.",
+      "Health and energy facilities sustained additional damage.",
+      "Donetsk region: two civilians killed and nine injured, according to reports from Russian-occupied areas.",
+      "Energy infrastructure was damaged in Poltavska, Rivnenska and Volynska oblasts.",
+      "Hostilities disrupted power in six frontline areas.",
+      "Ref: https://news.un.org/feed/view/en/story/2026/10/1168648",
+      "Status: civilian and infrastructure impact remains under active reporting."
+    ].join("\n")
+  },
+  {
+    hash: "95d4c37",
+    date: "2026-10-23",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.example",
+    subject: "feat(west-bank): gunmen open fire at Hebron checkpoint",
+    body: [
+      "Hebron checkpoint engaged an armed incursion during heightened West Bank tensions.",
+      "- Casualties: five Israelis wounded; two suspected Palestinian attackers killed",
+      "- Two injured Israelis were reported in critical condition",
+      "- The Israeli military said the attackers may have intended a larger attack on Route 35",
+      "- A large quantity of ammunition was recovered from the attackers' vehicle",
+      "- Raids began on the attackers' homes; several adjacent Palestinian buildings were ordered demolished",
+      "- Netanyahu ordered preparations for a full West Bank lockdown beginning later Friday",
+      "Ref: https://www.bbc.co.uk/news/articles/cq4g1p974wxko?at_medium=RSS&at_campaign=rss",
+      "Status: lockdown deployment scheduled ahead of the election."
+    ].join("\n")
+  },
+  {
+    hash: "101f7ca",
+    date: "2026-10-23",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(ukraine-russia): drone sinks cargo ship, Romania blames Russia",
+    body: [
+      "Romania attributed a drone strike that sank a cargo ship to Russia.",
+      "",
+      "- Vessel status: cargo ship sank",
+      "- Casualties: 1 killed, 3 missing",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMirwFBVV95cUxPOF9iZ3FoTHAycU5fWGxKNWNiYnpvRXlwUWJ2ZVFtQU9IUmF4UWJTU1AwTEFRT21vNWRDNzRjWTgtY0F6Vkp0RkdxeG9xM1A0X1RRX19Eb0RqVG9tbTBNeWFRaXZ2SzEtUUFEc2VjZlZPaUxtR3JGTUNEN3VRdWtRMEdTM21OSTVSQWNJN3FaOWpBNHdld3IyZS1sbVA1a2wxLVJXRm01ejhKWXZzQU5B?oc=5",
+      "Status: maritime incident attributed to Russia; 3 people remain missing."
+    ].join("\n")
   }
 ];
 
