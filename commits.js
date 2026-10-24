@@ -643,6 +643,52 @@ window.WAR365_COMMITS = [
       "Ref: https://news.google.com/rss/articles/CBMirwFBVV95cUxPOF9iZ3FoTHAycU5fWGxKNWNiYnpvRXlwUWJ2ZVFtQU9IUmF4UWJTU1AwTEFRT21vNWRDNzRjWTgtY0F6Vkp0RkdxeG9xM1A0X1RRX19Eb0RqVG9tbTBNeWFRaXZ2SzEtUUFEc2VjZlZPaUxtR3JGTUNEN3VRdWtRMEdTM21OSTVSQWNJN3FaOWpBNHdld3IyZS1sbVA1a2wxLVJXRm01ejhKWXZzQU5B?oc=5",
       "Status: maritime incident attributed to Russia; 3 people remain missing."
     ].join("\n")
+  },
+  {
+    hash: "667ef5c",
+    date: "2026-10-23",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.il.example",
+    subject: "feat(west-bank): army prepares full closure after Hebron shooting",
+    body: [
+      "The Israeli government ordered the army to prepare for a full closure of the occupied West Bank.",
+      "Trigger: a shooting near Hebron killed two soldiers.",
+      "Scope: full West Bank closure preparations.",
+      "Ref: https://news.sky.com/story/israel-orders-army-to-prepare-to-fully-close-west-bank-after-attack-13602577",
+      "Status: closure readiness ordered following the Hebron shooting."
+    ].join("\n")
+  },
+  {
+    hash: "44b8d1b",
+    date: "2026-10-24",
+    author: "mod.us",
+    authorEmail: "mod@war365.example",
+    subject: "feat(peace-deal): Melania Trump brokers ceasefire for relief aid",
+    body: [
+      "Melania Trump brokered a ceasefire deal in a Russian-occupied Ukrainian city.",
+      "- Objective: allow relief aid to enter the city",
+      "- Deal type: ceasefire",
+      "- Theatre: Ukraine and Russia",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMirwFBVV95cUxOMkNRM3hJTVJkUGxjNjB3QmhSd2FSb2JHZkZtTjVNdzNWeHJ4QkpwdEd0cWttQjg0ZmVSQUtCV0JHTFRCeTd3NGJITy1ybDRTQzB4ZkhEdDEtRkRhcUZrWHdONWJZZFlBbGV5YmhkbDh5LTlaZm9jelQ3Y2FWOEcxUlhLZE5yX2c4dVhSZlYyVDUtVllza2ZLLTVXQ2RCN093aGJlRmc4RU9jcHZROVRv?oc=5",
+      "Status: relief-aid access negotiated through a city-level ceasefire."
+    ].join("\n")
+  },
+  {
+    hash: "1e07f30",
+    date: "2026-10-24",
+    author: "zelenskyy.o",
+    authorEmail: "zelenskyy.o@war365.example",
+    subject: "feat(drone): Ukrainian strike hits petrochemical plant in Togliatti",
+    body: [
+      "Ukrainian forces struck a Russian petrochemical plant in Togliatti overnight, Kyiv's general staff said.",
+      "The attack caused an explosion and fire, Ukrainian authorities said.",
+      "Several industrial facilities were damaged, Togliatti mayor Ilya Sukhikh confirmed.",
+      "Social media footage showed thick black smoke rising from the industrial area.",
+      "Togliatti is home to Avtovaz and major ammonia producer Togliattiazot.",
+      "Ref: https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-oleshky-melania-trump-ceasefire-starlink-b3072649.html",
+      "Status: industrial damage confirmed; casualty data not reported."
+    ].join("\n")
   }
 ];
 
