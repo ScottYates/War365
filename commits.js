@@ -689,6 +689,57 @@ window.WAR365_COMMITS = [
       "Ref: https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-oleshky-melania-trump-ceasefire-starlink-b3072649.html",
       "Status: industrial damage confirmed; casualty data not reported."
     ].join("\n")
+  },
+  {
+    hash: "d89d15e",
+    date: "2026-10-24",
+    author: "idf.il",
+    authorEmail: "idf.il@war365.example",
+    subject: "feat(west-bank): Israel launches major security operation in Hebron",
+    body: [
+      "The Israeli military launched a large-scale security operation in Hebron on October 24, 2026.",
+      "Trigger: two Palestinian gunmen killed two Israeli soldiers and wounded three others at a military checkpoint near the city.",
+      "- Operation duration: expected to continue for several days",
+      "- Objective: locate militants and weapons in areas linked to the attack",
+      "- Displacement estimate: 150-250 Palestinian families",
+      "- Vehicle access: restricted at closed gates; pedestrians directed through designated exit points and security checks",
+      "Ref: https://www.euronews.com/2026/10/24/israel-removes-around-250-palestinian-families-from-west-bank-city-of-hebron-after-soldier",
+      "Status: Hebron operation deployed; hundreds of Palestinian residents displaced."
+    ].join("\n")
+  },
+  {
+    hash: "ba55a24",
+    date: "2026-10-25",
+    author: "houthi.media",
+    authorEmail: "ops@houthi.example",
+    subject: "feat(yemen): Saudi intercepts 10 Houthi missiles as Riyadh airport reopens",
+    body: [
+      "Saudi Arabia intercepted 10 Houthi ballistic missiles and a drone fired at Riyadh, according to the Saudi-led coalition.",
+      "- Interceptions: 10 ballistic missiles and 1 drone",
+      "- Reported explosions: heard in Riyadh",
+      "- Airport status: terminals one and two reopened",
+      "- Terminals three and four: remain closed after Houthi strikes",
+      "- Earlier airport strikes: 17 killed and 330+ wounded in early October",
+      "Ref: https://www.newarab.com/news/saudi-downs-10-houthi-missiles-riyadh-airport-reopens",
+      "Status: partial Riyadh airport service restored under continuing missile and drone threat."
+    ].join("\n")
+  },
+  {
+    hash: "387bbf8",
+    date: "2026-10-25",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.example",
+    subject: "feat(drone): Iranian army says it shot down US drone over Bandar Abbas",
+    body: [
+      "The Iranian army said it shot down a US drone over Bandar Abbas, according to Tasnim and Reuters.",
+      "",
+      "- Asset status: US drone reported shot down",
+      "- Location: Bandar Abbas",
+      "- Source: Tasnim report carried by Reuters",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMixAFBVV95cUxNNjlxWUNjczg2SHFQamFEZDV0SVhZaHA5bFdqaVQzT1oxSjd0b2ZQQjd6MldHeEhKcUstbGJEa1QxMmFBMFhad2VnREVIa2xoT0tPWlFXVW5lcXVEYjMwdUd5NTRIYm0zTFpabXUxY2pCakRGM3JnWE1iNHc3MmtlbWduRno3ZWVGVWVpa2JtRjF4VDh5TEFHN21hUV9sQUhxOWpJMVVPNlhFMDd5SkJMekZkTFdtQzlnYnBQNkd2MG1TNzZy?oc=5",
+      "Status: interception claimed by the Iranian army; independent confirmation not reported."
+    ].join("\n")
   }
 ];
 
