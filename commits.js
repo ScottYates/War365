@@ -740,6 +740,56 @@ window.WAR365_COMMITS = [
       "Ref: https://news.google.com/rss/articles/CBMixAFBVV95cUxNNjlxWUNjczg2SHFQamFEZDV0SVhZaHA5bFdqaVQzT1oxSjd0b2ZQQjd6MldHeEhKcUstbGJEa1QxMmFBMFhad2VnREVIa2xoT0tPWlFXVW5lcXVEYjMwdUd5NTRIYm0zTFpabXUxY2pCakRGM3JnWE1iNHc3MmtlbWduRno3ZWVGVWVpa2JtRjF4VDh5TEFHN21hUV9sQUhxOWpJMVVPNlhFMDd5SkJMekZkTFdtQzlnYnBQNkd2MG1TNzZy?oc=5",
       "Status: interception claimed by the Iranian army; independent confirmation not reported."
     ].join("\n")
+  },
+  {
+    hash: "83505e9",
+    date: "2026-10-26",
+    author: "mod.us",
+    authorEmail: "mod.us@mod.example",
+    subject: "feat(sahel): US airstrikes accused of displacing Somali civilians into flood-prone areas",
+    body: [
+      "US-led airstrikes in southern Somalia are accused of pushing civilians toward the flood-prone banks of the River Juba as El Nio strengthens.",
+      "- Operational area: Jilib and Malenda, near the Juba River",
+      "- Displacement pattern: residents reportedly forced to move toward the river",
+      "- Environmental condition: El Nio forecast to intensify Somalia's rainy season from this month",
+      "- Terrain exposure: large numbers of women and children reportedly pinned on the floodplain",
+      "- Attribution: Africom declined to share operational security details",
+      "Ref: https://www.theguardian.com/global-development/2026/oct/26/us-forces-accused-of-weaponising-somalia-flood-el-nino",
+      "Status: intent disputed; civilian exposure and flood risk reported."
+    ].join("\n")
+  },
+  {
+    hash: "ec289f1",
+    date: "2026-10-26",
+    author: "rsf.sudan",
+    authorEmail: "rsf.sudan@rsf.example",
+    subject: "feat(drone): RSF strikes five power stations across three Sudanese states",
+    body: [
+      "Rapid Support Forces launched a coordinated drone attack against five power stations, a government official said.",
+      "- Al-Jazira: 2 power stations hit",
+      "- Gedaref: 2 power stations hit",
+      "- White Nile: 1 power station hit",
+      "Impact: power outages across large parts of all three army-controlled states.",
+      "The UN says repeated attacks on power stations threaten health and services for millions of people already facing extreme hunger.",
+      "Ref: https://www.theguardian.com/world/2026/oct/26/sudan-paramilitary-drone-strikes-rapid-support-forces-power-cuts-eastern-states",
+      "Status: regional grid availability degraded; restoration time not reported."
+    ].join("\n")
+  },
+  {
+    hash: "ce45550",
+    date: "2026-10-26",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.il.example",
+    subject: "feat(drone): Israeli quadcopters ignite blaze at Gaza City camp",
+    body: [
+      "Israeli quadcopter drones started a fire in Gaza City's Shujayea neighbourhood, according to the Palestinian Public Works Ministry.",
+      "The blaze began at about 8pm local time on Sunday.",
+      "Tents were destroyed as flames continued beyond midnight.",
+      "About 800 Palestinians were displaced, including women, children and elderly people.",
+      "The ministry appealed for international assistance to supply replacement tents.",
+      "Ref: https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drones-burn-gaza-refugee-camp-displacing-about-800-palestinian",
+      "Status: shelter inventory destroyed; replacement tents requested."
+    ].join("\n")
   }
 ];
 
