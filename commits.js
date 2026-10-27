@@ -790,6 +790,63 @@ window.WAR365_COMMITS = [
       "Ref: https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drones-burn-gaza-refugee-camp-displacing-about-800-palestinian",
       "Status: shelter inventory destroyed; replacement tents requested."
     ].join("\n")
+  },
+  {
+    hash: "58b8342",
+    date: "2026-10-27",
+    author: "russia.mil",
+    authorEmail: "russia.mil@russia.example",
+    subject: "feat(airstrike): Russian missile and drone attack hits Kyiv",
+    body: [
+      "Kyiv processed two overnight waves of Russian ballistic missiles and drones.",
+      "",
+      "- Payload reported by President Volodymyr Zelenskyy: 16 ballistic missiles and 280+ drones",
+      "- Regional impact: energy and logistics sites hit across 11 regions",
+      "- Kyiv casualty report: 1 killed and 14 injured, with 9 taken to hospital",
+      "- Infrastructure damage: university buildings and medical facilities near Lisova metro station",
+      "- Transit degradation: Pivdennyi bridge damaged, disrupting metro services across the Dnipro",
+      "- Emergency response: firefighters rescued a dog from the rubble; a second injured dog was found nearby",
+      "- Delivery warning: delays involving Patriot and NASAMS interceptors were criticised",
+      "",
+      "Ref: https://www.euronews.com/video/2026/10/27/ukraine-firefighters-battle-flames-and-rescue-dog-from-kyiv-ruins",
+      "Status: Kyiv impact acknowledged; broader interceptor availability remains unresolved."
+    ].join("\n")
+  },
+  {
+    hash: "70f3037",
+    date: "2026-10-27",
+    author: "mod.in",
+    authorEmail: "mod@mod.example",
+    subject: "feat(sahel): Niger accuses Chad of deadly drone strike",
+    body: [
+      "Niger's military government accused Chad of carrying out a drone strike that killed two civilians and injured others.",
+      "- Incident time: early Saturday",
+      "- Location: Salvador Pass, mountainous Emi Lulu area, northern Niger",
+      "- Requested response: end hostile actions and compensate Niger for damage",
+      "- Diplomatic action: Chadian ambassador summoned",
+      "- Escalation path: referral to the UN Security Council and African Union Peace and Security Council requested",
+      "- Verification: Niger called for an independent international investigation",
+      "Ref: http://www.africanews.com/2026/10/27/niger-accuses-chad-of-deadly-drone-attack-in-which-two-civilians-died/",
+      "Status: attribution and requested investigation unresolved."
+    ].join("\n")
+  },
+  {
+    hash: "6e7451a",
+    date: "2026-10-27",
+    author: "jordan.mil",
+    authorEmail: "ops@jordan.example",
+    subject: "feat(airstrike): Jordan strikes village in southern Daraa",
+    body: [
+      "Jordanian fighter jets struck a village in Syria's southern Daraa province, retaliation for a church funeral attack.",
+      "- Trigger: 9 people killed and 34 injured in a shooting at a Greek Orthodox church in Karak on Friday",
+      "- Reported impact: Syrian health officials said 5 people, including women, children and an elderly man, were killed",
+      "- Jordan's assessment: fighter jets killed and wounded several terrorists, with no further details provided",
+      "- Coordination status: Jordan said it coordinated with the Syrian government; Syria said it was not notified",
+      "- Border response: Syria closed the Nassib passenger and commercial crossing to Jordan",
+      "- Suspect update: Jordan arrested two brothers and their brother-in-law over the church attack",
+      "Ref: https://www.bbc.co.uk/news/articles/cq8ezg6dy6xlo?at_medium=RSS&at_campaign=rss",
+      "Status: direct communication opened; investigation into the targeting announced."
+    ].join("\n")
   }
 ];
 
