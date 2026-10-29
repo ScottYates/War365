@@ -847,6 +847,51 @@ window.WAR365_COMMITS = [
       "Ref: https://www.bbc.co.uk/news/articles/cq8ezg6dy6xlo?at_medium=RSS&at_campaign=rss",
       "Status: direct communication opened; investigation into the targeting announced."
     ].join("\n")
+  },
+  {
+    hash: "d2ab8ff",
+    date: "2026-10-29",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(drone): Russian drone attack hits Dnipro train station",
+    body: [
+      "Russian drone attack deployed against a train station in Dnipro, Ukraine.",
+      "",
+      "- Target: train station",
+      "- Location: Dnipro, Ukraine",
+      "- Reported impact: 13 killed",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMirAFBVV95cUxPMVJMbm5Vb3NTVmNud01fMHc3WHJUWTNvWl8zSmJYZjVUUHhRbm5VWGZxVWZmbGpQdHZNZUlCQVFuLWxWb1FoR0xTZThVSmRTRVBlWUlLaWNKUTZzVnV1dTYyellibWN0XzFXNGpsUk45U2o1Z2hzUndOUEJYM0Q3WmUxSHFteS1WRXpyRk5JcmdTaEdyNVMzV2dwRGxCc0hGMlpQRElXQzMxZXdj?oc=5",
+      "Status: casualty report logged; further operational details unavailable."
+    ].join("\n")
+  },
+  {
+    hash: "f0b9ad9",
+    date: "2026-10-29",
+    author: "ops",
+    authorEmail: "ops@war365.example",
+    subject: "feat(haiti): El Salvador deploys 2,000+ troops to Haiti",
+    body: [
+      "El Salvador has deployed more than 2,000 soldiers to Haiti to retrieve four missing military personnel.",
+      "",
+      "- Mission objective: recover four Salvadoran nationals missing for almost two weeks\n- Operational area: outskirts of Port-au-Prince, including territory controlled by Croix-des-Bouquets\n- Supporting role: assist security efforts against gangs in Haiti\n- Context: the four air force technicians were working with the UN-backed Gang Suppression Force\n- Dependency: support from various countries and international organisations was announced\n\nRef: https://www.bbc.co.uk/news/articles/ck0e075n79j5o?at_medium=RSS&at_campaign=rss\nStatus: retrieval operation deployed; responsibility for the ambush remains unclaimed."
+    ].join("\n")
+  },
+  {
+    hash: "dd5ec57",
+    date: "2026-10-29",
+    author: "mod.us",
+    authorEmail: "mod@us.example",
+    subject: "feat(iran): Hegseth fires Pentagon's top military planner amid consideration of new Iran strikes",
+    body: [
+      "Pentagon leadership update shipped alongside renewed review of Iran operations.",
+      "- Pete Hegseth fired the Pentagon's top military planner.",
+      "- President Trump is considering new strikes against Iran.",
+      "- Planning capacity and strike options remain under active review.",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMioAFBVV95cUxOZmVIdU1FSEwxZkxoSnhpcWZPNHFqM0NfT2ZOTDZvQW5XUlVSSGYwTmlaRlhKdXMyRlk1ZVJ2SHpVeVhaTkhiX0FWWHhLdUs4bDU4WjNlV2Z0Vno4VzEzTlRoUkJOeTA5eTVvT3hsY3I4aGswSmVNbWJNTkZzalpUMXhmVTJSVDZEakxodkJLeExNaDh6UHBuVkVvUjZzbEE3?oc=5",
+      "Status: leadership change deployed; potential new strikes remain under consideration."
+    ].join("\n")
   }
 ];
 
