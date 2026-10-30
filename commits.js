@@ -892,6 +892,62 @@ window.WAR365_COMMITS = [
       "Ref: https://news.google.com/rss/articles/CBMioAFBVV95cUxOZmVIdU1FSEwxZkxoSnhpcWZPNHFqM0NfT2ZOTDZvQW5XUlVSSGYwTmlaRlhKdXMyRlk1ZVJ2SHpVeVhaTkhiX0FWWHhLdUs4bDU4WjNlV2Z0Vno4VzEzTlRoUkJOeTA5eTVvT3hsY3I4aGswSmVNbWJNTkZzalpUMXhmVTJSVDZEakxodkJLeExNaDh6UHBuVkVvUjZzbEE3?oc=5",
       "Status: leadership change deployed; potential new strikes remain under consideration."
     ].join("\n")
+  },
+  {
+    hash: "91d8c2e",
+    date: "2026-10-29",
+    author: "dprk.woo",
+    authorEmail: "dprk.woo@war365.example",
+    subject: "feat(missile): North Korea launches ballistic missiles off east coast",
+    body: [
+      "North Korea launched ballistic missiles from its east coast into the Sea of Japan.",
+      "",
+      "- Platform: ballistic missiles",
+      "- Launch area: east coast of North Korea",
+      "- Reported destination: Sea of Japan",
+      "- Regional context: tensions with South Korea continue to rise",
+      "- Attribution: launch reported by South Korea",
+      "",
+      "Ref: https://news.sky.com/story/north-korea-fires-ballistic-missiles-off-east-coast-as-tensions-with-south-rise-13605215",
+      "Status: launch detected and logged; further operational details unavailable."
+    ].join("\n")
+  },
+  {
+    hash: "d4a1986",
+    date: "2026-10-30",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(evacuation): corridor opens for residents leaving occupied Oleshky",
+    body: [
+      "Evacuation of the Russian-occupied Ukrainian city of Oleshky is under way, confirmed by Russian and Ukrainian authorities.",
+      "- Ceasefire status: active across the frontline Kherson region since Tuesday",
+      "- Maintenance: Russian sappers demined the road out of Oleshky",
+      "- Departure window: 4 hours, ending at 14:00",
+      "- Capacity: 25 buses for up to 750 people, plus ambulances for people with limited mobility",
+      "- Routing: occupied territory to Anapa, by government plane to Gomel, then by road into Ukraine's Chernihiv region",
+      "- Remaining users: several hundred residents chose to stay despite the lack of gas, electricity and running water",
+      "- Aid package: Russia said it prepared dozens of tonnes of food, medicine, hygiene products and generator fuel",
+      "Ref: https://www.bbc.co.uk/news/articles/c60me298k1yeo?at_medium=RSS&at_campaign=rss",
+      "Status: corridor open through the end of Sunday 1 November; evacuation remains voluntary."
+    ].join("\n")
+  },
+  {
+    hash: "cf45dc0",
+    date: "2026-10-30",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(press): Novaya Gazeta shuts down under Kremlin pressure",
+    body: [
+      "Independent Russian newspaper Novaya Gazeta has shut down.",
+      "",
+      "- Founding era: launched after the fall of the Soviet Union",
+      "- Compliance label: branded a foreign agent",
+      "- Coverage status: among the last Russian news outlets to report critically on the invasion of Ukraine",
+      "- Cause: the outlet says Kremlin pressure killed it",
+      "",
+      "Ref: https://www.timesofisrael.com/leading-independent-russian-newspaper-shuts-down-says-kremlin-pressure-killed-it/",
+      "Status: publication terminated; editorial capacity permanently removed."
+    ].join("\n")
   }
 ];
 
