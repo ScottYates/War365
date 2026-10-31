@@ -948,6 +948,64 @@ window.WAR365_COMMITS = [
       "Ref: https://www.timesofisrael.com/leading-independent-russian-newspaper-shuts-down-says-kremlin-pressure-killed-it/",
       "Status: publication terminated; editorial capacity permanently removed."
     ].join("\n")
+  },
+  {
+    hash: "f85b595",
+    date: "2026-10-31",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.example",
+    subject: "feat(maritime): Iran halts three tankers in Strait of Hormuz",
+    body: [
+      "Iran reports three oil tankers halted in the Strait of Hormuz amid escalating attacks.",
+      "- Traffic control: tankers switched off navigation and positioning systems after radio warnings, the IRGC said.",
+      "- Route policy: vessels must use a designated corridor and coordinate passage with Iranian forces.",
+      "- Tanker incidents: a supertanker carrying 2 million barrels reportedly stopped after striking a naval mine.",
+      "- Parallel rescue: Oman evacuated 25 crew members from the Panamanian-flagged merchant ship RITI after it was targeted and caught fire.",
+      "- Medical support: rescued crew members received medical care.",
+      "- External validation: US Central Command said US forces had cleared the strait's primary transit routes of Iranian sea mines.",
+      "Ref: https://www.newarab.com/news/oman-rescues-25-burning-ship-iran-halts-tankers",
+      "Status: maritime traffic restricted; tanker incidents and route enforcement remain active."
+    ].join("\n")
+  },
+  {
+    hash: "5178a45",
+    date: "2026-10-31",
+    author: "mod.us",
+    authorEmail: "ops@mod.example",
+    subject: "feat(missile): US approves sale of 500 PAC-3 Patriot missiles to Ukraine",
+    body: [
+      "The US has approved the sale of 500 advanced PAC-3 Patriot interceptor missiles to Ukraine.",
+      "- Order size: 500 missiles",
+      "- Package value: $2.1bn",
+      "- Funding: entirely provided by Ukraine's allies in Europe and Canada",
+      "- Principal contractor: Lockheed Martin",
+      "- Production capacity: about 600 missiles per year",
+      "- Delivery estimate: several years, according to President Volodymyr Zelensky",
+      "- Inventory note: global supply is constrained by US use of the missiles in its war against Iran",
+      "- Operational context: Russia has conducted more than 30 strikes on critical parts of Ukraine's power grid over the past two weeks",
+      "",
+      "Ref: https://www.bbc.co.uk/news/articles/c3vgxznlx7jzo?at_medium=RSS&at_campaign=rss",
+      "Status: sale approved; interceptor deployment pending a lengthy production schedule."
+    ].join("\n")
+  },
+  {
+    hash: "e4a0e65",
+    date: "2026-10-31",
+    author: "ukraine.mod",
+    authorEmail: "ukraine.mod@war365.example",
+    subject: "feat(missile): Drones and Neptune missiles strike Kamensky rocket fuel plant",
+    body: [
+      "Ukrainian forces combined attack drones with Navy Neptune cruise missiles in an overnight strike on the Kamensky chemical plant in Kamensk-Shakhtinsky, Rostov region.",
+      "",
+      "- Attack window: overnight into Saturday, Oct. 31",
+      "- Target: military-industrial infrastructure producing solid rocket propellant and propulsive charges",
+      "- Confirmed damage: four production workshops",
+      "- Fire: finished products warehouse ignited",
+      "- Supported systems: Uragan, Smerch, and modernized Tornado-S artillery rocket systems",
+      "",
+      "Ref: https://www.kyivpost.com/post/88751",
+      "Status: precision strike deployed; production capacity damage confirmed."
+    ].join("\n")
   }
 ];
 
