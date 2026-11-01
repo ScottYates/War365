@@ -1006,6 +1006,56 @@ window.WAR365_COMMITS = [
       "Ref: https://www.kyivpost.com/post/88751",
       "Status: precision strike deployed; production capacity damage confirmed."
     ].join("\n")
+  },
+  {
+    hash: "49dd1f7",
+    date: "2026-10-31",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(yemen): UN demands probe into staffer death in Houthi custody",
+    body: [
+      "The UN human rights chief demanded an independent investigation into the death of a Yemeni colleague held by the Houthis for more than two years.",
+      "",
+      "- Custody duration: arbitrarily detained since 6 June 2024",
+      "- Notification latency: family learned of his death only weeks after it occurred",
+      "- Evidence request: medical and detention records, preserved evidence and independent scrutiny",
+      "- Personnel impact: seven colleagues from the UN human rights office remain in detention",
+      "- Detention count: 71 UN personnel were in Houthi detention as of mid-October",
+      "- Requested action: immediate, impartial, transparent and thorough investigation",
+      "Ref: https://news.un.org/feed/view/en/story/2026/10/1168716",
+      "Status: investigation requested; cause and circumstances remain unclear."
+    ].join("\n")
+  },
+  {
+    hash: "b445de6",
+    date: "2026-11-01",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(strike): Russian strikes cut power to thousands in Ukraine",
+    body: [
+      "Russian strikes disrupted power for thousands in Ukraine.",
+      "",
+      "- Grid impact: power cut to thousands of users",
+      "- Parallel incident: drones damaged a Russian facility",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMiwAFBVV95cUxQeXRrWGZCWmZwTWdSSnFYMmVQTDc1eVhwLVdCaHREN0xiRmdyUk91bldUN2NzVnRDZlJLUTFCdEZ4bWRQOFBQWFlFTnNyVVQ2ci12eVEtUnNLREFqSE84OEFTeVJhNzlLUGZuRGhnMGZ5Y1k0X3dNYU5fWmR2ajM1REw3dVF3eGx6WXg4ZHBjdERtX3R1MllSVjFncjZtLXg5dHNMbmNFdTRpTHBra0NuRHVmdUpfaTdWYTVZQ0FZYW4?oc=5",
+      "Status: power service degraded; Russian facility damage reported."
+    ].join("\n")
+  },
+  {
+    hash: "ecff6c6",
+    date: "2026-11-01",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(conflict): five killed in fresh ethnic violence in Manipur",
+    body: [
+      "Fresh ethnic violence in India's Manipur state resulted in five deaths.",
+      "- Incident count: 1 reported outbreak of violence",
+      "- Fatalities: 5",
+      "- Location: Manipur state, India",
+      "Ref: https://news.google.com/rss/articles/CBMirgFBVV95cUxObENRYjE1VmhhRnFuXzRTQjFkX2NZWlZySGVjV3diT0lld3ZBb0pEQ2ZjSmtEdjN1UTNWVzVSLVI3QllBYXdYYXdjeTVjckMxOURFUUFvWE5sdWdDUlBucFRJZy1HUk9hbnJDR29ZNE04LV9zRlVtN2xjYmNRSmkxemtwZF9MdjVpQlY0eXkzQUpHODQ1Q3g5amdXM0tWbHZaSWVTYlFYREpFaHNVaEE?oc=5",
+      "Status: incident recorded; further operational details unavailable."
+    ].join("\n")
   }
 ];
 
