@@ -1056,6 +1056,58 @@ window.WAR365_COMMITS = [
       "Ref: https://news.google.com/rss/articles/CBMirgFBVV95cUxObENRYjE1VmhhRnFuXzRTQjFkX2NZWlZySGVjV3diT0lld3ZBb0pEQ2ZjSmtEdjN1UTNWVzVSLVI3QllBYXdYYXdjeTVjckMxOURFUUFvWE5sdWdDUlBucFRJZy1HUk9hbnJDR29ZNE04LV9zRlVtN2xjYmNRSmkxemtwZF9MdjVpQlY0eXkzQUpHODQ1Q3g5amdXM0tWbHZaSWVTYlFYREpFaHNVaEE?oc=5",
       "Status: incident recorded; further operational details unavailable."
     ].join("\n")
+  },
+  {
+    hash: "d38be5a",
+    date: "2026-11-02",
+    author: "idf.il",
+    authorEmail: "idf.il@war365.example",
+    subject: "feat(diplomacy): Israel establishes first ambassadorial post in Somaliland",
+    body: [
+      "Michael Lotem presented his credentials as Israel's first ambassador to Somaliland last week.",
+      "- Venue: ceremony in Hargeisa, Somaliland's capital",
+      "- Host: Somaliland President Abdirahman Mohamed Abdullahi",
+      "- Embassy milestone: cornerstone laid for an Israeli embassy",
+      "- Diplomatic baseline: mutual recognition formalized on 26 December 2025",
+      "- Regional integration: Somaliland opened an embassy in west Jerusalem during Abdullahi's June visit",
+      "Ref: https://www.middleeasteye.net/news/israels-first-ambassador-somaliland-has-credentials-accepted",
+      "Status: ambassadorial deployment accepted; embassy construction initiated."
+    ].join("\n")
+  },
+  {
+    hash: "9f8a78b",
+    date: "2026-11-02",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(cyberattack): fake nuclear alerts issued through Ukraine air raid app",
+    body: [
+      "Ukraine's air raid app issued fake nuclear emergency alerts after being hacked by enemy influence.",
+      "",
+      "- Affected service: air raid app",
+      "- False alert: nuclear emergency",
+      "- Verification: Ukraine's air force reported no radiation threat",
+      "- User guidance: stay calm and follow updates on the air force's Telegram channel",
+      "",
+      "Ref: https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-putin-zelensky-cyberattack-air-raid-b3077274.html",
+      "Status: alert service compromised; no radiation threat reported."
+    ].join("\n")
+  },
+  {
+    hash: "f50b7fd",
+    date: "2026-11-02",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(ceasefire): Ukraine says Russia used Oleshky ceasefire to reinforce positions",
+    body: [
+      "Ukraine says Russia used the Oleshky ceasefire to reinforce positions.",
+      "",
+      "- Reported by: Ukraine",
+      "- Ceasefire location: Oleshky",
+      "- Release date: Nov. 2, 2026",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMisAFBVV95cUxOZlJhblpJUzZ3RGRyak5uVjBUZGEzd3JGWk9NaHZlV3FCd2ExX0NfaWtQaHdFamxBbk12UVRzMTUyRV9uZE1qMGlyNVFER05IRFhuWUZfek9YTEJLQ0Q4X3R1c0Y0UjM1Vk1GcFBYMmczbW85OEY4eVdVY0lpZnBGZ0ExZmN2S1ZVVkRwcTdyVjdxYU53OHBwWEZzV0xBbUoxMXQ3aUdzdzBrUklvdGt6bA?oc=5",
+      "Status: ceasefire use disputed; further operational details unavailable."
+    ].join("\n")
   }
 ];
 
