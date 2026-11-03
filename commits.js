@@ -1108,6 +1108,38 @@ window.WAR365_COMMITS = [
       "Ref: https://news.google.com/rss/articles/CBMisAFBVV95cUxOZlJhblpJUzZ3RGRyak5uVjBUZGEzd3JGWk9NaHZlV3FCd2ExX0NfaWtQaHdFamxBbk12UVRzMTUyRV9uZE1qMGlyNVFER05IRFhuWUZfek9YTEJLQ0Q4X3R1c0Y0UjM1Vk1GcFBYMmczbW85OEY4eVdVY0lpZnBGZ0ExZmN2S1ZVVkRwcTdyVjdxYU53OHBwWEZzV0xBbUoxMXQ3aUdzdzBrUklvdGt6bA?oc=5",
       "Status: ceasefire use disputed; further operational details unavailable."
     ].join("\n")
+  },
+  {
+    hash: "54875b7",
+    date: "2026-11-02",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(conflict): Russia bombs aid center and shelter in southern Ukraine",
+    body: [
+      "Reported strike targeted an aid center and shelter in southern Ukraine.",
+      "- Targets: aid center and shelter",
+      "- Fatalities: 26, according to officials",
+      "- Reported location: southern Ukraine",
+      "Ref: https://news.google.com/rss/articles/CBMipAFBVV95cUxOSjQxRVBYSHRNOF9zQ2l4RldLcXhabTFZWjVtWkhRaGZ3c25xemVZZmJjU1FiQUxMYlpzdmFvQkp1RGRFcWpaVGlOel9vLWx4ZDdfdDdlbm9DWTBXU1B2ZTNHQVFfU1EyQ1VaSHE2NFNqTXEwSEdxZmJEM3piSHhQc1YwUnM0SmxQVFFXYkQtM3BkdW5hclJpdEZwNXZ0M01mRXVUWQ?oc=5",
+      "Status: strike reported; further operational details unavailable."
+    ].join("\n")
+  },
+  {
+    hash: "91043aa",
+    date: "2026-11-03",
+    author: "mod.us",
+    authorEmail: "mod.us@mod.example",
+    subject: "feat(airstrike): US launches limited strikes on Qeshm Island",
+    body: [
+      "The US carried out limited and defensive strikes on Iran's Qeshm Island in the Strait of Hormuz.",
+      "- Trigger: IRGC fired on a US aircraft",
+      "- Iranian state news agency Irna reported explosions on Qeshm",
+      "- IRGC claim: two US MQM-170 drones and one US MQ-9 drone were shot down",
+      "- Timing: strikes reported ahead of the US midterm elections",
+      "- Official acknowledgement: US military has not commented",
+      "Ref: https://www.bbc.co.uk/news/articles/cx240mrm3g8vo?at_medium=RSS&at_campaign=rss",
+      "Status: limited defensive release deployed; strike details remain unconfirmed."
+    ].join("\n")
   }
 ];
 
