@@ -146,6 +146,12 @@ starts, so a unit that has not been reinstalled still finds the browser.
 before it spends a model call, so a missing browser is one clear line
 rather than three stack traces.
 
+`verify` serves the checkout locally and answers every off-origin request
+with an empty response, so the web-font link cannot fail the check when the
+network blips. If the scan fails after it has started writing `commits.js`,
+it restores the file from git, so a failed run never leaves a dirty tree
+for the next one to refuse.
+
 `check` reports pre-existing style problems as warnings rather than failures,
 so it can gate a commit without blocking on history. New entries are held to
 the stricter rule.

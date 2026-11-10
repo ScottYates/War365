@@ -179,6 +179,27 @@ if ! compgen -G "$WORK/entry-*.json" > /dev/null; then
 fi
 
 # --- 6. Insert, oldest first -------------------------------------------------
+#
+# From here on the scan is writing commits.js. If anything fails before the
+# commit, the file goes back to what git has. The tree was clean when the run
+# started, so the only changes in it are the scan's own, and leaving them
+# behind makes every later run refuse to start on a dirty tree. The entries
+# are not lost: they stay in $WORK as entry-*.json until the next run.
+
+INSERTING=0
+restore_log() {
+  local status=$?
+  if [[ "$INSERTING" -eq 1 && "$status" -ne 0 ]]; then
+    if git checkout -- commits.js; then
+      say "restored commits.js; the entries written this run are still in $WORK"
+    else
+      say "warning: could not restore commits.js; the next run will refuse a dirty tree"
+    fi
+  fi
+  exit "$status"
+}
+trap restore_log EXIT
+INSERTING=1
 
 mapfile -t ENTRIES < <("$PYTHON" -c '
 import glob, json, sys
@@ -218,6 +239,7 @@ fi
 COUNT_ADDED=$(ls -1 "$WORK"/entry-*.json 2>/dev/null | wc -l | tr -d ' ')
 git add commits.js
 git commit -m "feat(log): add ${COUNT_ADDED} release-log entries from the news scan"
+INSERTING=0
 git push
 say "pushed $(git rev-parse --short HEAD)"
 say "done: $COUNT_ADDED entries added"

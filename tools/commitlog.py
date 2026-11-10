@@ -481,6 +481,26 @@ def cmd_verify(args):
             try:
                 page = browser.new_page()
                 errs, failed = [], []
+
+                # The check is about this checkout, so nothing leaves the
+                # box. The page links a web-font stylesheet from a third
+                # party, and a network blip on that one request used to
+                # fail the run after the entries were already in
+                # commits.js. Anything off-origin is answered here with an
+                # empty response, so the result depends only on the files
+                # being served.
+                def stub_external(route):
+                    if route.request.url.startswith(url):
+                        route.continue_()
+                        return
+                    kind = route.request.resource_type
+                    route.fulfill(
+                        status=200,
+                        content_type="text/css" if kind == "stylesheet" else "text/plain",
+                        body="",
+                    )
+
+                page.route("**/*", stub_external)
                 page.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
                 page.on("pageerror", lambda e: errs.append(str(e)))
                 page.on("requestfailed", lambda r: failed.append(r.url))
