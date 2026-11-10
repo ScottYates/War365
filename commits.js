@@ -1194,6 +1194,60 @@ window.WAR365_COMMITS = [
       "Ref: https://www.middleeasteye.net/news/israeli-forces-demolish-five-west-bank-buildings-and-displace-over-100-palestinians",
       "Status: five buildings removed; 100+ residents displaced."
     ].join("\n")
+  },
+  {
+    hash: "a47f535",
+    date: "2026-11-09",
+    author: "ops@war365.example",
+    authorEmail: "ops@war365.example",
+    subject: "feat(cyberattack): France blames Iran for supermarket refrigeration attack",
+    body: [
+      "France has attributed a cyberattack on supermarket refrigeration systems to Iran.",
+      "",
+      "- Impact: hundreds of supermarkets affected last month",
+      "- Response: France's foreign minister summoned the Iranian ambassador to France",
+      "- Vendor response: Iran did not immediately respond",
+      "",
+      "Ref: https://www.nytimes.com/2026/11/09/world/europe/france-iran-refrigerators-cyberattack.html",
+      "Status: investigation ongoing; Iran attribution disputed by silence."
+    ].join("\n")
+  },
+  {
+    hash: "49e41b2",
+    date: "2026-11-09",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(training): EU extends Ukraine training mission to 2028",
+    body: [
+      "EU member states extended the military training mission for Ukraine and approved a first EU training presence in the country.",
+      "- Decision date: Nov. 9, 2026",
+      "- Mission end date: Nov. 15, 2028",
+      "- Fresh funding: nearly EUR 300 million ($335 million)",
+      "- EUMAM will coordinate directly with Ukrainian military leadership, the Armed Forces of Ukraine and allied partners",
+      "- Curriculum update: frontline combat experience will receive greater emphasis",
+      "- Training infrastructure: funding secured to modernize two training centers in Ukraine",
+      "- Cumulative throughput: more than 100,000 Ukrainian soldiers trained since the mission launched in 2022",
+      "Ref: https://www.kyivpost.com/post/89608",
+      "Status: EUMAM extended; first deployment on Ukrainian soil approved."
+    ].join("\n")
+  },
+  {
+    hash: "7443d3f",
+    date: "2026-11-09",
+    author: "ci-bot",
+    authorEmail: "ops@war365.example",
+    subject: "feat(storm): winter storms flood Gaza displacement camps",
+    body: [
+      "The first winter storm flooded displacement camps across the Gaza Strip, with heavy rainfall triggering landslides.",
+      "- Fatal incident: a sand embankment collapsed onto tents in Deir al-Balah",
+      "- Casualties: three children and one woman killed; others injured",
+      "- Flood volume: 70,000 tents completely flooded within 12 hours",
+      "- Infrastructure: dozens of walls collapsed, causing serious and non-serious injuries",
+      "- Response capacity: Khan Younis Civil Defense has two firefighting vehicles for more than 1 million displaced people",
+      "- Equipment loss: approximately 80% of Civil Defense centers, vehicles, equipment, and machinery were destroyed",
+      "Ref: https://mondoweiss.net/2026/11/gazas-displacement-camps-face-deadly-winter-storms-flooding-and-landslides/",
+      "Status: winter storm deployed; camp infrastructure remains degraded."
+    ].join("\n")
   }
 ];
 
