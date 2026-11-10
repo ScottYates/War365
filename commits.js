@@ -1248,6 +1248,61 @@ window.WAR365_COMMITS = [
       "Ref: https://mondoweiss.net/2026/11/gazas-displacement-camps-face-deadly-winter-storms-flooding-and-landslides/",
       "Status: winter storm deployed; camp infrastructure remains degraded."
     ].join("\n")
+  },
+  {
+    hash: "d3c211b",
+    date: "2026-11-09",
+    author: "idf.il",
+    authorEmail: "idf.il@war365.example",
+    subject: "feat(lebanon): IDF finds two weapons stockpiles and Hezbollah site near UNIFIL posts",
+    body: [
+      "The IDF reported three discoveries in southern Lebanon while operating in Israel's self-declared security zone.",
+      "",
+      "- Sites found: two weapons and equipment stockpiles in Mais al Jabal and one Hezbollah apartment in Al Tiri",
+      "- Proximity: all three sites were 100-250 meters from UNIFIL positions",
+      "- Inventory: Kalashnikov rifles, RPG launchers and rounds, a PK machine gun, fragmentation grenades, an explosive device, ammunition, communications equipment, and surveillance equipment",
+      "- Additional finds: combat gear, living supplies, and Hezbollah emblems",
+      "- Context: materiel was found alongside humanitarian-aid boxes and emblems of Hezbollah and the Lebanese Shiite Amal Movement",
+      "Ref: https://www.fdd.org/analysis/idf-finds-weapons-stockpiles-hezbollah-military-site-near-un-posts-in-south-lebanon/",
+      "Status: IDF called the discoveries further evidence that UNIFIL had failed in its mission."
+    ].join("\n")
+  },
+  {
+    hash: "fe141bc",
+    date: "2026-11-10",
+    author: "nato.summit",
+    authorEmail: "nato.summit@war365.example",
+    subject: "feat(peace-talks): trilateral Ukraine talks resume in Abu Dhabi",
+    body: [
+      "Ukraine, Russia and the US resumed trilateral talks in Abu Dhabi, the first such meeting since February.",
+      "- Venue: Abu Dhabi, United Arab Emirates",
+      "- Format: trilateral talks with US envoys Jared Kushner and Steve Witkoff",
+      "- Priority: postwar security concerns and a new security architecture",
+      "- Territorial dispute: Russia demands parts of Donetsk held by Ukraine; Kyiv wants the contact line frozen",
+      "- Public positions: unchanged",
+      "- Private signal: US officials report some flexibility from Moscow and Kyiv",
+      "- Proposed framework: security consultations, crisis hotlines and reciprocal de-escalation measures",
+      "- Possible integration: reactivation of the largely paused NATO-Russia Council",
+      "Ref: https://www.bbc.co.uk/news/articles/cqpvgvrpjvv8o?at_medium=RSS&at_campaign=rss",
+      "Status: talks active; no breakthrough deployed."
+    ].join("\n")
+  },
+  {
+    hash: "8dca821",
+    date: "2026-11-10",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(israel-politics): UTJ withholds Netanyahu endorsement",
+    body: [
+      "United Torah Judaism declined to recommend Benjamin Netanyahu to form the next government after Israel's elections.",
+      "The decision marks a departure from the longstanding alliance between Netanyahu and the ultra-Orthodox Haredi parties.",
+      "- Trigger: last month's vote exposed divisions within Haredi society",
+      "- New fault lines: younger versus older generations, working Haredim versus full-time Torah scholars, and integration versus preserving Haredi life",
+      "- Political strain: declining support for veteran leaders, disputes over future leadership, and the emergence of a new force within the community",
+      "- Pressure points: regional wars, yeshiva student conscription, economic hardship, and tensions with military service members",
+      "Ref: https://www.middleeasteye.net/news/changing-face-israels-ultra-orthodox-politics",
+      "Status: Netanyahu endorsement withheld; coalition bargaining position reset."
+    ].join("\n")
   }
 ];
 
