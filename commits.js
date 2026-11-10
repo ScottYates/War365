@@ -1140,6 +1140,60 @@ window.WAR365_COMMITS = [
       "Ref: https://www.bbc.co.uk/news/articles/cx240mrm3g8vo?at_medium=RSS&at_campaign=rss",
       "Status: limited defensive release deployed; strike details remain unconfirmed."
     ].join("\n")
+  },
+  {
+    hash: "3b158b8",
+    date: "2026-11-04",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(peacekeeping): Blue Helmets withdraw from Lebanon and Western Sahara",
+    body: [
+      "UN peacekeeping deployments ended in Western Sahara and are scheduled to cease in Lebanon.",
+      "- Western Sahara mission: closed on 31 October after 35 years",
+      "- Lebanon force: due to cease operations at the end of the year",
+      "- UNIFIL personnel still serving: around 7,500",
+      "- Security Council: no agreement on a replacement mission",
+      "- Access to aid: about 10,000 people are between the Blue Line and Israel's forward defence line",
+      "Ref: https://news.un.org/feed/view/en/story/2026/11/1168741",
+      "Status: withdrawal complete in Western Sahara; Lebanon transition pending."
+    ].join("\n")
+  },
+  {
+    hash: "a56e128",
+    date: "2026-11-05",
+    author: "seoul.nav",
+    authorEmail: "ops@seoul.example",
+    subject: "feat(naval): South Korea plans Cheonghae expansion near Hormuz",
+    body: [
+      "South Korea's defence ministry announced plans to expand the Cheonghae anti-piracy unit's operating area closer to the Strait of Hormuz.",
+      "",
+      "- Proposed area: waters near Duqm port in Oman, about 650km from the strait",
+      "- Approval path: parliament, President Lee Jae Myung and the cabinet",
+      "- Current package: destroyer, maritime operations helicopter, up to three rigid-hull inflatable boats and about 300 service members",
+      "- Proposed additions: P-8A maritime patrol aircraft and 75 personnel",
+      "- Mission profile: non-combat and independent of allied forces",
+      "- Operating boundary: open waters south of Oman; no targeting or monitoring of Iranian territory, territorial waters or the interior of the strait",
+      "",
+      "Ref: https://www.theguardian.com/world/2026/nov/05/south-korea-to-expand-anti-piracy-unit-strait-of-hormuz",
+      "Status: expansion awaiting parliamentary and presidential approval."
+    ].join("\n")
+  },
+  {
+    hash: "75b78ed",
+    date: "2026-11-05",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.il.example",
+    subject: "feat(west-bank): five buildings demolished in Biddu, 100+ displaced",
+    body: [
+      "Israeli forces demolished five Palestinian residential buildings in the occupied West Bank, displacing more than 100 people.",
+      "- Location: Biddu, northwest of Jerusalem",
+      "- Residents affected: 12 apartments housing nine Palestinian families",
+      "- Notice period: residents said troops gave them no warning before the demolitions",
+      "- Access control: soldiers reportedly used stun grenades and tear gas, preventing retrieval of belongings",
+      "- Stated reason: absence of building permits in Area C",
+      "Ref: https://www.middleeasteye.net/news/israeli-forces-demolish-five-west-bank-buildings-and-displace-over-100-palestinians",
+      "Status: five buildings removed; 100+ residents displaced."
+    ].join("\n")
   }
 ];
 
