@@ -1303,6 +1303,62 @@ window.WAR365_COMMITS = [
       "Ref: https://www.middleeasteye.net/news/changing-face-israels-ultra-orthodox-politics",
       "Status: Netanyahu endorsement withheld; coalition bargaining position reset."
     ].join("\n")
+  },
+  {
+    hash: "aa60d87",
+    date: "2026-11-11",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(iran): three Iran-backed suspects charged over alleged European attack plots",
+    body: [
+      "The US Department of Justice charged three Iran-backed operatives over alleged plots in the US and Europe.",
+      "- Named suspects: Iranian Mohsen Mohajeri, Iraqi national Mohammad Ali al-Hassani, and dual Iranian-Iraqi citizen Mohammad Baqer Saad Dawood al-Saadi",
+      "- Suspected role: communicating with UK contacts and supporting attacks attributed to the purported group HAYI",
+      "- Claimed scale: 18 attacks in spring 2026, including seven in the UK, plus nearly 20 attempted attacks in the US and Europe",
+      "- Methods reported: arsons, explosives, and a near-fatal stabbing in London",
+      "- RAF Fairford incident: a major incident was declared on 27 September after three suspicious vans were seen near the base",
+      "- UK response: seven men were arrested; petrol was seized, but no explosive materials were found in the vans",
+      "- Status: Iran strongly denied involvement in the RAF Fairford incident",
+      "Ref: https://www.bbc.co.uk/news/articles/c3rryrryk59zo?at_medium=RSS&at_campaign=rss",
+      "Status: indictment unsealed; UK proceedings underway."
+    ].join("\n")
+  },
+  {
+    hash: "6735dd8",
+    date: "2026-11-11",
+    author: "salvador.mil",
+    authorEmail: "ops@salvador.example",
+    subject: "feat(haiti): Salvadoran helicopters strike reported 400 Mawozo headquarters",
+    body: [
+      "El Salvador deployed military helicopters to Haiti, firing rockets at what President Nayib Bukele said was a 400 Mawozo gang headquarters.",
+      "- Target: a house in the Haitian countryside belonging to Wilson Joseph, also known as Lanmo San Jou",
+      "- Result: the home was destroyed, but Joseph was not killed in Sunday's attack",
+      "- Forces deployed: 2,500 Salvadoran soldiers",
+      "- Trigger: four Salvadoran aviation technicians working on a UN-backed mission were attacked in gang-controlled territory on 18 October and remain missing",
+      "- Coordination: the Dominican Republic said it was supporting El Salvador with logistics and intelligence",
+      "- Deployment framework: Salvadoran forces largely operate outside the UN-backed Multinational Gang Suppression Force",
+      "Ref: http://www.africanews.com/2026/11/11/salvadoran-troops-target-headquarters-of-powerful-gang-in-haiti/",
+      "Status: targeted strike completed; operational details remain largely undisclosed."
+    ].join("\n")
+  },
+  {
+    hash: "5bffd13",
+    date: "2026-11-11",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@irgc.example",
+    subject: "feat(missile): Iran unveils underground missile city",
+    body: [
+      "Iran unveiled an underground missile facility housing ballistic and cruise missiles and launch platforms.",
+      "",
+      "- Operator: IRGC Aerospace Force",
+      "- Site: extensive underground tunnels and facilities with missiles and launchers mounted on military vehicles",
+      "- Production: missile and drone production lines relocated from above-ground facilities to fortified underground sites",
+      "- Range policy: Tehran announced removal of its self-imposed 2,000-kilometre missile-range limit without specifying a new maximum",
+      "- Warning: renewed US or Israeli attacks would trigger retaliation extending beyond the region",
+      "- Verification: released footage was edited and partially blurred, preventing independent identification of the missiles",
+      "Ref: https://www.newarab.com/news/iran-reveals-new-underground-missile-city-warning-us",
+      "Status: underground deployment disclosed; operational capability remains unverified."
+    ].join("\n")
   }
 ];
 
