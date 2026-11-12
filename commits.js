@@ -1359,6 +1359,61 @@ window.WAR365_COMMITS = [
       "Ref: https://www.newarab.com/news/iran-reveals-new-underground-missile-city-warning-us",
       "Status: underground deployment disclosed; operational capability remains unverified."
     ].join("\n")
+  },
+  {
+    hash: "df98dcf",
+    date: "2026-11-12",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(car-bomb): Russian serviceman killed in St Petersburg blast",
+    body: [
+      "A Russian serviceman was killed in a car explosion in the Pushkinsky district of St Petersburg on 12 November 2026.",
+      "- Cause: not yet established by the Investigative Committee",
+      "- Response: murder investigation opened",
+      "- Scene processing: investigators and forensic experts deployed; forensic tests ordered",
+      "- Reported configuration: explosive device attached beneath the car and remotely detonated",
+      "- Attribution: Moscow has accused Kyiv of a series of attacks on Russian military personnel",
+      "- Verification gap: the serviceman's rank and the circumstances of the blast remain under investigation",
+      "Ref: https://www.euronews.com/2026/11/12/russian-officer-killed-by-car-bomb-in-st-petersburg-as-murder-investigation-begins",
+      "Status: fatality confirmed; murder investigation active."
+    ].join("\n")
+  },
+  {
+    hash: "76d6a6b",
+    date: "2026-11-12",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.il.example",
+    subject: "feat(airstrike): Nasser Hospital surgical ward and ICU taken offline",
+    body: [
+      "An Israeli strike on Nasser Hospital in Khan Younis killed at least six people and injured dozens more.",
+      "- Impact: two missiles struck the Al-Yassin building shortly after midnight; one exploded while the other failed to detonate",
+      "- Outage: the surgery department and intensive care unit were put out of service",
+      "- Damage: laboratories, operating theatres, beds, medical devices and essential supplies were affected",
+      "- Coverage: the hospital serves at least 500,000 people in southern Gaza",
+      "- Prior load: the surgical department treated at least 30 patients a day",
+      "- Incident count: the seventh strike on the hospital",
+      "- Recovery: extensive repairs and significant resources are required before departments can resume work",
+      "Ref: https://www.newarab.com/news/israel-kills-six-nasser-hospital-strike-crippling-services",
+      "Status: critical medical services offline; repair requirements outstanding."
+    ].join("\n")
+  },
+  {
+    hash: "7d97ec5",
+    date: "2026-11-12",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(air-defense): Russia reportedly loses three helicopters during drone defense",
+    body: [
+      "Russian air defenses reportedly brought down three Russian helicopters while repelling a Ukrainian drone attack overnight Wednesday.",
+      "- Target region: Baltic Sea port of Ust-Luga and the wider defense of St. Petersburg",
+      "- Claimed throughput: Russian air defenses reported shooting down 150+ Ukrainian drones",
+      "- Reported losses: three aircraft, three experienced crews, and seven personnel",
+      "- Aircraft mix: one loss may have been an Mi-8 configured as an airborne counter-drone jamming platform; a third aircraft type remains unidentified",
+      "- Attribution: commentators reported reasonable suspicion that at least two helicopters were hit by Russian friendly fire",
+      "- Verification: no official confirmation from Russia's Defense Ministry or Alexander Drozdenko",
+      "Ref: https://www.kyivpost.com/post/89915",
+      "Status: friendly-fire incident remains unconfirmed."
+    ].join("\n")
   }
 ];
 
