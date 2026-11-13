@@ -1414,6 +1414,59 @@ window.WAR365_COMMITS = [
       "Ref: https://www.kyivpost.com/post/89915",
       "Status: friendly-fire incident remains unconfirmed."
     ].join("\n")
+  },
+  {
+    hash: "41868ea",
+    date: "2026-11-13",
+    author: "iran.irgc",
+    authorEmail: "ops@iran.example",
+    subject: "feat(missile): IRGC claims Bahrain radar destroyed",
+    body: [
+      "The Revolutionary Guards claimed they destroyed a US early-warning radar in Bahrain.",
+      "- Target: early-warning radar in the Gulf country",
+      "- Claim cadence: first reported claim against American military assets in the Gulf in months",
+      "- Stated motive: retaliation for an air attack on a telecommunications tower in southern Iran",
+      "- Verification gap: no immediate confirmation from Manama or Washington",
+      "- Context: diplomatic efforts led by Qatar and Pakistan are underway to negotiate an end to the war",
+      "Ref: http://www.africanews.com/2026/11/13/iran-showcases-missiles-as-military-targets-us-army-radar-in-bahrain/",
+      "Status: strike claimed; damage remains unconfirmed."
+    ].join("\n")
+  },
+  {
+    hash: "9c3e117",
+    date: "2026-11-13",
+    author: "sbu.g",
+    authorEmail: "sbu.g@war365.example",
+    subject: "feat(drone): Ukrainian drone strikes Russian warship in Baltic Sea",
+    body: [
+      "A Ukrainian drone struck a Russian warship in the Baltic Sea on Wednesday, according to the SBU.",
+      "- Target: Naro-Fominsk missile ship",
+      "- Configuration: Ukraine described the vessel as a small corvette carrying cruise missiles",
+      "- Verification: Finnish Defence Forces confirmed a strike on an unnamed warship but did not disclose the exact location or method",
+      "- Route: Estonia reported that the ship later sailed toward St Petersburg",
+      "- Regional response: Estonia, Latvia and Lithuania warned citizens to take shelter as drones entered their airspace",
+      "- Nato response: warplanes were scrambled",
+      "Ref: https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-second-car-bomb-zavorotniy-b3084409.html",
+      "Status: Baltic Sea incident confirmed; operational damage not disclosed."
+    ].join("\n")
+  },
+  {
+    hash: "68385da",
+    date: "2026-11-13",
+    author: "ops@war365.example",
+    authorEmail: "ops@war365.example",
+    subject: "feat(haiti): police retake national stadium after two years of gang control",
+    body: [
+      "Haitian security forces regained control of the country's main football stadium on Thursday, ending two years of gang control.",
+      "",
+      "- Site: national football stadium",
+      "- Previous control: gangs held the venue for two years",
+      "- New security provider: Salvadoran troops",
+      "- Deployment: 2,000 soldiers sent to Haiti",
+      "- Deployment trigger: an ambush in which four Salvadoran troops went missing",
+      "Ref: https://www.france24.com/en/video/20261113-haitian-police-retake-national-stadium-after-two-years-of-gang-control",
+      "Status: venue control restored; security handover active."
+    ].join("\n")
   }
 ];
 
