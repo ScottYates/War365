@@ -1467,6 +1467,58 @@ window.WAR365_COMMITS = [
       "Ref: https://www.france24.com/en/video/20261113-haitian-police-retake-national-stadium-after-two-years-of-gang-control",
       "Status: venue control restored; security handover active."
     ].join("\n")
+  },
+  {
+    hash: "2c3c929",
+    date: "2026-11-14",
+    author: "mod.us",
+    authorEmail: "mod@us.example",
+    subject: "feat(peace-deal): US floats Donbas withdrawal for Nato membership",
+    body: [
+      "US negotiators proposed exchanging a Ukrainian withdrawal from the remaining Donbas for Nato membership, Zelensky said.",
+      "- First occurrence: Zelensky said US envoys had not previously raised the exchange",
+      "- Conditions for referendum: security guarantees, no constraints on Ukraine's military, and funds to rebuild the country",
+      "- Diplomatic route: envoys Jared Kushner and Steve Witkoff met Zelensky in Dublin after talks with Vladimir Putin in Moscow",
+      "- Standing positions: Kyiv rejects Russian demands for territorial concessions, military limits and guaranteed neutrality",
+      "- Context: Zelensky said the proposal made him believe Nato membership was back on the agenda",
+      "Ref: https://www.bbc.co.uk/news/articles/cwvg2l312ylqo?at_medium=RSS&at_campaign=rss",
+      "Status: proposal floated; no peace agreement deployed."
+    ].join("\n")
+  },
+  {
+    hash: "13ad0ca",
+    date: "2026-11-14",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.example",
+    subject: "feat(air-defense): IRGC claims MQ-1 Predator intercepted over Qeshm Island",
+    body: [
+      "Iran said it intercepted and destroyed a US MQ-1 Predator drone over Qeshm Island in the Strait of Hormuz.",
+      "- Target: US MQ-1 Predator reconnaissance drone",
+      "- Operator: IRGC Aerospace Force",
+      "- Method: a new advanced air defence system, according to the IRGC",
+      "- Mission: the IRGC described the aircraft as a failed enemy reconnaissance mission",
+      "- Verification: the US response was not reported",
+      "Ref: https://www.middleeasteye.net/live-blog/live-blog-update/iran-said-it-intercepted-us-mq-1-predator-drone-over-qeshm-island",
+      "Status: interception and destruction claimed by Iran."
+    ].join("\n")
+  },
+  {
+    hash: "6583932",
+    date: "2026-11-14",
+    author: "mod.us",
+    authorEmail: "mod.us@war365.example",
+    subject: "feat(diplomacy): US, Russia and China leaders plan trilateral meeting",
+    body: [
+      "The White House announced plans for Donald Trump, Vladimir Putin and Xi Jinping to meet in Shenzhen next week.",
+      "- Venue: sidelines of the two-day Asia-Pacific Economic Co-operation summit",
+      "- Schedule: Trump arrives late on Wednesday; bilateral talks with Xi are scheduled for Thursday",
+      "- Proposed agenda: reduction of nuclear weapons worldwide",
+      "- Regional scope: Iran may also be discussed; Ukraine is not expected to be on the agenda",
+      "- Deliverables: no agreement is expected to follow the talks",
+      "- Context: the US-Russia nuclear weapons control treaty expired in February",
+      "Ref: https://www.bbc.co.uk/news/articles/ckz74jzpy18do?at_medium=RSS&at_campaign=rss",
+      "Status: trilateral meeting announced; joint release pending."
+    ].join("\n")
   }
 ];
 
