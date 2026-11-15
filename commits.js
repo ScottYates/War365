@@ -1519,6 +1519,60 @@ window.WAR365_COMMITS = [
       "Ref: https://www.bbc.co.uk/news/articles/ckz74jzpy18do?at_medium=RSS&at_campaign=rss",
       "Status: trilateral meeting announced; joint release pending."
     ].join("\n")
+  },
+  {
+    hash: "f1f9289",
+    date: "2026-11-14",
+    author: "mod.tr",
+    authorEmail: "mod.tr@war365.example",
+    subject: "feat(defence): Turkey and Qatar sign mutual defence agreement",
+    body: [
+      "Turkey and Qatar signed a mutual defence agreement in Istanbul, establishing a unified position if either or both are targeted by an external armed attack.",
+      "",
+      "- Signatories: President Recep Tayyip Erdogan and Emir Sheikh Tamim bin Hamad Al Thani",
+      "- Forum: Supreme Strategic Committee, co-chaired in Istanbul",
+      "- Features: consultations on security threats, joint military exercises and defence industry cooperation",
+      "- Training: exchange of personnel",
+      "- Also signed: agreements on trade, energy, diplomacy, education and culture",
+      "- Context: regional defence realignment following the Iran war and signals of a US posture change",
+      "Ref: https://www.euronews.com/2026/11/14/qatar-and-turkey-sign-defence-agreement-for-unified-position-facing-external-attacks",
+      "Status: mutual defence agreement signed; joint implementation not reported."
+    ].join("\n")
+  },
+  {
+    hash: "e584cec",
+    date: "2026-11-15",
+    author: "idf.il",
+    authorEmail: "idf.il@war365.example",
+    subject: "feat(airstrike): Israel kills Hamas commander in Gaza camp",
+    body: [
+      "Israeli airstrike in Al-Mawasi killed Samir Abu Younis, commander of Hamas's Rafah Brigade.",
+      "- Target confirmation: Hamas and Israeli officials confirmed his death",
+      "- Location: Al-Mawasi camp in the southern Gaza Strip",
+      "- Method: four missiles struck a tent and caused a fire",
+      "- Affected site: Al-Waha camp, which shelters hundreds of displaced people",
+      "- Hospital intake: three injured people and one dead body",
+      "- Tenure: commander since 15 September",
+      "Ref: https://www.bbc.co.uk/news/articles/cqrkg4r6mg7xo?at_medium=RSS&at_campaign=rss",
+      "Status: commander removed; civilian mitigation measures claimed by the IDF."
+    ].join("\n")
+  },
+  {
+    hash: "84402b9",
+    date: "2026-11-15",
+    author: "houthi.media",
+    authorEmail: "ops@houthi.example",
+    subject: "feat(yemen): Houthis take control near Bab el-Mandeb Strait",
+    body: [
+      "Yemen government forces withdrew from an area near the Bab el-Mandeb Strait, leaving the Houthis in control.",
+      "",
+      "- Theatre: Yemen",
+      "- Area: near Bab el-Mandeb Strait",
+      "- Previous provider: Yemen government forces",
+      "- Current control: Houthis",
+      "Ref: https://news.google.com/rss/articles/CBMizgFBVV95cUxQVW9oR0pfVGQ2U3NYTWdTRktiZ1Z4TUFnb0UyUHJ0MTJ0ejVtQU12anZRTDg1ZmQ1cGlaS3VaUWYtM3MzdlBEcVRnVVZ1T2RONmtzMVg2SFRHeWRGQXVHb01WR1NCd1pwNXo3R0c3dWRwTHlaSXFYWlctYjhSWlVWb3BXSGNqdEdlMERpYVNQaEVfRUpmRFhWSURlcVFhNmNMekNlMy1XbDNEZVphNDJEQlA4T0pkYmFQZjlHdlBFaEtfYnpBRTE3X0E1elZXQQ?oc=5",
+      "Status: Houthi control active following government withdrawal."
+    ].join("\n")
   }
 ];
 
