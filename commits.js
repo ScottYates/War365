@@ -1573,6 +1573,57 @@ window.WAR365_COMMITS = [
       "Ref: https://news.google.com/rss/articles/CBMizgFBVV95cUxQVW9oR0pfVGQ2U3NYTWdTRktiZ1Z4TUFnb0UyUHJ0MTJ0ejVtQU12anZRTDg1ZmQ1cGlaS3VaUWYtM3MzdlBEcVRnVVZ1T2RONmtzMVg2SFRHeWRGQXVHb01WR1NCd1pwNXo3R0c3dWRwTHlaSXFYWlctYjhSWlVWb3BXSGNqdEdlMERpYVNQaEVfRUpmRFhWSURlcVFhNmNMekNlMy1XbDNEZVphNDJEQlA4T0pkYmFQZjlHdlBFaEtfYnpBRTE3X0E1elZXQQ?oc=5",
       "Status: Houthi control active following government withdrawal."
     ].join("\n")
+  },
+  {
+    hash: "a613ab7",
+    date: "2026-11-15",
+    author: "hamas.dev",
+    authorEmail: "hamas.dev@war365.example",
+    subject: "feat(airstrike): senior Hamas commander killed in Israeli strike",
+    body: [
+      "Release deployed following Hamas confirmation of a senior commander's death in an Israeli airstrike.",
+      "- Target: senior Hamas commander",
+      "- Role: helped plan and oversee the 7 October 2023 attack",
+      "- Method: Israeli airstrike",
+      "- Attribution: Hamas",
+      "Ref: https://news.sky.com/story/hamas-says-senior-commander-killed-in-israeli-airstrike-13612384",
+      "Status: commander removed; confirmation provided by Hamas."
+    ].join("\n")
+  },
+  {
+    hash: "b21b7c7",
+    date: "2026-11-16",
+    author: "ops@war365.example",
+    authorEmail: "ops@war365.example",
+    subject: "feat(border): Estonia to close all Russian border crossings",
+    body: [
+      "Estonia will close all border crossing points with Russia from December 1, its foreign minister said.",
+      "",
+      "- Trigger: suspected sabotage attack on an Estonian drone maker",
+      "- Attribution: Tallinn blamed Moscow",
+      "- Scope: all Estonia-Russia border crossing points",
+      "- Effective date: December 1",
+      "Ref: https://www.france24.com/en/video/20261116-estonia-to-close-russian-border-crossings-after-attempted-arson-attack-on-drone-maker",
+      "Status: border closure scheduled."
+    ].join("\n")
+  },
+  {
+    hash: "af2b3ef",
+    date: "2026-11-16",
+    author: "mod.us",
+    authorEmail: "mod.us@mod.example",
+    subject: "feat(airstrike): US and Iran expand exchange of fire",
+    body: [
+      "Regional escalation deployed across the Persian Gulf as both sides expand airstrike cycles.",
+      "- US targets: Iranian missile launchers in southern Iran",
+      "- Iranian response: attacks on a US base in Bahrain and tankers in the Strait of Hormuz",
+      "- Strike rate: both sides reportedly increased the volume of attacks",
+      "- Maritime incidents: IRGC reports six tankers caught fire since Sunday",
+      "- Deployment: USS Theodore Roosevelt joined two other US carrier strike groups in CENTCOM's operating region",
+      "- Verification: tanker damage and explosion details have not been independently confirmed",
+      "Ref: https://www.euronews.com/2026/11/16/us-and-iran-slide-closer-to-fresh-all-out-war-as-new-exchange-of-fire-increases",
+      "Status: escalation active; warning-shot cycle widening."
+    ].join("\n")
   }
 ];
 
