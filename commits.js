@@ -1624,6 +1624,57 @@ window.WAR365_COMMITS = [
       "Ref: https://www.euronews.com/2026/11/16/us-and-iran-slide-closer-to-fresh-all-out-war-as-new-exchange-of-fire-increases",
       "Status: escalation active; warning-shot cycle widening."
     ].join("\n")
+  },
+  {
+    hash: "154bfff",
+    date: "2026-11-17",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(sanctions): UK sanctions eight Israeli firms and Tsav9",
+    body: [
+      "UK rolls out its first sanctions package targeting Israeli firms linked to West Bank settlements.",
+      "",
+      "- Targets: eight construction, property development and architecture firms",
+      "- Additional target: Tsav9, an Israeli group involved in blocking humanitarian aid trucks from entering Gaza",
+      "- Timing: announced shortly before tenders for the E1 settlement bloc were scheduled for allocation",
+      "- Rollout estimate: implementing the full sanctions package announced in September could take up to nine months",
+      "Ref: https://www.middleeasteye.net/news/uk-imposes-sanctions-eight-israeli-firms-and-group-blocking-gaza-aid",
+      "Status: sanctions deployed; full rollout pending."
+    ].join("\n")
+  },
+  {
+    hash: "0b55a90",
+    date: "2026-11-17",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.il.example",
+    subject: "feat(west-bank): armed settlers launch attack in Jericho",
+    body: [
+      "Armed Israeli settlers launched a deadly attack in Jericho.",
+      "",
+      "- Area: Jericho in the West Bank",
+      "- Attackers: armed Israeli settlers",
+      "- Civilian response: a Palestinian photographer was severely beaten by Israeli soldiers while covering the violence",
+      "Ref: https://thecradle.co/articles-id/41118",
+      "Status: violence reported; no rollback available."
+    ].join("\n")
+  },
+  {
+    hash: "246cece",
+    date: "2026-11-17",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(west-bank): settler attack near Jericho injures around a dozen residents",
+    body: [
+      "Nightly release deployed near Jericho after Israeli settlers opened fire on Palestinian residents.",
+      "- Casualty: one Palestinian woman killed",
+      "- Injuries: around a dozen people wounded, including an elderly man shot in the thigh",
+      "- Location: ad-Duyuk at-Tahta, west of Jericho",
+      "- Context: armed settlers had seized eight Palestinian homes in the area on November 4",
+      "- Military response: Israeli soldiers established roadblocks in the Jordan Valley",
+      "- Media access: photographer Suleiman Abu Srour was detained for more than six hours and reported a serious eye injury",
+      "Ref: https://www.newarab.com/news/elderly-palestinian-woman-killed-israeli-settlers-jericho",
+      "Status: investigation opened; funeral ceremony restrictions reported."
+    ].join("\n")
   }
 ];
 
