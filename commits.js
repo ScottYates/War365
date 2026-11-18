@@ -1675,6 +1675,57 @@ window.WAR365_COMMITS = [
       "Ref: https://www.newarab.com/news/elderly-palestinian-woman-killed-israeli-settlers-jericho",
       "Status: investigation opened; funeral ceremony restrictions reported."
     ].join("\n")
+  },
+  {
+    hash: "04bb035",
+    date: "2026-11-17",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(casualties): Ukraine civilian toll exceeds prior years",
+    body: [
+      "Civilian casualties in Ukraine reached a new annual high as the HRMMU recorded sharply higher losses.",
+      "",
+      "- October: 372 civilians killed and 1,981 injured, 95% higher than October 2025",
+      "- 2026 year to date: more civilian deaths than all of 2025, which was worse than 2024",
+      "- Since February 2022: almost 18,000 civilians killed and almost 58,000 injured",
+      "- Long-range missiles and drones: more than half of civilian casualties",
+      "- Aerial glide bombs in October: 92 killed and 331 injured, double the September death toll",
+      "- Rolling power outages deployed nationwide after strikes damaged electricity, heating and water services",
+      "Ref: https://news.un.org/feed/view/en/story/2026/11/1168828",
+      "Status: casualty trend active; OCHA renewed its call for protection of civilians and aid workers."
+    ].join("\n")
+  },
+  {
+    hash: "5230e98",
+    date: "2026-11-17",
+    author: "iran.irgc",
+    authorEmail: "ops@iran.example",
+    subject: "feat(airstrike): Iran ends 2-month lull with third strike on US targets in Bahrain",
+    body: [
+      "Iran ended a 2-month lull with a third strike on US targets in Bahrain.",
+      "US retaliation followed the Iranian strike.",
+      "Impact details and operational metrics were not included in the source summary.",
+      "Ref: https://news.google.com/rss/articles/CBMimAFBVV95cUxQU2lESUxmdF9UMGE1eWlZcmZkUFJtNWxyNm5kZWM0cTExSGtIZXRxNTZNTjR3OXlqeFlQMjlWYWdjenZnazlJRUo1NlRndVRZWWY0VFVBcUJybG1NRTRhVkdtZFd4SUZiVlFPRWNLcmFVQjlYM3lZUUFlbUhuT0JJckg5cjNYZ2xEMlNjNVhuMVliMkRnWlFXVw?oc=5",
+      "Status: 2-month lull ended; exchange active."
+    ].join("\n")
+  },
+  {
+    hash: "21a1026",
+    date: "2026-11-18",
+    author: "trump.admin",
+    authorEmail: "trump.admin@trump.example",
+    subject: "feat(diplomacy): Trump opens Shenzhen summit with Putin and Xi",
+    body: [
+      "Diplomatic release deployed in Shenzhen ahead of the first in-person meeting between Donald Trump, Vladimir Putin and Xi Jinping.",
+      "",
+      "- Arrival protocol: handshake and hug between Trump and Xi on the tarmac",
+      "- Side event: Trump and Putin met in person for the first time in over a year",
+      "- Main session: three-way talks scheduled for Thursday during the Asia-Pacific Economic Cooperation forum",
+      "- Agenda: Ukraine, Iran, nuclear proliferation, trade tensions and artificial intelligence",
+      "- Format: Trump and Putin may also hold short informal talks without large delegations",
+      "Ref: https://www.bbc.co.uk/news/articles/ck9d75x5wwwwo?at_medium=RSS&at_campaign=rss",
+      "Status: summit prepared; full agenda not public."
+    ].join("\n")
   }
 ];
 
