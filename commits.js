@@ -1726,6 +1726,51 @@ window.WAR365_COMMITS = [
       "Ref: https://www.bbc.co.uk/news/articles/ck9d75x5wwwwo?at_medium=RSS&at_campaign=rss",
       "Status: summit prepared; full agenda not public."
     ].join("\n")
+  },
+  {
+    hash: "5945056",
+    date: "2026-11-18",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.example",
+    subject: "feat(gaza): Israeli troops launch ground operation in central Gaza",
+    body: [
+      "Israel launched a rare ground operation in central Gaza, reopening an area left under a ceasefire last year.",
+      "- Deployment: Israeli troops entered the area",
+      "- Displacement: dozens of Palestinians fled tents and shelters",
+      "- Prior state: area had been left under a ceasefire last year",
+      "Ref: https://news.sky.com/story/israeli-troops-launch-ground-operation-in-central-gaza-13613724",
+      "Status: ground operation active."
+    ].join("\n")
+  },
+  {
+    hash: "0264259",
+    date: "2026-11-19",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(ruling): World Court finds Myanmar forces killed thousands of Rohingya",
+    body: [
+      "The World Court issued a finding that Myanmar forces killed thousands of Rohingya.",
+      "- Scale: thousands of Rohingya killed",
+      "- Jurisdiction: World Court",
+      "- Status: ruling ongoing",
+      "Ref: https://news.google.com/rss/articles/CBMixwFBVV95cUxQSnpTTEM4UUNIZi1KbDViNGdmVlV2MTgxSUVGWjdra045RXVoZWhYbnNGcUFob1d1OUljd01LNGo1NGV5UDN6emRwVlZ2R0dtamU5RFo0SVBVSmVGR1MyUF9aSmlqZVRST0V2eE5vVGE1QS1sb2oyV05VVWF5T25XQ1lBVjhhN1FRV2VHMFVKak00TkluZzdrbzk0Q1BXOENRbjNHLXE1S3F6LWpYeHlXOVk0QWhpcE1vY1pObkxpT1FNV2xYSkZr?oc=5",
+      "Status: ruling remains in progress."
+    ].join("\n")
+  },
+  {
+    hash: "1351371",
+    date: "2026-11-19",
+    author: "houthi.media",
+    authorEmail: "ops@houthi.example",
+    subject: "feat(yemen): strike hits Saudi sovereign wealth fund headquarters",
+    body: [
+      "Yemen deployed a strike against the Public Investment Fund Tower in Riyadh.",
+      "- Target: Saudi Arabia's Public Investment Fund headquarters",
+      "- Impact: several floors damaged",
+      "- Assets held: over a trillion dollars",
+      "Ref: https://thecradle.co/articles-id/41164",
+      "Status: partial infrastructure damage reported."
+    ].join("\n")
   }
 ];
 
