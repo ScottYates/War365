@@ -1771,6 +1771,58 @@ window.WAR365_COMMITS = [
       "Ref: https://thecradle.co/articles-id/41164",
       "Status: partial infrastructure damage reported."
     ].join("\n")
+  },
+  {
+    hash: "b7fb7c9",
+    date: "2026-11-19",
+    author: "mod.uk",
+    authorEmail: "ops@war365.example",
+    subject: "feat(cyber): UK confirms offensive operations against four state targets",
+    body: [
+      "The UK disclosed offensive cyber operations against Russia, China, Iran and North Korea.",
+      "",
+      "- Scope: Russia, China, Iran and North Korea",
+      "- Disclosure: confirmed by a top military commander",
+      "- Visibility: first public revelation of the operations",
+      "Ref: https://news.sky.com/story/uk-conducting-offensive-cyber-ops-against-russia-china-iran-and-north-korea-top-commander-reveals-13614163",
+      "Status: offensive operations active; technical details undisclosed."
+    ].join("\n")
+  },
+  {
+    hash: "22a0169",
+    date: "2026-11-20",
+    author: "rsf.russia",
+    authorEmail: "rsf.russia@russia.example",
+    subject: "feat(missile): Russian Kh-101 hits Poland during Koalicja 2026 exercise",
+    body: [
+      "A Russian cruise missile violated Polish airspace during a major aerial attack on Ukraine.",
+      "- Payload: Kh-101 cruise missile designed for precision targets",
+      "- Impact: crashed in a rural area at Nowy Lipowiec about 50km from the Ukrainian border",
+      "- Additional objects: suspected missile near Rudnik nad Sanem and jet-powered drone near Moodycz",
+      "- Exposure: three objects entered Polish airspace; no injuries or damage reported",
+      "- Context: Koalicja 2026 exercise is taking place in southeastern Poland with 11 countries",
+      "- Response: Nato jets scrambled and Poland requested additional support",
+      "Ref: https://www.bbc.co.uk/news/articles/cqx2x9dklxnro?at_medium=RSS&at_campaign=rss",
+      "Status: Poland classified the incursion as a provocation; Russia has not commented."
+    ].join("\n")
+  },
+  {
+    hash: "97b04e1",
+    date: "2026-11-20",
+    author: "hezbollah.lb",
+    authorEmail: "ops@war365.example",
+    subject: "feat(lebanon): Kataib Hezbollah faces withdrawal deadline in Iraq",
+    body: [
+      "Iraq's government set a withdrawal deadline for Iran-backed Kataib Hezbollah in Jurf al-Sakhar.",
+      "",
+      "- Deadline: 20 Nov 2026",
+      "- Deployment: Kataib Hezbollah withdraw from Jurf al-Sakhar",
+      "- Location: strategic area south of Baghdad",
+      "- Control history: more than a decade",
+      "- Territory status: disputed",
+      "Ref: https://www.aljazeera.com/video/newsfeed/2026/11/20/kataib-hezbollah-faces-deadline-to-leave-iraqi-stronghold?traffic_source=rss",
+      "Status: withdrawal deadline reached."
+    ].join("\n")
   }
 ];
 
