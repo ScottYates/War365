@@ -1823,6 +1823,59 @@ window.WAR365_COMMITS = [
       "Ref: https://www.aljazeera.com/video/newsfeed/2026/11/20/kataib-hezbollah-faces-deadline-to-leave-iraqi-stronghold?traffic_source=rss",
       "Status: withdrawal deadline reached."
     ].join("\n")
+  },
+  {
+    hash: "f146ee3",
+    date: "2026-11-21",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.irgc.example",
+    subject: "feat(air-defence): IRGC intercepts US Reaper drone over Hormuz",
+    body: [
+      "Iran's IRGC said its newly developed air defence system detected, tracked and destroyed a US MQ-9 Reaper over the Strait of Hormuz.",
+      "",
+      "- Target: US MQ-9 Reaper drone",
+      "- Location: Strait of Hormuz",
+      "- Claimed intercept count: 58 aircraft since the war began",
+      "- US losses reported by August: at least 45 MQ-9 Reaper drones",
+      "- Estimated US equipment losses: more than $1.3bn",
+      "- Context: attacks on commercial vessels near the strait",
+      "Ref: https://www.middleeasteye.net/news/iran-says-newly-developed-air-defence-system-intercepted-us-drone-over-hormuz",
+      "Status: interception independently verified."
+    ].join("\n")
+  },
+  {
+    hash: "8769d56",
+    date: "2026-11-21",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(drone): Russian cargo ship set ablaze in Gulf of Finland",
+    body: [
+      "Finland detected a drone attack on a Russian cargo vessel west of Suursaari on Saturday morning.",
+      "- Target: Russian cargo vessel",
+      "- Location: international waters in the eastern Gulf of Finland",
+      "- Impact: vessel caught fire and began drifting toward Finnish waters",
+      "- Attribution: not specified by the Finnish defence ministry",
+      "- Response: Finland informed NATO and imposed temporary airspace and maritime restrictions",
+      "- Vessel risk: no danger reported to other vessels",
+      "Ref: https://www.france24.com/en/europe/20261121-drone-attack-sets-russian-cargo-ship-ablaze-in-gulf-of-finland",
+      "Status: damaged vessel adrift; operator unidentified."
+    ].join("\n")
+  },
+  {
+    hash: "7ba5917",
+    date: "2026-11-21",
+    author: "mod.in",
+    authorEmail: "mod@mod.example",
+    subject: "feat(iraq): army and police enter Kataib Hezbollah stronghold",
+    body: [
+      "Iraqi army and police units deployed into territory controlled by Kataib Hezbollah.",
+      "- Deployment: army and police units",
+      "- Context: first such entry in over a decade",
+      "- Territory: controlled by Kataib Hezbollah",
+      "- Withdrawal: unclear whether the group would withdraw its forces",
+      "Ref: https://www.nytimes.com/2026/11/20/world/middleeast/iraq-militia-iran-kataib-hezbollah.html",
+      "Status: deployment confirmed; force withdrawal unresolved."
+    ].join("\n")
   }
 ];
 
