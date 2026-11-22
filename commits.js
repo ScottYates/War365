@@ -1876,6 +1876,58 @@ window.WAR365_COMMITS = [
       "Ref: https://www.nytimes.com/2026/11/20/world/middleeast/iraq-militia-iran-kataib-hezbollah.html",
       "Status: deployment confirmed; force withdrawal unresolved."
     ].join("\n")
+  },
+  {
+    hash: "068b57d",
+    date: "2026-11-22",
+    author: "mod.ru",
+    authorEmail: "ops@mod.ru.example",
+    subject: "feat(airstrike): Russian drone strike hits residential building near Kyiv",
+    body: [
+      "Russian drone strike partially destroyed a five-storey residential building in Dymer, north of Kyiv.",
+      "",
+      "- Damage: section destroyed from first to fifth floor",
+      "- Evacuated: 9 residents, including 1 child",
+      "- Search: up to 7 people initially feared trapped beneath rubble",
+      "- Zelenskyy report: 14 people unaccounted for",
+      "- Overnight wave: 186 attack drones launched across Ukraine",
+      "- Air defence: 161 drones shot down",
+      "- Other impact: strike in Kharkiv district started a fire",
+      "Ref: http://www.africanews.com/2026/11/22/ukraine-up-to-seven-feared-trapped-beneath-rubble-near-kyiv-after-russian-attack/",
+      "Status: rescue operation ongoing; outcome for missing residents unconfirmed."
+    ].join("\n")
+  },
+  {
+    hash: "8fea882",
+    date: "2026-11-22",
+    author: "ops",
+    authorEmail: "ops@war365.example",
+    subject: "feat(drone): Russian jet-powered drone violates Moldova airspace twice",
+    body: [
+      "Moldovan radar tracked a jet-powered UAV during a Russian aerial attack on Ukraine.",
+      "- First incursion: 11:20 a.m. near Troitske, heading toward Purcari",
+      "- Exit: 11:25 a.m. near Pervomaisc after changing course",
+      "- Second incursion: 11:31 a.m. from the direction of Troitske toward Purcari",
+      "- Final exit: 11:32 a.m. toward Ukrainian territory",
+      "Ref: https://www.kyivpost.com/post/90848",
+      "Status: double airspace breach recorded by Moldova's Defense Ministry."
+    ].join("\n")
+  },
+  {
+    hash: "c02fbff",
+    date: "2026-11-22",
+    author: "ops@war365.example",
+    authorEmail: "ops@war365.example",
+    subject: "feat(west-bank): settlers attack Palestinian villages",
+    body: [
+      "Several Palestinian towns and villages in the central occupied West Bank were attacked early Sunday.",
+      "- Location: Kafr Malik, Deir Abu Mash'al and Deir al-Sudan villages",
+      "- Impact: 12 vehicles burned and property damaged",
+      "- Marking: racist slogans spray-painted on homes in Ramallah and el-Bireh provinces",
+      "- Response: police officers and Criminal Identification Unit investigators sent to collect evidence",
+      "Ref: https://www.aljazeera.com/news/2026/11/22/israeli-settlers-attack-several-palestinian-villages-in-occupied-west-bank?traffic_source=rss",
+      "Status: investigation opened; attribution review pending."
+    ].join("\n")
   }
 ];
 
