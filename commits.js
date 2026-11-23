@@ -1928,6 +1928,64 @@ window.WAR365_COMMITS = [
       "Ref: https://www.aljazeera.com/news/2026/11/22/israeli-settlers-attack-several-palestinian-villages-in-occupied-west-bank?traffic_source=rss",
       "Status: investigation opened; attribution review pending."
     ].join("\n")
+  },
+  {
+    hash: "2e4b275",
+    date: "2026-11-23",
+    author: "sbu.g",
+    authorEmail: "sbu.g@war365.example",
+    subject: "feat(naval-drone): Ukraine strikes two Russian vessels off Libya",
+    body: [
+      "Ukraine deployed seven domestically made naval drones from a mothership against two Russian vessels off Libya.",
+      "",
+      "- Targets: corvette Merkury and dry cargo ship MV Angara",
+      "- Outcome: Merkury sank; explosions and fire reported at Benghazi naval base",
+      "- Launch platform: mothership",
+      "- Distance from frontline: 1,500 miles (2,400km)",
+      "- Response: civil defence units extinguished the fire",
+      "- MV Angara role: reportedly transporting weapons for Russia",
+      "Ref: https://www.theguardian.com/world/2026/nov/23/ukraine-naval-drones-strike-russian-warship-libya",
+      "Status: two vessels struck; one corvette sunk."
+    ].join("\n")
+  },
+  {
+    hash: "b16a115",
+    date: "2026-11-23",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.example",
+    subject: "feat(iran): armed cells planning attacks on US, Israel dismantled",
+    body: [
+      "Iran dismantled armed cells inside the Islamic Republic that were planning attacks on behalf of the US and Israel.",
+      "",
+      "- Claimed scale: Mossad and CIA arming tens of thousands inside Iran",
+      "- Source of claim: retired US general, speaking to Fox News",
+      "- Action: cells dismantled",
+      "Ref: https://thecradle.co/articles-id-41224",
+      "Status: dismantling reported; supporting figures remain a Fox News claim."
+    ].join("\n")
+  },
+  {
+    hash: "2143626",
+    date: "2026-11-23",
+    author: "idf.il",
+    authorEmail: "ops@idf.example",
+    subject: "feat(gaza): aid worker killed in Jabalia as aid throughput drops",
+    body: [
+      "Israeli attacks continued across the Gaza Strip, with an Unrwa worker killed in the Jabalia refugee camp on Monday morning, local Palestinian media reported.",
+      "",
+      "- Unrwa personnel killed since October 2023: 395+ (figure pending Unrwa confirmation)",
+      "- Drone strike: group shelled near Al-Tawba Mosque, Jabalia; several wounded, one seriously",
+      "- Weekend: at least 4 killed, 33+ wounded, per the Palestinian health ministry",
+      "- Ceasefire since 11 October 2025: 1,675+ killed, 6,095+ wounded, violations reported every day",
+      "- Aid throughput: 191 trucks admitted Sunday against 600 per day agreed",
+      "- Rafah crossing queue: approx 1.1km measured on 17 November",
+      "- Displacement: 1.7M+ forcibly displaced; 1.98M need shelter assistance; 50%+ of 1,700 sites flood-prone",
+      "- Flood damage: 40,000 shelters in November",
+      "- Supply ban: a child died of severe lead poisoning linked to the ban on new batteries",
+      "- Since October 2023: 74,742+ killed, 176,227+ wounded",
+      "Ref: https://www.middleeasteye.net/news/israel-kills-palestinians-gaza-aid-blockade-winter-floods-deepen-suffering",
+      "Status: aid throughput below SLA; flood season unmitigated."
+    ].join("\n")
   }
 ];
 
