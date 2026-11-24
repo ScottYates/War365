@@ -1986,6 +1986,58 @@ window.WAR365_COMMITS = [
       "Ref: https://www.middleeasteye.net/news/israel-kills-palestinians-gaza-aid-blockade-winter-floods-deepen-suffering",
       "Status: aid throughput below SLA; flood season unmitigated."
     ].join("\n")
+  },
+  {
+    hash: "33bd52b",
+    date: "2026-11-24",
+    author: "idf.il",
+    authorEmail: "idf.il@war365.example",
+    subject: "feat(gaza): IDF and Shin Bet kill head of Hamas internal security",
+    body: [
+      "IDF and Shin Bet struck and killed Naeem Abu Nahel, head of Hamas' internal security apparatus in Gaza.",
+      "",
+      "- Actors: IDF and Israel Security Agency",
+      "- Confirmed by: Prime Minister Benjamin Netanyahu and Defense Minister Israel Katz",
+      "- Context: Nahel's predecessor was captured by Israeli forces three months earlier",
+      "- Policy: Netanyahu and Katz said the operation implemented the government's offensive policy against terrorist organizations",
+      "Ref: https://www.jpost.com/israel-news/defense-news/article-915949",
+      "Status: senior Hamas security leadership target removed; Gaza operations continue."
+    ].join("\n")
+  },
+  {
+    hash: "eab3a69",
+    date: "2026-11-24",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.example",
+    subject: "feat(hormuz): Iran orders further day-by-day closure as talks stall",
+    body: [
+      "Iran's army commander-in-chief ordered the navy on 24 November to close the Strait of Hormuz \"further day by day\" until Washington's conditions are met.",
+      "",
+      "- Conditions: Iran's seven conditions must be fulfilled before the strait is opened",
+      "- Claimed incidents: three oil tankers hit mines while under extensive US air escort",
+      "- Verification: Joint Maritime Information Centre said the mine claims were unconfirmed",
+      "- Recorded traffic: 114 passages with US assistance from 19 to 21 November",
+      "- Escalation warning: further US military action would bring \"more severe, more crushing and without geographical limitation\" blows",
+      "- Diplomacy: Qatar's prime minister met Marco Rubio and JD Vance to press for renewed negotiations",
+      "Ref: https://www.euronews.com/2026/11/24/iran-orders-hormuz-closed-further-day-by-day-as-qatar-seeks-to-revive-peace-talks",
+      "Status: closure order active; tanker incident unconfirmed."
+    ].join("\n")
+  },
+  {
+    hash: "117fd92",
+    date: "2026-11-24",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(gaza): Israeli strikes and blasts reported in southern buffer zone",
+    body: [
+      "Lebanese media reported Israeli strikes and explosions in the IDF's southern buffer zone.",
+      "",
+      "- Reported locations: Qabrikha, Touline, Zawtar al-Sharqiyah, Mayfadoun, and Kfar Tebnit",
+      "- Signal: explosions reported across five towns",
+      "- Verification: no immediate comment from the Israeli military",
+      "Ref: https://www.timesofisrael.com/lebanese-media-reports-israeli-strikes-blasts-in-idfs-southern-buffer-zone/",
+      "Status: event report pending official confirmation."
+    ].join("\n")
   }
 ];
 
