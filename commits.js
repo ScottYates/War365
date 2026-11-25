@@ -2038,6 +2038,63 @@ window.WAR365_COMMITS = [
       "Ref: https://www.timesofisrael.com/lebanese-media-reports-israeli-strikes-blasts-in-idfs-southern-buffer-zone/",
       "Status: event report pending official confirmation."
     ].join("\n")
+  },
+  {
+    hash: "6d7a9b8",
+    date: "2026-11-24",
+    author: "africa.corps",
+    authorEmail: "ops@africa-corps.example",
+    subject: "feat(mali): Kidal outpost lost as leaked records confirm 349 Russia deaths",
+    body: [
+      "Rosstat death certificates, obtained by Cyber Partisans and Silent Crow and analysed by the Guardian, list 349 Russian deaths in Mali between September 2023 and September 2026.",
+      "",
+      "- Attack window: Kidal, before dawn on 25 April; checkpoints on the city outskirts fell within the first hour",
+      "- 25 April fatalities: 43 recorded, including 6 in Kidal and 1 in nearby Aguelhok",
+      "- Other locations on 25 April: Bamako, and Gao, where rebels shot down a Russian military helicopter",
+      "- Assault: coordinated surprise attack by al-Qaida-linked JNIM and the Tuareg-led Azawad Liberation Front, using suicide car bombs and drones",
+      "- Outcome: Kidal abandoned by the following morning; the city had been captured with Russian mercenary help in November 2023",
+      "- Casualty rate: over 10% of Russia's forces in Mali killed in action, per one western official shown the data",
+      "- Ops handover: Wagner transferred Mali operations to the Africa Corps in June 2025, after arriving in late 2021",
+      "- Note: Moscow does not publish losses in Africa; the foreign ministry did not respond to a request for comment",
+      "Ref: https://www.theguardian.com/world/2026/nov/24/russian-fighters-killed-in-mali-africa-leaked-data",
+      "Status: casualties undisclosed until now; hold extended past SLA."
+    ].join("\n")
+  },
+  {
+    hash: "8282569",
+    date: "2026-11-25",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "chore(status): leaked Rosstat data shows 490,334 Russian military deaths",
+    body: [
+      "Rosstat records analysed by BBC Russian put Russian military deaths since 2022 at nearly 500,000.",
+      "- Dataset reviewed: 11M+ death records from 2021 to September 2026",
+      "- Military-related deaths identified: 490,334",
+      "- Leak source: hack by Cyber Partisans BY and Ukraine's Silent Crow",
+      "- Verification: 90% match rate with Mediazona and BBC Russian's open-source list",
+      "- Estimated total toll: 527,295 to 644,471 deaths",
+      "- Local cost: 20,000 deaths while fighting for control of 10 Ukrainian villages",
+      "- Andriivka, Donetsk region: 1,122 Russian military deaths",
+      "Ref: https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss",
+      "Status: public reporting gap persists; official Russian loss data remains unpublished."
+    ].join("\n")
+  },
+  {
+    hash: "c800475",
+    date: "2026-11-25",
+    author: "saudi.arabia",
+    authorEmail: "ops@saudi.example",
+    subject: "feat(yemen): Saudi Arabia bombs Hodeidah port overnight",
+    body: [
+      "Saudi Arabia bombed the port of Hodeidah overnight.",
+      "",
+      "- Target: Hodeidah port",
+      "- Timing: overnight",
+      "- Precondition: renewed attacks on the facility had been warned against",
+      "- Escalation policy: strikes on all Saudi ports threatened in response",
+      "Ref: https://thecradle.co/articles-id/41271",
+      "Status: port strike deployed; escalation path remains active."
+    ].join("\n")
   }
 ];
 
