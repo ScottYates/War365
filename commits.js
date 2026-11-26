@@ -2095,6 +2095,56 @@ window.WAR365_COMMITS = [
       "Ref: https://thecradle.co/articles-id/41271",
       "Status: port strike deployed; escalation path remains active."
     ].join("\n")
+  },
+  {
+    hash: "0fa279c",
+    date: "2026-11-25",
+    author: "libyan-army",
+    authorEmail: "ops@war365.example",
+    subject: "feat(libya): Libyan army vows retaliation after Ukrainian drone attack",
+    body: [
+      "The Libyan army issued a retaliation notice after two naval officers died from wounds sustained in a Ukrainian drone attack.",
+      "",
+      "- Casualties: 2 naval officers",
+      "- Cause of death: wounds sustained in a Ukrainian drone attack",
+      "- Response: Libyan army vows retaliation",
+      "",
+      "Ref: https://news.google.com/rss/articles/CBMitAFBVV95cUxQYlhQMFFISGFSRC1TVkJtS2FtWXl1anZubHJfTnY1VzdiaG5fV2J3MGlWZk84RWUtQUQtRG1DR3Z2b2swWjdacE8zRG1xcHFHN0p3Q25GX3dMTHByRTBnSGl6dHBkcDQxZHF3VF8tMmVLVG5jRm50aGtndHBhWEFaUkFaaVJoZkp1aW8zMDFpVlZlODhqeXhwVG1TV0VNd2Frb2ZsUmg1R0wyb2VxclNscVVRMzc?oc=5",
+      "Status: retaliation workflow activated."
+    ].join("\n")
+  },
+  {
+    hash: "c065452",
+    date: "2026-11-26",
+    author: "ukraine.mod",
+    authorEmail: "ops@ukraine.example",
+    subject: "feat(airstrike): Ukraine hits Su-34 base at Marinovka with Neptune missiles",
+    body: [
+      "Ukraine's Defense Forces struck Marinovka military airfield in Russia's Volgograd region overnight on Nov. 26.",
+      "- Target: an airfield hosting Russian Su-34 fighter-bombers",
+      "- Delivery: Ukrainian Navy missile forces used the Neptune coastal defense missile system",
+      "- Distance: approximately 400 kilometers from the Ukrainian border",
+      "- Assessment: damage to the airfield's infrastructure was still being evaluated",
+      "- Previous run: Ukraine said five aircraft were hit at Savasleyka during overnight strikes on Nov. 25",
+      "Ref: https://www.kyivpost.com/post/91297",
+      "Status: strike results pending assessment; deep-strike series active."
+    ].join("\n")
+  },
+  {
+    hash: "2a10eaf",
+    date: "2026-11-26",
+    author: "houthi.media",
+    authorEmail: "ops@houthi.example",
+    subject: "feat(yemen): Yemen targets Saudi Arabia's Red Sea ports",
+    body: [
+      "The Yemeni army targeted Saudi Arabia's Red Sea port of Jeddah for the first time.",
+      "- Target: Jeddah port",
+      "- Additional target: Jizan port",
+      "- Response: Saudi Arabia's heavy strikes on Hodeidah port this week",
+      "- Release scope: two Saudi Red Sea ports",
+      "Ref: https://thecradle.co/articles-id/41288",
+      "Status: escalation response deployed."
+    ].join("\n")
   }
 ];
 
