@@ -2145,6 +2145,60 @@ window.WAR365_COMMITS = [
       "Ref: https://thecradle.co/articles-id/41288",
       "Status: escalation response deployed."
     ].join("\n")
+  },
+  {
+    hash: "71dd1dc",
+    date: "2026-11-27",
+    author: "idf.il",
+    authorEmail: "ops@idf.example",
+    subject: "feat(airstrike): Israel targets Gaza deputy education minister in Deir el-Balah",
+    body: [
+      "Israeli Apache helicopters fired two missiles at a residential block in central Gaza's Deir el-Balah.",
+      "- Target: Khaled Abu Nada, deputy education minister and Hamas political bureau member",
+      "- Family impact: Abu Nada and his wife were killed",
+      "- Wounded: 6 people, some critically",
+      "- Timing: attack occurred during dawn prayers near tents housing displaced families",
+      "- Confirmed by: Benjamin Netanyahu and Israel Katz",
+      "- Claimed operation: targeting of Hamas operatives and senior officials",
+      "Ref: https://www.middleeasteye.net/news/israel-kills-palestinian-education-minister-killed-alongside-wife-third-israeli-attack-hamas",
+      "Status: targeted-operation series active; Israeli officials did not suggest a military role for Abu Nada."
+    ].join("\n")
+  },
+  {
+    hash: "5cf6948",
+    date: "2026-11-27",
+    author: "ci-bot",
+    authorEmail: "ci-bot@war365.example",
+    subject: "feat(sahel): armed men kill 13 guards in western Niger",
+    body: [
+      "A large group of heavily armed assailants targeted Nigerien National Guard personnel in western Niger.",
+      "- Location: Sanam village, Tillaberi region",
+      "- Date: Nov. 27, 2026",
+      "- Fatalities: at least 13 guards",
+      "- Injured: 20 guards",
+      "- Unit: members of an anti-jihadist operation",
+      "- Response: search launched to track down the assailants",
+      "Ref: http://www.africanews.com/2026/11/27/armed-men-kill-13-guards-in-terrorist-attack-in-western-niger/",
+      "Status: provisional toll issued; search operation active."
+    ].join("\n")
+  },
+  {
+    hash: "37d06be",
+    date: "2026-11-27",
+    author: "iran.irgc",
+    authorEmail: "iran.irgc@iran.example",
+    subject: "feat(iran): Iran denies involvement in Kuwait strike",
+    body: [
+      "Iran denied responsibility for the deaths of two Italian nationals killed in a strike on Kuwait.",
+      "",
+      "- Incident: strike on Kuwait",
+      "- Casualties: 2 Italian nationals",
+      "- Attribution: denied by Iranian Foreign Minister Abbas Araghchi",
+      "- Stated cause: armed forces spokesperson cited false flag operations by Israel and the United States",
+      "- Context: Italy and Kuwait condemned the deaths and blamed Tehran",
+      "Ref: http://www.africanews.com/2026/11/27/iran-denies-involvement-in-kuwait-strike-that-killed-two-italians/",
+      "Status: attribution rejected; investigation remains unresolved."
+    ].join("\n")
   }
 ];
 
