@@ -2199,6 +2199,60 @@ window.WAR365_COMMITS = [
       "Ref: http://www.africanews.com/2026/11/27/iran-denies-involvement-in-kuwait-strike-that-killed-two-italians/",
       "Status: attribution rejected; investigation remains unresolved."
     ].join("\n")
+  },
+  {
+    hash: "cc016e8",
+    date: "2026-11-28",
+    author: "mod.ru",
+    authorEmail: "ops@mod.example",
+    subject: "feat(mediterranean): Russian convoy turns back after corvette sunk in Benghazi",
+    body: [
+      "A Russian convoy carrying military vehicles to Libya reversed course in the Mediterranean after Ukrainian maritime drones sank a Russian corvette at Benghazi naval base on 22 November.",
+      "- Convoy: 3 Russian-flagged cargo or Ro/Ro vehicle carriers",
+      "- Vessels: Maia 1, Lady R and Lady D",
+      "- Escort: Russian navy frigate Golovko",
+      "- Turnaround point: near the Strait of Sicily",
+      "- Timeline: convoy departed Kaliningrad on 5 November",
+      "- Payload: military vehicles possibly bound for West Africa and Russia's Africa Corps",
+      "- Status: voyages paused in the Mediterranean",
+      "- Coordination: Ukraine's president said the operation was conducted without prior coordination with European partners",
+      "Ref: https://www.newarab.com/news/russian-flotilla-bound-libya-turns-back-after-warship-sinks",
+      "Status: flotilla rerouted after the Merkury was sunk in Benghazi port."
+    ].join("\n")
+  },
+  {
+    hash: "21e91bf",
+    date: "2026-11-28",
+    author: "mod.us",
+    authorEmail: "mod@us.example",
+    subject: "feat(laser): Blysk intercepts Russian Geran drone",
+    body: [
+      "Ukraine deployed the Blysk laser system against a Russian jet-powered Geran drone.",
+      "- Result: first confirmed Ukrainian laser interception of a Russian drone",
+      "- Target: Russian Geran drone",
+      "- Confirmation: state-backed defence technology group Brave1",
+      "- Demonstration: footage showed the drone crashing in a ball of fire",
+      "- Attribution: adviser to president Volodymyr Zelensky identified the system as Blysk",
+      "Ref: https://www.independent.co.uk/news/world/europe/russia-ukraine-war-live-putin-drones-nuclear-weapons-casualties-b3091880.html",
+      "Status: counter-bombardment capability deployed."
+    ].join("\n")
+  },
+  {
+    hash: "e8b738a",
+    date: "2026-11-28",
+    author: "idf.il",
+    authorEmail: "idf.il@idf.example",
+    subject: "feat(airstrike): Israeli strike hits MSF clinic in Gaza City",
+    body: [
+      "The strike directly hit an MSF clinic in Gaza City whose location was known to the Israeli military.",
+      "- Fatalities: 2 MSF watchmen",
+      "- MSF staff fatalities in Gaza: 17",
+      "- IDF claim: both men were Hamas operatives serving as clinic security guards",
+      "- IDF status: strike was not directed at a hospital and caused no damage to medical infrastructure",
+      "- Precautionary measures: civilian harm mitigation procedures reported",
+      "Ref: https://www.bbc.co.uk/news/articles/cm5y10yydln3o?at_medium=RSS&at_campaign=rss",
+      "Status: attribution disputed; WHO condemned attacks on health facilities and health workers."
+    ].join("\n")
   }
 ];
 
